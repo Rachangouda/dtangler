@@ -16,7 +16,6 @@ import org.dtangler.core.dependencies.Dependencies;
 import org.dtangler.core.dependencies.DependencyGraph;
 import org.dtangler.core.testutil.ClassPathEntryFinder;
 import org.dtangler.genericengine.dependenciesstreamparser.ItemDependenciesStreamParser;
-import org.dtangler.genericengine.dependencyengine.ItemDependencyBuilder;
 import org.dtangler.genericengine.types.Item;
 import org.dtangler.genericengine.types.ItemScope;
 import org.dtangler.genericengine.types.ValidScopes;

@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.dtangler</groupId>
+        <artifactId>dtangler-parent</artifactId>
+        <version>2.0.1-SNAPSHOT</version>
+    </parent>
+
+    <url>localhost</url>
+
+    <artifactId>dtangler-core</artifactId>
+    <packaging>jar</packaging>
+
+
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>resources</directory>
+            </resource>
+        </resources>
+        <testSourceDirectory>test</testSourceDirectory>
+        <testResources>
+            <testResource>
+                <directory>testResources</directory>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>testutil</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+    <plugins>
+        <plugin>
+            <groupId>com.github.sevntu-checkstyle</groupId>
+            <artifactId>dsm-maven-plugin</artifactId>
+            <version>2.1.4</version>
+        </plugin>
+    </plugins>
+    </reporting>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.dtangler</groupId>
+            <artifactId>dtangler-testdata-good-deps</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.dtangler</groupId>
+            <artifactId>dtangler-testdata-cyclic-deps</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.agical</groupId>
+            <artifactId>bumblebee-all</artifactId>
+            <version>0.9</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../lib-bumblebee/bumblebee-all-0.9.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+</project>

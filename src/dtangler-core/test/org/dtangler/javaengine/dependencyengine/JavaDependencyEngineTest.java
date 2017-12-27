@@ -19,7 +19,6 @@ import org.dtangler.core.dependencies.Dependable;
 import org.dtangler.core.dependencies.Dependencies;
 import org.dtangler.core.dependencies.DependencyGraph;
 import org.dtangler.core.testutil.ClassPathEntryFinder;
-import org.dtangler.javaengine.dependencyengine.JavaDependencyEngine;
 import org.dtangler.javaengine.types.JavaScope;
 import org.junit.Test;
 

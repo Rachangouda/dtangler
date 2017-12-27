@@ -104,7 +104,14 @@ public class CommandLineAppTest {
 	private void assertDsm(String expectedPath, String[] args) {
 		MockWriter writer = new MockWriter();
 		new CommandLineApp(writer).run(args);
-		String expected = FileUtil.readFile(expectedPath);
+		String expected;
+		if(expectedPath.contains(".jar")) {
+			expected = FileUtil.readFileInJar(this.getClass().getResourceAsStream("/expectedWithRules.txt"));
+		}
+		else {
+			expected = FileUtil.readFile(expectedPath);
+		}
+
 		assertEquals(expected.replaceAll("\r", ""), writer.getOutput()
 				.replaceAll("\r", ""));
 	}

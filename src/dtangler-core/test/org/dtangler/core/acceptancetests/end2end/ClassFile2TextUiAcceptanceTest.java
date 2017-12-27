@@ -36,7 +36,15 @@ public class ClassFile2TextUiAcceptanceTest {
 		MockWriter writer = new MockWriter();
 		new CommandLineApp(writer).run(new String[] { inputKey + path });
 		String dsm = writer.getOutput();
-		String expected = FileUtil.readFile(path + "/expected.txt");
+
+        String expected;
+		if(path.endsWith(".jar")) {
+		    expected = FileUtil.readFileInJar(this.getClass().getResourceAsStream("/expected.txt"));
+        } else {
+            expected = FileUtil.readFile(path + "/expected.txt");
+        }
+
+
 		assertEquals(expected.replaceAll("\r", ""), dsm.replaceAll("\r", ""));
 	}
 

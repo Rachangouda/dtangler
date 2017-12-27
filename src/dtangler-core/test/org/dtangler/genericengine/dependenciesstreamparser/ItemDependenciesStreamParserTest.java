@@ -17,7 +17,6 @@ import java.util.Set;
 
 import org.dtangler.core.exception.DtException;
 import org.dtangler.core.testutil.ClassPathEntryFinder;
-import org.dtangler.genericengine.dependenciesstreamparser.ItemDependenciesStreamParser;
 import org.dtangler.genericengine.types.Item;
 import org.dtangler.genericengine.types.ValidScopes;
 import org.junit.Test;

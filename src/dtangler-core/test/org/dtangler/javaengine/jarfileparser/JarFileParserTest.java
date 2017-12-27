@@ -18,7 +18,6 @@ import org.dtangler.core.filefinder.FullPathWildCardFileFilter;
 import org.dtangler.core.filefinder.RecursiveFileFinder;
 import org.dtangler.core.testutil.ClassPathEntryFinder;
 import org.dtangler.javaengine.classfileparser.ClassFileParser;
-import org.dtangler.javaengine.jarfileparser.JarFileParser;
 import org.dtangler.javaengine.types.JavaClass;
 import org.junit.Test;
 

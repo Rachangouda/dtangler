@@ -6,8 +6,12 @@
 package org.dtangler.core.testutil.output;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 public class FileUtil {
 
@@ -22,5 +26,25 @@ public class FileUtil {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static String readFileInJar(InputStream inputStream) {
+		ByteArrayOutputStream result = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int length;
+		try {
+			while ((length = inputStream.read(buffer)) != -1) {
+				result.write(buffer, 0, length);
+			}
+			// StandardCharsets.UTF_8.name() > JDK 7
+
+			return result.toString("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "";
 	}
 }
