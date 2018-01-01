@@ -32,6 +32,9 @@ public class ClassFileParser {
 	private static final int CONSTANT_METHOD = 10;
 	private static final int CONSTANT_INTERFACEMETHOD = 11;
 	private static final int CONSTANT_NAMEANDTYPE = 12;
+	private static final int CONSTANT_METHODHANDLE = 15;
+	private static final int CONSTANT_METHODTYPE = 16;
+	private static final int CONSTANT_INVOKEDYNAMIC = 18;
 	private static final char SEPARATOR = ';';
 	private static final char CLASS_DESCRIPTOR = 'L';
 	private static final char BRACKET_OPEN = '[';
@@ -140,22 +143,17 @@ public class ClassFileParser {
 
 	private void parseFields(DataInput in, JavaClass jClass) throws IOException {
 		int fieldsCount = in.readUnsignedShort();
-
-		for (int i = 0; i < fieldsCount; i++) {
-			int descriptorIndex = parseFieldOrMethodInfo(in);
-			String descriptor = toUTF8(descriptorIndex);
-			List<String> types = descriptorToTypes(descriptor);
-			for (int t = 0; t < types.size(); t++) {
-				addDependency(types.get(t), jClass);
-			}
-		}
+		parseDescriptors(in, jClass, fieldsCount);
 	}
 
 	private void parseMethods(DataInput in, JavaClass jClass)
 			throws IOException {
 		int methodCount = in.readUnsignedShort();
+		parseDescriptors(in, jClass, methodCount);
+	}
 
-		for (int i = 0; i < methodCount; i++) {
+	private void parseDescriptors(DataInput in, JavaClass jClass, int count) throws IOException {
+		for (int i = 0; i < count; i++) {
 			int descriptorIndex = parseFieldOrMethodInfo(in);
 			String descriptor = toUTF8(descriptorIndex);
 			List<String> types = descriptorToTypes(descriptor);
@@ -187,6 +185,19 @@ public class ClassFileParser {
 		case (CONSTANT_DOUBLE):
 			in.skipBytes(8);
 			return DOUBLESLOT;
+		case (CONSTANT_INVOKEDYNAMIC):
+			//in.skipBytes(4); // works
+			in.readUnsignedShort();
+			in.readUnsignedShort();
+			return null;
+		case (CONSTANT_METHODHANDLE):
+			//in.skipBytes(10); // works
+			in.readByte();
+			in.readUnsignedShort();
+			return null;
+		case (CONSTANT_METHODTYPE):
+			//return new Constant(tag, in.readUTF());
+			return new Constant(tag, in.readUnsignedShort());
 		}
 
 		throw new IOException("Unknown constant: " + tag);
@@ -328,6 +339,15 @@ public class ClassFileParser {
 
 		Object getValue() {
 			return value;
+		}
+
+		@Override
+		public String toString() {
+			return "Constant{" +
+					"tag=" + tag +
+					", nameIndex=" + nameIndex +
+					", value=" + value +
+					'}';
 		}
 	}
 }

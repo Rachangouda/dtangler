@@ -46,6 +46,18 @@ public class ClassFileParserTest {
 	}
 
 	@Test
+	public void testSimpleEnum() {
+		JavaClass parse = parse("SimpleEnum.class");
+		assertEquals(2, parse.getDependencies().size());
+	}
+
+	@Test
+	public void testInvokeDynamic() {
+		JavaClass parse = parse("SimpleInvokeDynamic.class");
+		assertEquals(4, parse.getDependencies().size());
+	}
+
+	@Test
 	public void testClassWithNoDependencies() {
 		assertTrue(parse("SimpleClass.class").getDependencies().isEmpty());
 	}
