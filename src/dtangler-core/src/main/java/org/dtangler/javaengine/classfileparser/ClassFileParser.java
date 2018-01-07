@@ -35,6 +35,8 @@ public class ClassFileParser {
 	private static final int CONSTANT_METHODHANDLE = 15;
 	private static final int CONSTANT_METHODTYPE = 16;
 	private static final int CONSTANT_INVOKEDYNAMIC = 18;
+	private static final int CONSTANT_MODULE = 19;
+	private static final int CONSTANT_PACKAGE = 20;
 	private static final char SEPARATOR = ';';
 	private static final char CLASS_DESCRIPTOR = 'L';
 	private static final char BRACKET_OPEN = '[';
@@ -126,6 +128,10 @@ public class ClassFileParser {
 
 	private void parseSuperClassName(DataInput in, JavaClass jClass)
 			throws IOException {
+
+		if(jClass.getName().equals("module-info"))
+			return;
+
 		int entryIndex = in.readUnsignedShort();
 		String superClassName = getClassConstantName(entryIndex);
 		addDependency(superClassName, jClass);
@@ -186,18 +192,21 @@ public class ClassFileParser {
 			in.skipBytes(8);
 			return DOUBLESLOT;
 		case (CONSTANT_INVOKEDYNAMIC):
-			//in.skipBytes(4); // works
 			in.readUnsignedShort();
 			in.readUnsignedShort();
 			return null;
 		case (CONSTANT_METHODHANDLE):
-			//in.skipBytes(10); // works
 			in.readByte();
 			in.readUnsignedShort();
 			return null;
 		case (CONSTANT_METHODTYPE):
-			//return new Constant(tag, in.readUTF());
 			return new Constant(tag, in.readUnsignedShort());
+		case (CONSTANT_MODULE):
+			in.readUnsignedShort();
+			return null;
+		case (CONSTANT_PACKAGE):
+			in.readUnsignedShort();
+			return null;
 		}
 
 		throw new IOException("Unknown constant: " + tag);

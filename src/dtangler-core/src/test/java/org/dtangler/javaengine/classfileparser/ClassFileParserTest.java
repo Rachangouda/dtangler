@@ -10,15 +10,56 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
-import org.dtangler.javaengine.classfileparser.ClassFileParser;
+import org.dtangler.core.testutil.ClassPathEntryFinder;
+import org.dtangler.core.testutil.output.FileUtil;
+import org.dtangler.javaengine.jarfileparser.JarFileParser;
 import org.dtangler.javaengine.types.JavaClass;
 import org.junit.Test;
 
 public class ClassFileParserTest {
+
+	private final String java9path = ClassPathEntryFinder
+			.getPathContaining("java9");
+
+	@Test
+	public void testParseJava9ModuleInfo() {
+		JavaClass moduleInfo = parseJava9Class("","module-info.class");
+		assertEquals("module-info", moduleInfo.getName());
+	}
+
+	@Test
+	public void testParseJava9Class() {
+		JavaClass result = parseJava9Class("org/dtangler/javaengine/classfileparser", "SimpleJava9Class.class");
+		assertEquals("SimpleJava9Class", result.getName());
+		assertEquals("org.dtangler.javaengine.classfileparser", result.getPackage());
+	}
+
+	public JavaClass parseJava9Class(String path, String className) {
+		String resource = java9path + "/" + path + "/" + className;
+		try {
+			if(java9path.endsWith(".jar")){
+				JarFileParser jarFileParser = new JarFileParser();
+				for (JavaClass javaClass : jarFileParser.parse(new File(java9path))) {
+					if(javaClass.getName().equals(className.split("\\.")[0]))
+						return javaClass;
+				}
+			}
+
+			File initialFile = new File(resource);
+			InputStream stream = new FileInputStream(initialFile);
+
+			return new ClassFileParser().parse(new DataInputStream(stream));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 
 	@Test
 	public void testGetClassName() throws IOException {
