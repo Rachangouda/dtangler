@@ -8,4 +8,3 @@ dtangler's primary features currently are:
 * Support for reading dependency info from a text file
 * Built in support for Java dependency analysis (jar/class folder, package, and class level)
 * The user can write dependency rules and dtangler checks if the code follows the rules.
-https://travis-ci.org/jimbethancourt/dtangler
