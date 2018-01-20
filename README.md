@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/jimbethancourt/dtangler.svg?branch=master)](https://travis-ci.org/jimbethancourt/dtangler)
 '''dtangler''' is a suite of tools to analyze dependencies.
 dtangler's primary features currently are:
 * DSM GUI (Dependency Structure Matrix)
