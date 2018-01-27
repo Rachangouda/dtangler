@@ -38,11 +38,49 @@ public class ItemDependenciesStreamParser {
 
 	public Set<Item> parse(ValidScopes validScopes, File dependencyFile,
 			String encoding) {
-		return parse(validScopes, getBufferedIOReader(dependencyFile), encoding);
+		Set<Item> items = new HashSet<>();
+		int lineNo = 0;
+		try (BufferedReader in =  getBufferedIOReader(dependencyFile)) {
+			lineNo = parseLines(validScopes, encoding, items, lineNo, in);
+		} catch (IOException e) {
+			throw new DtException("error in reading the item dependencies: "
+					+ e.getMessage());
+		} catch (DtException e) {
+			throw new DtException(
+					"error in parsing the item dependencies in line (" + lineNo
+							+ "): " + e.getMessage());
+		}
+
+		return items;
 	}
 
 	public Set<Item> parse(ValidScopes validScopes, String encoding) {
-		return parse(validScopes, getBufferedIOReader(), encoding);
+		Set<Item> items = new HashSet<>();
+		int lineNo = 0;
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
+			lineNo = parseLines(validScopes, encoding, items, lineNo, in);
+		} catch (IOException e) {
+			throw new DtException("error in reading the item dependencies: "
+					+ e.getMessage());
+		} catch (DtException e) {
+			throw new DtException(
+					"error in parsing the item dependencies in line (" + lineNo
+							+ "): " + e.getMessage());
+		}
+
+		return items;
+	}
+
+	private int parseLines(ValidScopes validScopes, String encoding, Set<Item> items, int lineNo, BufferedReader in) throws IOException {
+		String line;
+		while ((line = in.readLine()) != null) {
+            lineNo++;
+            if (line.length() < 1)
+                continue;
+            parseDependencyOrItemDefinition(validScopes, items, line,
+                    encoding);
+        }
+		return lineNo;
 	}
 
 	private BufferedReader getBufferedIOReader(File file) {
@@ -55,10 +93,6 @@ public class ItemDependenciesStreamParser {
 			throw new DtException("could not read from file "
 					+ file.getAbsolutePath() + ": " + e.getMessage());
 		}
-	}
-
-	private BufferedReader getBufferedIOReader() {
-		return new BufferedReader(new InputStreamReader(System.in));
 	}
 
 	private void addItemScopeToValidScopes(ValidScopes validScopes, Item item) {
@@ -189,7 +223,7 @@ public class ItemDependenciesStreamParser {
 	private void parseDependencyOrItemDefinition(ValidScopes validScopes,
 			Set<Item> allItems, String dependencyOrItemDefinition,
 			String encoding) {
-		final String itemDelimiterRegex = "\\:";
+		final String itemDelimiterRegex = ":";
 		if (dependencyOrItemDefinition == null)
 			throw new DtException("invalid dependency or item definition: null");
 		String[] items = dependencyOrItemDefinition.split(itemDelimiterRegex);
@@ -207,40 +241,4 @@ public class ItemDependenciesStreamParser {
 							validScopes, items[1], encoding));
 		}
 	}
-
-	public Set<Item> parse(ValidScopes validScopes, BufferedReader in,
-			String encoding) {
-		if (in == null)
-			throw new DtException("unable to read from stream");
-		Set<Item> items = new HashSet<>();
-		String line;
-		int lineNo = 0;
-		try {
-			while ((line = in.readLine()) != null) {
-				lineNo++;
-				if (line.length() < 1)
-					continue;
-				parseDependencyOrItemDefinition(validScopes, items, line,
-						encoding);
-			}
-		} catch (IOException e) {
-			throw new DtException("error in reading the item dependencies: "
-					+ e.getMessage());
-		} catch (DtException e) {
-			throw new DtException(
-					"error in parsing the item dependencies in line (" + lineNo
-							+ "): " + e.getMessage());
-		} finally {
-			try {
-				in.close();
-			} catch (IOException e) {
-				throw new DtException(
-						"error in reading the item dependencies: "
-								+ e.getMessage());
-			}
-		}
-
-		return items;
-	}
-
 }
