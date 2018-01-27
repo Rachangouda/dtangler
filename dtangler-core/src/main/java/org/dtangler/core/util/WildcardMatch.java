@@ -8,7 +8,7 @@ package org.dtangler.core.util;
 import java.util.regex.Pattern;
 
 public class WildcardMatch {
-	String regex;
+	private String regex;
 
 	public WildcardMatch(String mask) {
 		super();
@@ -16,9 +16,7 @@ public class WildcardMatch {
 	}
 
 	public boolean isMatch(String value) {
-		if (!regex.contains("*"))
-			return false;
-		return value.matches(regex);
+		return regex.contains("*") && value.matches(regex);
 	}
 
 	private String createRegex(String mask) {

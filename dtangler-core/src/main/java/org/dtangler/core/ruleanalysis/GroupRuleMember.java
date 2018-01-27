@@ -10,7 +10,7 @@ import org.dtangler.core.dependencies.Dependable;
 import org.dtangler.core.util.WildcardMatch;
 
 public class GroupRuleMember implements RuleMember {
-	Group group;
+	private Group group;
 
 	public GroupRuleMember(Group group) {
 		super();

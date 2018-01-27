@@ -30,7 +30,7 @@ public class ViolationWriter {
 	}
 
 	private List<String> sortViolationsAlphabetically(Set<Violation> violations) {
-		List<String> sortedViolations = new ArrayList();
+		List<String> sortedViolations = new ArrayList<>();
 		for (Violation v : violations) {
 			sortedViolations.add(v.asText());
 		}

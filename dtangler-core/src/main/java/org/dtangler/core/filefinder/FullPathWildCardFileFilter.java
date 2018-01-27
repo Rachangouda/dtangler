@@ -34,9 +34,7 @@ public class FullPathWildCardFileFilter implements FileFilter {
 	}
 
 	public boolean accept(File pathname) {
-		if (!isValidExtension(pathname.getName()))
-			return false;
-		return !isMatch(pathname.getAbsolutePath());
+		return isValidExtension(pathname.getName()) && !isMatch(pathname.getAbsolutePath());
 	}
 
 	private boolean isValidExtension(String name) {
@@ -55,9 +53,7 @@ public class FullPathWildCardFileFilter implements FileFilter {
 	}
 
 	private boolean isMatch(String absolutePath, String mask) {
-		if (absolutePath.equals(mask))
-			return true;
-		return new WildcardMatch(mask).isMatch(absolutePath);
+		return absolutePath.equals(mask) || new WildcardMatch(mask).isMatch(absolutePath);
 	}
 
 }

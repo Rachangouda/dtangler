@@ -25,11 +25,7 @@ public class ItemDependencyBuilder {
 			Map<String, Map<String, Dependable>> dependables, String itemScope,
 			int scopeIndex, String fullyqualifiedname, String displayname,
 			String encoding, int contentCount) {
-		Map<String, Dependable> scopeDependables = dependables.get(itemScope);
-		if (scopeDependables == null) {
-			scopeDependables = new HashMap<String, Dependable>();
-			dependables.put(itemScope, scopeDependables);
-		}
+		Map<String, Dependable> scopeDependables = dependables.computeIfAbsent(itemScope, k -> new HashMap<>());
 		Dependable dependable = scopeDependables.get(fullyqualifiedname);
 		if (dependable == null) {
 			dependable = new Dependable(new ItemScope(itemScope, scopeIndex),
@@ -51,7 +47,7 @@ public class ItemDependencyBuilder {
 	private Map<Dependable, Integer> getDependencies(
 			Map<String, Map<String, Dependable>> dependables, Item item) {
 		Map<Item, Integer> itemDependencies = item.getDependencies();
-		Map<Dependable, Integer> deps = new HashMap<Dependable, Integer>();
+		Map<Dependable, Integer> deps = new HashMap<>();
 		for (Item itemDependee : itemDependencies.keySet()) {
 			Dependable dependeeDependable = getDependable(dependables,
 					itemDependee);
@@ -87,7 +83,7 @@ public class ItemDependencyBuilder {
 	public Dependencies build(ValidScopes validScopes, Set<Item> items) {
 
 		validScopes.generateScopeNamesForUndefinedScopeNames("scope #", "#");
-		Map<String, Map<String, Dependable>> dependables = new HashMap<String, Map<String, Dependable>>();
+		Map<String, Map<String, Dependable>> dependables = new HashMap<>();
 		Dependencies dependencies = new Dependencies();
 
 		for (Item item : items) {

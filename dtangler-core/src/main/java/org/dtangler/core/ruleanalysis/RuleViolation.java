@@ -56,7 +56,7 @@ public class RuleViolation implements Violation {
 	}
 
 	public Set<Dependable> getMembers() {
-		return new HashSet(Arrays.asList(dependency.getDependant(), dependency
+		return new HashSet<>(Arrays.asList(dependency.getDependant(), dependency
 				.getDependee()));
 	}
 }

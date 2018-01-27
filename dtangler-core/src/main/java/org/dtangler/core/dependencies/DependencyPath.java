@@ -10,10 +10,7 @@ import java.util.List;
 
 public class DependencyPath {
 
-	private final List<Dependable> items = new ArrayList<Dependable>();
-
-	public DependencyPath() {
-	}
+	private final List<Dependable> items = new ArrayList<>();
 
 	public DependencyPath(List<Dependable> items) {
 		this.items.addAll(items);

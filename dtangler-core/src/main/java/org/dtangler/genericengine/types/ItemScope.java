@@ -10,8 +10,8 @@ import org.dtangler.core.exception.DtException;
 
 public class ItemScope implements Scope {
 
-	private int index = -1;
-	private String scopeName = "";
+	private int index;
+	private String scopeName;
 
 	public ItemScope(String scopeName, int index) {
 		if (scopeName == null)

@@ -64,12 +64,12 @@ public class DSMWriter {
 	}
 
 	private void printRowHeader(int rowId, String name, int pkgCount) {
-		print(String.format("%3s %40s (%3s) ", new Object[] { rowId,
-				formatName(name, 40), pkgCount }));
+		print(String.format("%3s %40s (%3s) ", rowId,
+				formatName(name), pkgCount));
 	}
 
-	private String formatName(String name, int length) {
-		if (name.length() <= length)
+	private String formatName(String name) {
+		if (name.length() <= 40)
 			return name;
 		return ".." + name.substring(name.length() - 38);
 	}
@@ -79,15 +79,15 @@ public class DSMWriter {
 	}
 
 	private void nextRow() {
-		println("|");
+		println();
 	}
 
 	private void print(String s) {
 		writer.print(s);
 	}
 
-	private void println(String s) {
-		writer.println(s);
+	private void println() {
+		writer.println("|");
 	}
 
 }

@@ -20,13 +20,13 @@ public class Arguments {
 	 * Contains the path(s) to the items that are being analyzed for
 	 * dependencies.
 	 */
-	private List<String> input = Collections.EMPTY_LIST;
+	private List<String> input = Collections.emptyList();
 
 	/**
 	 * Logical groups of items that can be used, for example, in rule
 	 * definitions.
 	 */
-	private Map<String, Group> groups = Collections.EMPTY_MAP;
+	private Map<String, Group> groups = Collections.emptyMap();
 
 	/**
 	 * Defines whether cyclic dependencies will fail the build. The default
@@ -38,19 +38,19 @@ public class Arguments {
 	 * Maps forbidden dependencies. The items on the key side can not depend on
 	 * any items on the right side.
 	 */
-	private Map<String, Set<String>> forbiddenDependencies = Collections.EMPTY_MAP;
+	private Map<String, Set<String>> forbiddenDependencies = Collections.emptyMap();
 
 	/**
 	 * Maps allowed dependencies. As opposed to forbidden dependencies, these
 	 * override any possible forbidden dependency.
 	 */
-	private Map<String, Set<String>> allowedDependencies = Collections.EMPTY_MAP;
+	private Map<String, Set<String>> allowedDependencies = Collections.emptyMap();
 
 	/**
 	 * file masks that are ignored when scanning the input paths. Masks are case
 	 * sensitive and can contain multiple '*' wildcards
 	 */
-	private List<String> ignoredFileMasks = Collections.EMPTY_LIST;
+	private List<String> ignoredFileMasks = Collections.emptyList();
 
 	/**
 	 * Defines the analyzing scope. This parameter is interpreted by the
@@ -68,21 +68,21 @@ public class Arguments {
 
 	public Arguments createDeepCopy() {
 		Arguments copy = new Arguments();
-		copy.setInput(new ArrayList(getInput()));
+		copy.setInput(new ArrayList<>(getInput()));
 		copy.setConfigFileName(getConfigFileName());
 		copy.setCyclesAllowed(getCyclesAllowed());
 		copy
 				.setForbiddenDependencies(createDeepCopy(getForbiddenDependencies()));
 		copy.setAllowedDependencies(createDeepCopy(getAllowedDependencies()));
 		copy.setGroups(createGroupDeepCopy(getGroups()));
-		copy.setIgnoredFileMasks(new ArrayList(ignoredFileMasks));
+		copy.setIgnoredFileMasks(new ArrayList<>(ignoredFileMasks));
 		copy.setScope(getScope());
 		copy.setDependencyEngineId(getDependencyEngineId());
 		return copy;
 	}
 
 	private Map<String, Group> createGroupDeepCopy(Map<String, Group> orig) {
-		Map<String, Group> copy = new HashMap();
+		Map<String, Group> copy = new HashMap<>();
 		for (Entry<String, Group> entry : orig.entrySet()) {
 			Group g = entry.getValue();
 			copy.put(entry.getKey(), new Group(g.getName(), g.getGroupItems(),
@@ -93,9 +93,9 @@ public class Arguments {
 
 	private Map<String, Set<String>> createDeepCopy(
 			Map<String, Set<String>> orig) {
-		Map<String, Set<String>> copy = new HashMap();
+		Map<String, Set<String>> copy = new HashMap<>();
 		for (Entry<String, Set<String>> entry : orig.entrySet())
-			copy.put(entry.getKey(), new HashSet(entry.getValue()));
+			copy.put(entry.getKey(), new HashSet<>(entry.getValue()));
 		return copy;
 	}
 

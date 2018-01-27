@@ -163,8 +163,8 @@ public class ClassFileParser {
 			int descriptorIndex = parseFieldOrMethodInfo(in);
 			String descriptor = toUTF8(descriptorIndex);
 			List<String> types = descriptorToTypes(descriptor);
-			for (int t = 0; t < types.size(); t++) {
-				addDependency(types.get(t), jClass);
+			for (String type : types) {
+				addDependency(type, jClass);
 			}
 		}
 	}
@@ -312,7 +312,7 @@ public class ClassFileParser {
 			int index = string.indexOf(CLASS_DESCRIPTOR);
 			if (index >= 0) {
 				if (types == null)
-					types = new ArrayList();
+					types = new ArrayList<>();
 				types.add(string.substring(index + 1));
 			}
 		}

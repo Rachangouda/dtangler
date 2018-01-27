@@ -17,10 +17,9 @@ import org.dtangler.core.dependencies.Dependency;
 
 public class AnalysisResult {
 
-	private final Map<Dependency, Set<Violation>> violations = new HashMap();
-	private final Set<Violation> ownViolations = new HashSet();
-	private final Set<Violation> childViolations = new HashSet();
-	private final Set<Violation> allViolations = new HashSet();
+	private final Map<Dependency, Set<Violation>> violations = new HashMap<>();
+	private final Set<Violation> childViolations = new HashSet<>();
+	private final Set<Violation> allViolations = new HashSet<>();
 	private final boolean isValid;
 
 	public AnalysisResult(Map<Dependency, Set<Violation>> violations,
@@ -28,6 +27,7 @@ public class AnalysisResult {
 		this.violations.putAll(violations);
 		this.childViolations.addAll(childViolations);
 		this.isValid = isValid;
+		Set<Violation> ownViolations = new HashSet<>();
 		for (Set<Violation> violationSet : this.violations.values())
 			ownViolations.addAll(violationSet);
 		allViolations.addAll(ownViolations);
@@ -45,12 +45,12 @@ public class AnalysisResult {
 	public Set<Violation> getViolations(Dependency dependency) {
 		Set<Violation> result = this.violations.get(dependency);
 		if (result == null)
-			return Collections.EMPTY_SET;
+			return Collections.emptySet();
 		return result;
 	}
 
 	public Set<Violation> getViolations(Dependency dependency, Severity severity) {
-		Set<Violation> violations = new HashSet();
+		Set<Violation> violations = new HashSet<>();
 		for (Violation v : getViolations(dependency))
 			if (v.getSeverity().equals(severity))
 				violations.add(v);
@@ -70,7 +70,7 @@ public class AnalysisResult {
 	}
 
 	public Set<Violation> getChildViolations(Set<Dependable> dependables) {
-		Set<Violation> result = new HashSet();
+		Set<Violation> result = new HashSet<>();
 		for (Violation violation : childViolations) {
 			if (violation.appliesTo(dependables)) {
 				result.add(violation);
@@ -83,7 +83,7 @@ public class AnalysisResult {
 			Severity severity) {
 		Set<Violation> unfilteredResult = getChildViolations(Collections
 				.singleton(dependable));
-		Set<Violation> result = new HashSet();
+		Set<Violation> result = new HashSet<>();
 		for (Violation v : unfilteredResult)
 			if (v.getSeverity().equals(severity))
 				result.add(v);
@@ -91,7 +91,7 @@ public class AnalysisResult {
 	}
 
 	public Set<Violation> getViolations(Set<Dependable> dependables) {
-		Set<Violation> result = new HashSet();
+		Set<Violation> result = new HashSet<>();
 		for (Violation violation : getAllViolations()) {
 			if (violation.appliesTo(dependables)) {
 				result.add(violation);

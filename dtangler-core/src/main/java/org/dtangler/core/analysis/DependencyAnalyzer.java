@@ -18,8 +18,8 @@ import org.dtangler.core.dependencies.Dependency;
 
 public abstract class DependencyAnalyzer {
 
-	private final Map<Dependency, Set<Violation>> violations = new HashMap();
-	private final Map<Dependable, Set<Violation>> childViolations = new HashMap();
+	private final Map<Dependency, Set<Violation>> violations = new HashMap<>();
+	private final Map<Dependable, Set<Violation>> childViolations = new HashMap<>();
 
 	public abstract void doAnalyze(Dependencies dependencies);
 
@@ -38,7 +38,7 @@ public abstract class DependencyAnalyzer {
 	}
 
 	public Set<Violation> getChildViolations() {
-		Set<Violation> childViolations = new HashSet();
+		Set<Violation> childViolations = new HashSet<>();
 		for (Set<Violation> v : this.childViolations.values()) {
 			childViolations.addAll(v);
 		}

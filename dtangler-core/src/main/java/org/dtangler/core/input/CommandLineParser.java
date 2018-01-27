@@ -20,7 +20,7 @@ public class CommandLineParser {
 
 	public Map<String, String> parseValues(String[] args) {
 		List<String> groupedArgs = groupArguments(args);
-		Map<String, String> result = new Hashtable<String, String>();
+		Map<String, String> result = new Hashtable<>();
 
 		for (String line : groupedArgs) {
 			for (String possibleKey : allowedKeys) {
@@ -34,8 +34,7 @@ public class CommandLineParser {
 	}
 
 	private List<String> groupArguments(String[] args) {
-		List<String> groupedArgs = new ArrayList<String>();
-		groupedArgs.addAll(Arrays.asList(args));
+		List<String> groupedArgs = new ArrayList<>(Arrays.asList(args));
 
 		for (int i = groupedArgs.size() - 1; i > 0; i--) {
 			boolean keyFound = false;
@@ -57,14 +56,13 @@ public class CommandLineParser {
 		String keyString = getKeyString(key);
 
 		if (arg.startsWith(keyString)) {
-			String value = arg.substring(keyString.length());
-			return value;
+			return arg.substring(keyString.length());
 		}
 		return null;
 	}
 
-	public static final String keyStart = "-";
-	public static final String keyEnd = "=";
+	private static final String keyStart = "-";
+	private static final String keyEnd = "=";
 
 	public static String getKeyString(String key) {
 		return keyStart + key + keyEnd;

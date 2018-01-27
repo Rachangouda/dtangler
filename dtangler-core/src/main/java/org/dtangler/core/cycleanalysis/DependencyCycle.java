@@ -22,9 +22,9 @@ public class DependencyCycle implements Violation {
 
 	public DependencyCycle(List<Dependable> cycleElements) {
 		this.elements = cycleElements;
-		searchSet = new HashSet<Dependable>(cycleElements);
+		searchSet = new HashSet<>(cycleElements);
 
-		stringElements = new ArrayList();
+		stringElements = new ArrayList<>();
 		for (Dependable item : cycleElements)
 			stringElements.add(item.getDisplayName());
 		hashCode = calculateHashCode();
@@ -61,7 +61,7 @@ public class DependencyCycle implements Violation {
 	}
 
 	private List<String> getRolledList(int startIndex) {
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 		while (result.size() < stringElements.size() - 1) {
 			result.add(stringElements.get(startIndex));
 			startIndex++;
@@ -109,6 +109,6 @@ public class DependencyCycle implements Violation {
 	}
 
 	public Set<Dependable> getMembers() {
-		return new HashSet(getElements());
+		return new HashSet<>(getElements());
 	}
 }

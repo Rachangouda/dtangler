@@ -14,7 +14,7 @@ import org.dtangler.core.exception.DtException;
 
 public class Item {
 
-	private final Map<Item, Integer> dependencies = new HashMap<Item, Integer>();
+	private final Map<Item, Integer> dependencies = new HashMap<>();
 	private String scope = "";
 	private String displayname;
 	private String[] parentDisplaynames;
@@ -129,14 +129,14 @@ public class Item {
 	}
 
 	public String getFullyqualifiedname() {
-		String fullName = "";
+		StringBuilder fullName = new StringBuilder();
 		if (parentDisplaynames != null) {
 			for (String parent : parentDisplaynames) {
-				fullName += (encodeValue(parent, this.encoding) + " ");
+				fullName.append(encodeValue(parent, this.encoding)).append(" ");
 			}
 		}
-		fullName += encodeValue(this.displayname, this.encoding);
-		return fullName;
+		fullName.append(encodeValue(this.displayname, this.encoding));
+		return fullName.toString();
 	}
 
 	public static String getFullyqualifiedDisplayname(String name, String encoding) {

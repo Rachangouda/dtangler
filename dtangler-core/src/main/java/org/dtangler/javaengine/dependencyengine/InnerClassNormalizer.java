@@ -18,7 +18,7 @@ public class InnerClassNormalizer {
 
 		Map<String, Set<JavaClass>> allInnerClasses = getInnerClasses(classes);
 
-		Set<JavaClass> result = new HashSet();
+		Set<JavaClass> result = new HashSet<>();
 		for (JavaClass clazz : classes) {
 			if (clazz.isInnerClass())
 				continue;
@@ -33,15 +33,11 @@ public class InnerClassNormalizer {
 	}
 
 	private Map<String, Set<JavaClass>> getInnerClasses(Set<JavaClass> classes) {
-		Map<String, Set<JavaClass>> result = new HashMap();
+		Map<String, Set<JavaClass>> result = new HashMap<>();
 		for (JavaClass clazz : classes) {
 			if (!clazz.isInnerClass())
 				continue;
-			Set<JavaClass> innerClasses = result.get(clazz.getBaseClassName());
-			if (innerClasses == null) {
-				innerClasses = new HashSet();
-				result.put(clazz.getBaseClassName(), innerClasses);
-			}
+			Set<JavaClass> innerClasses = result.computeIfAbsent(clazz.getBaseClassName(), k -> new HashSet<>());
 			innerClasses.add(clazz);
 		}
 		return result;

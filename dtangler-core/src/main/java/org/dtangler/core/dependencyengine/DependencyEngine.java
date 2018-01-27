@@ -12,8 +12,8 @@ import org.dtangler.core.dependencies.Dependencies;
 
 public interface DependencyEngine {
 	
-	public enum ArgumentsMatch {
-		yes, maybe, no;
+	enum ArgumentsMatch {
+		yes, maybe, no
 	}
 
 	void setDependencyEngineId(String dependencyEngineId);

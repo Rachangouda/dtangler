@@ -19,10 +19,10 @@ import java.util.Properties;
 import org.dtangler.core.exception.DtException;
 
 public class ConfigFileParser {
-	Properties properties;
+	private Properties properties;
 	private String[] allowedKeys;
 
-	public ConfigFileParser(File configFile, String[] allowedKeys) {
+	ConfigFileParser(File configFile, String[] allowedKeys) {
 		this(openFile(configFile), allowedKeys);
 	}
 
@@ -46,7 +46,7 @@ public class ConfigFileParser {
 	}
 
 	public Map<String, String> parseValues() {
-		Map<String, String> values = new Hashtable<String, String>();
+		Map<String, String> values = new Hashtable<>();
 
 		for (String key : allowedKeys) {
 			if (properties.containsKey(key)) {
@@ -57,7 +57,7 @@ public class ConfigFileParser {
 		return values;
 	}
 
-	public InputStream convertBackSlashes(InputStream stream) {
+	private InputStream convertBackSlashes(InputStream stream) {
 		InputStreamReader reader = new InputStreamReader(stream);
 		int slashCount = 0;
 		try {

@@ -14,10 +14,10 @@ import java.util.Set;
 public class DependencyGraph {
 
 	private final Scope scope;
-	private final Map<Dependable, Set<Dependable>> dependants = new HashMap<Dependable, Set<Dependable>>();
-	private final Map<Dependable, Set<Dependable>> dependencies = new HashMap<Dependable, Set<Dependable>>();
-	private final Map<Dependency, Integer> dependencyWeights = new HashMap<Dependency, Integer>();
-	private final Set<Dependable> allItems = new HashSet<Dependable>();
+	private final Map<Dependable, Set<Dependable>> dependants = new HashMap<>();
+	private final Map<Dependable, Set<Dependable>> dependencies = new HashMap<>();
+	private final Map<Dependency, Integer> dependencyWeights = new HashMap<>();
+	private final Set<Dependable> allItems = new HashSet<>();
 
 	public DependencyGraph(Scope scope) {
 		this.scope = scope;
@@ -61,28 +61,17 @@ public class DependencyGraph {
 	}
 
 	public Set<Dependable> getDependants(Dependable dependant) {
-		Set<Dependable> classes = dependants.get(dependant);
-		if (classes == null) {
-			classes = new HashSet<Dependable>();
-			dependants.put(dependant, classes);
-		}
-		return classes;
+		return dependants.computeIfAbsent(dependant, k -> new HashSet<>());
 	}
 
 	public Set<Dependable> getDependencies(Dependable dependee) {
-		Set<Dependable> classes = dependencies.get(dependee);
-		if (classes == null) {
-			classes = new HashSet<Dependable>();
-			dependencies.put(dependee, classes);
-		}
-		return classes;
+		return dependencies.computeIfAbsent(dependee, k -> new HashSet<>());
 	}
 
 	public float getInstability(Dependable item) {
 		float ce = getDependencyCount(item);
 		float ca = getDependantCount(item);
-		float f = (ce / (ce + ca));
-		return f;
+		return (ce / (ce + ca));
 	}
 
 	private int getDependencyCount(Dependable item) {

@@ -25,14 +25,14 @@ import org.dtangler.javaengine.types.JavaClass;
 public class JarFileParser {
 
 	private String path;
-	private Map<String, byte[]> bytes = new HashMap();
+	private Map<String, byte[]> bytes = new HashMap<>();
 
 	public Set<JavaClass> parse(File file) throws IOException {
 		this.path = file.getAbsolutePath();
 		readBytesFromJar();
 
 		ClassFileParser parser = new ClassFileParser();
-		Set<JavaClass> classes = new HashSet();
+		Set<JavaClass> classes = new HashSet<>();
 		for (String name : bytes.keySet()) {
 			classes.add(parser.parse(new DataInputStream(
 					new ByteArrayInputStream(bytes.get(name)))));
@@ -41,16 +41,13 @@ public class JarFileParser {
 	}
 
 	private void readBytesFromJar() throws IOException {
-		JarInputStream input = new JarInputStream(new FileInputStream(path));
-		try {
+		try (JarInputStream input = new JarInputStream(new FileInputStream(path))) {
 			JarEntry nextJarEntry = input.getNextJarEntry();
 			while (nextJarEntry != null) {
 				if (nextJarEntry.getName().endsWith(".class"))
 					readBytesFromJarEntry(nextJarEntry.getName(), input);
 				nextJarEntry = input.getNextJarEntry();
 			}
-		} finally {
-			input.close();
 		}
 	}
 

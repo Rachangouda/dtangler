@@ -83,7 +83,7 @@ public class ItemDependenciesStreamParser {
 	public List<Item> parseItem(ValidScopes validScopes, String itemDefinition,
 			String encoding) {
 
-		final String nonItemCharsRegex = "\\{\\}\\:\\s";
+		final String nonItemCharsRegex = "\\{}:\\s";
 		final String anyNonItemCharRegex = "[" + nonItemCharsRegex + "]";
 		final String anyNonItemCharAtLeastOnceRegex = anyNonItemCharRegex + "+";
 		final String anyItemCharRegex = "[^" + nonItemCharsRegex + "]";
@@ -92,7 +92,7 @@ public class ItemDependenciesStreamParser {
 		final String anyNumberOfItemsRegex = "[\\s]*(" + anyItemRegex + ")*";
 		final String onceOrNotAtAllItemsRegex = "[\\s]*(" + anyItemRegex + ")?";
 		final String itemDefinitionWithScopeRegex = onceOrNotAtAllItemsRegex
-				+ "\\{" + anyNumberOfItemsRegex + "\\}[\\s]*";
+				+ "\\{" + anyNumberOfItemsRegex + "}[\\s]*";
 		final String itemDefinitionWithScopeAtLeastOnceRegex = "("
 				+ itemDefinitionWithScopeRegex + ")+";
 		final String itemDefinitionWithoutScopeRegex = "(" + anyItemRegex
@@ -101,10 +101,10 @@ public class ItemDependenciesStreamParser {
 		if (itemDefinition == null)
 			throw new DtException("invalid item definition: null");
 
-		List<Item> items = new ArrayList<Item>();
+		List<Item> items = new ArrayList<>();
 		String[] parents = null;
-		String item = null;
-		String scope = null;
+		String item;
+		String scope;
 
 		if (itemDefinition.matches(itemDefinitionWithScopeAtLeastOnceRegex)) {
 			Pattern p = Pattern.compile(itemDefinitionWithScopeRegex);
@@ -112,9 +112,10 @@ public class ItemDependenciesStreamParser {
 			while (m.find()) {
 				String[] words = itemDefinition.substring(m.start(), m.end())
 						.trim().split(anyNonItemCharAtLeastOnceRegex);
-				if (words == null || words.length < 2)
+				if (words.length < 2) {
 					throw new DtException("invalid item definition: \""
 							+ itemDefinition + "\"");
+				}
 				scope = words[0];
 				item = words[words.length - 1];
 				if (words.length > 2) {
@@ -132,7 +133,7 @@ public class ItemDependenciesStreamParser {
 			scope = "";
 			String[] words = itemDefinition.trim().split(
 					anyNonItemCharAtLeastOnceRegex);
-			if (words == null || words.length <= 0) {
+			if (words.length <= 0) {
 				throw new DtException("invalid item definition: \""
 						+ itemDefinition + "\"");
 			}
@@ -192,27 +193,26 @@ public class ItemDependenciesStreamParser {
 		if (dependencyOrItemDefinition == null)
 			throw new DtException("invalid dependency or item definition: null");
 		String[] items = dependencyOrItemDefinition.split(itemDelimiterRegex);
-		if (items == null || !(items.length >= 1 && items.length <= 2))
+		if (!(items.length >= 1 && items.length <= 2))
 			throw new DtException("invalid dependency or item definition: \""
 					+ dependencyOrItemDefinition + "\"");
 		if (items.length == 1) {
 			// item definition
 			saveItemsToSet(allItems,
 					parseItem(validScopes, items[0], encoding), null);
-		} else if (items.length == 2) {
+		} else {
 			// item dependency definition
 			saveItemsToSet(allItems,
 					parseItem(validScopes, items[0], encoding), parseItem(
 							validScopes, items[1], encoding));
 		}
-		return;
 	}
 
 	public Set<Item> parse(ValidScopes validScopes, BufferedReader in,
 			String encoding) {
 		if (in == null)
 			throw new DtException("unable to read from stream");
-		Set<Item> items = new HashSet<Item>();
+		Set<Item> items = new HashSet<>();
 		String line;
 		int lineNo = 0;
 		try {

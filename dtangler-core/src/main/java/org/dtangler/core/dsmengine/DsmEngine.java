@@ -24,10 +24,10 @@ public class DsmEngine {
 	}
 
 	public Dsm createDsm() {
-		List<Dependable> allItems = new ArrayList(dependencies.getAllItems());
-		Collections.sort(allItems, new InstabilityComparator(dependencies));
+		List<Dependable> allItems = new ArrayList<>(dependencies.getAllItems());
+		allItems.sort(new InstabilityComparator(dependencies));
 
-		List<DsmRow> rows = new ArrayList(allItems.size());
+		List<DsmRow> rows = new ArrayList<>(allItems.size());
 		for (Dependable item : allItems)
 			rows.add(new DsmRow(item, createRowCells(item, allItems)));
 		return new Dsm(rows);
@@ -35,7 +35,7 @@ public class DsmEngine {
 
 	private List<DsmCell> createRowCells(Dependable rowItem,
 			List<Dependable> allItems) {
-		List<DsmCell> cells = new ArrayList();
+		List<DsmCell> cells = new ArrayList<>();
 		for (Dependable colItem : allItems)
 			cells.add(createCell(rowItem, colItem));
 

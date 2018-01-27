@@ -14,7 +14,7 @@ import org.dtangler.core.dependencies.Dependable;
 public class JavaClass {
 
 	private static final String OBJECT = "java.lang.Object";
-	private final Map<String, Integer> dependencies = new HashMap();
+	private final Map<String, Integer> dependencies = new HashMap<>();
 	private final String className;
 	private boolean isAbstract;
 	private String sourceFileName;

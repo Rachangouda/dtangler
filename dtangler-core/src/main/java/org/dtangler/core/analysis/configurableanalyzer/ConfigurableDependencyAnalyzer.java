@@ -33,9 +33,8 @@ public class ConfigurableDependencyAnalyzer {
 
 	public AnalysisResult analyze(Dependencies dependencies) {
 		analyzer.analyze(dependencies);
-		AnalysisResult analysisResult = new AnalysisResult(analyzer
+		return new AnalysisResult(analyzer
 				.getViolations(), analyzer.getChildViolations(), analyzer
 				.isValidResult());
-		return analysisResult;
 	}
 }

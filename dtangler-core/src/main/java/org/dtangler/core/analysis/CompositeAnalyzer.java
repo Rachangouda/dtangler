@@ -16,7 +16,7 @@ import org.dtangler.core.dependencies.Dependency;
 
 public class CompositeAnalyzer extends DependencyAnalyzer {
 
-	private final Set<DependencyAnalyzer> analyzers = new HashSet();
+	private final Set<DependencyAnalyzer> analyzers = new HashSet<>();
 	private boolean isValid = false;
 
 	public boolean isValidResult() {

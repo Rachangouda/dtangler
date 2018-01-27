@@ -29,7 +29,7 @@ public class RuleCreator {
 	}
 
 	public List<Rule> createRules() {
-		List<Rule> rules = new ArrayList<Rule>();
+		List<Rule> rules = new ArrayList<>();
 
 		for (String key : forbiddenDependencies.keySet()) {
 			RuleMember member = getRuleMember(key);

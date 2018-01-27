@@ -11,7 +11,7 @@ import java.util.Set;
 public class Group {
 	private String name;
 	private Set<String> groupItems;
-	private Set<String> excludedItems = Collections.EMPTY_SET;
+	private Set<String> excludedItems = Collections.emptySet();
 
 	public Group(String name, Set<String> groupItems) {
 		this.name = name;

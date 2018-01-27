@@ -5,13 +5,7 @@
 
 package org.dtangler.core.input;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.dtangler.core.configuration.Arguments;
 import org.dtangler.core.configuration.Group;
@@ -78,7 +72,7 @@ public class ArgumentParser {
 			if (value != null)
 				return value;
 		}
-		return new String();
+		return "";
 	}
 
 	private void parseIgnoredFileMasks(Map<String, String> values) {
@@ -88,7 +82,7 @@ public class ArgumentParser {
 	}
 
 	private void parseGroups(Map<String, String> values) {
-		Map<String, Group> result = new HashMap();
+		Map<String, Group> result = new HashMap<>();
 		String value = getValue(values, ParserConstants.GROUP_KEY,
 				ParserConstants.GROUPS_KEY);
 		String[] list = value.split(ParserConstants.BIG_SEPARATOR);
@@ -124,8 +118,8 @@ public class ArgumentParser {
 	}
 
 	private void parseRules(Map<String, String> values) {
-		Map<String, Set<String>> cannotDepend = new HashMap();
-		Map<String, Set<String>> canDepend = new HashMap();
+		Map<String, Set<String>> cannotDepend = new HashMap<>();
+		Map<String, Set<String>> canDepend = new HashMap<>();
 
 		String[] ruleList = values.get(ParserConstants.RULES_KEY).split(
 				ParserConstants.BIG_SEPARATOR);
@@ -165,27 +159,25 @@ public class ArgumentParser {
 		else if (rule.contains(ParserConstants.CAN_DEPEND))
 			ruleType = ParserConstants.CAN_DEPEND;
 		else
-			return Collections.EMPTY_MAP;
+			return Collections.emptyMap();
 
 		String[] separateSides = rule.split(ruleType, 2);
 		String leftSide = separateSides[0];
 		String rightSide = separateSides[1];
 
-		Set<String> leftSet = new HashSet();
-		Set<String> rightSet = new HashSet();
+		Set<String> leftSet;
+		Set<String> rightSet;
 
 		leftSet = parseItems(leftSide);
 		rightSet = parseItems(rightSide);
-		Map<String, Set<String>> formattedRule = new HashMap();
+		Map<String, Set<String>> formattedRule = new HashMap<>();
 
 		for (String leftRule : leftSet) {
 			Set<String> oldRules = formattedRule.get(leftRule);
 			// if the rule was already specified, add possible new rules
 			// to it:
 			if (oldRules != null) {
-				for (String old : oldRules) {
-					rightSet.add(old);
-				}
+				rightSet.addAll(oldRules);
 			}
 			formattedRule.put(leftRule, rightSet);
 		}
@@ -194,15 +186,11 @@ public class ArgumentParser {
 	}
 
 	private List<String> getValueList(String value, String separator) {
-		List<String> list = new ArrayList();
-		for (String item : value.split(separator)) {
-			list.add(item);
-		}
-		return list;
+		return new ArrayList<>(Arrays.asList(value.split(separator)));
 	}
 
 	private Set<String> parseItems(String items) {
-		Set<String> itemSet = new HashSet();
+		Set<String> itemSet = new HashSet<>();
 
 		String[] allItems = items.split(ParserConstants.SMALL_SEPARATOR);
 		for (String item : allItems) {

@@ -6,10 +6,7 @@
 package org.dtangler.genericengine.dependencyengine;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.dtangler.core.configuration.Arguments;
 import org.dtangler.core.dependencies.Dependencies;
@@ -87,7 +84,7 @@ public class GenericDependencyEngine extends AbstractDependencyEngine {
 	private Set<Item> getItems(Arguments arguments,
 			ValidScopes validScopes) {
 		ItemDependenciesStreamParser parser = new ItemDependenciesStreamParser();
-		Set<Item> items = new HashSet<Item>();
+		Set<Item> items = new HashSet<>();
 		if (readFromStandardInput(arguments)) {
 			items.addAll(parser.parse(validScopes, "UTF-8"));
 		} else {
@@ -105,15 +102,14 @@ public class GenericDependencyEngine extends AbstractDependencyEngine {
 	
 	private Set<File> getInputFiles(Arguments arguments) {
 		RecursiveFileFinder fileFinder = new RecursiveFileFinder();
-		fileFinder.setFilter(new FullPathWildCardFileFilter(Arrays
-				.asList(INPUT_FILE_TYPE), arguments.getIgnoredFileMasks()));
+		fileFinder.setFilter(new FullPathWildCardFileFilter(Collections.singletonList(INPUT_FILE_TYPE), arguments.getIgnoredFileMasks()));
 		for (String path : arguments.getInput())
 			fileFinder.findFiles(path);
 		return fileFinder.getFiles();
 	}
 
 	public List<String> getInputFileNameExtensions() {
-		return Arrays.asList(INPUT_FILE_EXT);
+		return Collections.singletonList(INPUT_FILE_EXT);
 	}
 
 	public boolean isDirectoryInputSupported() {

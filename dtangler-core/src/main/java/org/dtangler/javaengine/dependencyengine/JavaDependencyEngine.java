@@ -82,19 +82,18 @@ public class JavaDependencyEngine extends AbstractDependencyEngine {
 		for (String path : arguments.getInput())
 			fileFinder.findFiles(path);
 
-		Set<JavaClass> classes = new HashSet<JavaClass>();
+		Set<JavaClass> classes = new HashSet<>();
 		for (File file : fileFinder.getFiles()) {
 			if (file.getName().endsWith(".class")) {
 				classes.add(getDataFromClassFile(file, fileFinder));
 			} else {
-				classes.addAll(getDataFromJarFile(file, fileFinder));
+				classes.addAll(getDataFromJarFile(file));
 			}
 		}
 		return classes;
 	}
 
-	private Set<JavaClass> getDataFromJarFile(File file,
-			RecursiveFileFinder fileFinder) {
+	private Set<JavaClass> getDataFromJarFile(File file) {
 		try {
 			Set<JavaClass> jarContents = new JarFileParser().parse(file);
 			for (JavaClass clazz : jarContents) {

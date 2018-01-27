@@ -8,7 +8,7 @@ import org.dtangler.core.exception.DtException;
 public class ValidScopes {
 
 	private final static int MAX_INDEX_VALUE = 100;
-	private final List<String> names = new ArrayList<String>();
+	private final List<String> names = new ArrayList<>();
 	private ItemScope defaultScope = null;
 
 	public String getScopeName(int index) {

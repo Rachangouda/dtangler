@@ -13,8 +13,8 @@ import org.dtangler.core.versioninfo.VersionInfo;
 
 public class Main {
 
-	static final int EXITCODE_SUCCESS = 0;
-	static final int EXITCODE_VIOLATIONS = -1;
+	private static final int EXITCODE_SUCCESS = 0;
+	private static final int EXITCODE_VIOLATIONS = -1;
 	static final int EXITCODE_PROBLEM = -2;
 
 	public static void main(String[] args) {

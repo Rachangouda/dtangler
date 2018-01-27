@@ -14,7 +14,7 @@ public class InstabilityComparator implements Comparator<Dependable> {
 
 	private final DependencyGraph dependencies;
 
-	public InstabilityComparator(DependencyGraph dependencies) {
+	InstabilityComparator(DependencyGraph dependencies) {
 		this.dependencies = dependencies;
 	}
 
@@ -31,21 +31,13 @@ public class InstabilityComparator implements Comparator<Dependable> {
 	private int compareInstability(Dependable o1, Dependable o2) {
 		float o1Instability = dependencies.getInstability(o1);
 		float o2Instability = dependencies.getInstability(o2);
-		if (o1Instability > o2Instability)
-			return -1;
-		if (o1Instability < o2Instability)
-			return 1;
-		return 0;
+		return Float.compare(o2Instability, o1Instability);
 	}
 
 	private int compareDependencyWeight(Dependable o1, Dependable o2) {
 		int o1CeSum = dependencies.getOutgoingDependenciesWeight(o1);
 		int o2CeSum = dependencies.getOutgoingDependenciesWeight(o2);
-		if (o1CeSum > o2CeSum)
-			return -1;
-		if (o1CeSum < o2CeSum)
-			return 1;
-		return 0;
+		return Integer.compare(o2CeSum, o1CeSum);
 	}
 
 }

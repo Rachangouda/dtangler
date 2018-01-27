@@ -20,7 +20,7 @@ public class RuleFilter {
 	}
 
 	public List<Rule> getRulesForDependant(Dependable dependant) {
-		List<Rule> rulesFound = new ArrayList();
+		List<Rule> rulesFound = new ArrayList<>();
 		for (Rule rule : rules) {
 			if (rule.appliesToLeftSide(dependant)) {
 				rulesFound.add(rule);
@@ -31,7 +31,7 @@ public class RuleFilter {
 
 	public List<Rule> getParentRulesForDependant(Dependable dependant,
 			Dependencies dependencies) {
-		List<Rule> rules = new ArrayList();
+		List<Rule> rules = new ArrayList<>();
 		Set<Dependable> parents = dependencies
 				.getParentsFromAllScopes(dependant);
 		for (Dependable parent : parents) {

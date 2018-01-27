@@ -20,17 +20,17 @@ public class ChildViolationFinder {
 
 	private final Dependencies dependencies;
 
-	public ChildViolationFinder(Dependencies dependencies) {
+	ChildViolationFinder(Dependencies dependencies) {
 		this.dependencies = dependencies;
 	}
 
 	public Map<Dependable, Set<Violation>> findChildViolationsForParents(
 			Map<Dependency, Set<Violation>> violationMap) {
-		Set<Violation> allViolations = new HashSet();
+		Set<Violation> allViolations = new HashSet<>();
 		for (Set<Violation> violations : violationMap.values())
 			allViolations.addAll(violations);
 
-		Map<Dependable, Set<Violation>> result = new HashMap();
+		Map<Dependable, Set<Violation>> result = new HashMap<>();
 		for (Violation v : allViolations) {
 			if (violationMembersHaveSingleParent(v)) {
 				addChildViolations(result, v);

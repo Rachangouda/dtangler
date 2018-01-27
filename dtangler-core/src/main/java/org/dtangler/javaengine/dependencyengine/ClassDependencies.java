@@ -17,8 +17,8 @@ import org.dtangler.javaengine.types.JavaScope;
 public class ClassDependencies {
 
 	private final Map<String, JavaClass> classes;
-	private final Map<String, Dependable> packages = new HashMap();
-	private final Map<String, Dependable> locations = new HashMap();
+	private final Map<String, Dependable> packages = new HashMap<>();
+	private final Map<String, Dependable> locations = new HashMap<>();
 
 	public ClassDependencies(Set<JavaClass> classes) {
 		Set<JavaClass> normalizedClasses = new InnerClassNormalizer()
@@ -28,7 +28,7 @@ public class ClassDependencies {
 	}
 
 	private Map<String, JavaClass> getFullClassNames(Set<JavaClass> classes) {
-		Map<String, JavaClass> map = new HashMap<String, JavaClass>();
+		Map<String, JavaClass> map = new HashMap<>();
 		for (JavaClass clazz : classes) {
 			map.put(clazz.getFullName(), clazz);
 		}
@@ -36,14 +36,12 @@ public class ClassDependencies {
 	}
 
 	private void setUpperScopes(Set<JavaClass> classes) {
-		Map<String, Dependable> pkgs = new HashMap();
-		Map<String, Dependable> locs = new HashMap();
+		Map<String, Dependable> pkgs = new HashMap<>();
 		for (JavaClass clazz : classes) {
 			setPackageNames(pkgs, clazz);
-			setLocationNames(locs, clazz);
+			setLocationNames(clazz);
 		}
 		this.packages.putAll(pkgs);
-		this.locations.putAll(locs);
 	}
 
 	private void setPackageNames(Map<String, Dependable> pkgs, JavaClass clazz) {
@@ -57,7 +55,7 @@ public class ClassDependencies {
 		pkg.setContentCount(pkg.getContentCount() + 1);
 	}
 
-	private void setLocationNames(Map<String, Dependable> locs, JavaClass clazz) {
+	private void setLocationNames(JavaClass clazz) {
 		String location = clazz.getLocation();
 		Dependable loc = locations.get(location);
 		if (loc == null) {
@@ -82,7 +80,7 @@ public class ClassDependencies {
 	}
 
 	private Map<Dependable, Integer> getDependencies(JavaClass javaClass) {
-		Map<Dependable, Integer> dependencies = new HashMap();
+		Map<Dependable, Integer> dependencies = new HashMap<>();
 		Map<String, Integer> javaDeps = javaClass.getDependencies();
 		for (String depName : javaDeps.keySet()) {
 			JavaClass dep = classes.get(depName);

@@ -5,11 +5,11 @@ import org.dtangler.core.exception.DtException;
 
 public abstract class AbstractDependencyEngine implements DependencyEngine {
 
-	String dependencyEngineId;
+	private String dependencyEngineId;
 
 	public String getDependencyEngineId() {
 		if (dependencyEngineId == null)
-			return new String(this.getClass().getSimpleName());
+			return this.getClass().getSimpleName();
 		return dependencyEngineId;
 	}
 

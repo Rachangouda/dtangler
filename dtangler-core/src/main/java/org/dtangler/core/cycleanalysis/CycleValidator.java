@@ -21,7 +21,7 @@ import org.dtangler.core.dependencies.Scope;
 
 public class CycleValidator extends DependencyAnalyzer {
 
-	private final Set<Dependency> processedItems = new HashSet();
+	private final Set<Dependency> processedItems = new HashSet<>();
 	private final boolean cyclesAllowed;
 	private int stepCount = 0;
 
@@ -33,7 +33,7 @@ public class CycleValidator extends DependencyAnalyzer {
 		Set<Dependable> deps = dependencies.getDependencies(item);
 
 		for (Dependable dep : deps)
-			findCycles(item, createPath(new DependencyPath(Collections
+			findCycles(createPath(new DependencyPath(Collections
 					.singletonList(item)), dep), dep, dependencies);
 	}
 
@@ -44,8 +44,8 @@ public class CycleValidator extends DependencyAnalyzer {
 		return path;
 	}
 
-	private void findCycles(Dependable item, DependencyPath path,
-			Dependable dep, DependencyGraph dependencies) {
+	private void findCycles(DependencyPath path,
+							Dependable dep, DependencyGraph dependencies) {
 		Set<Dependable> childDeps = dependencies.getDependencies(dep);
 
 		Dependency dependency = path.getDependencyByDependee(dep);
@@ -57,7 +57,7 @@ public class CycleValidator extends DependencyAnalyzer {
 			if (path.contains(childDep)) {
 				addCycle(childDep, path);
 			} else {
-				findCycles(item, createPath(path, childDep), childDep,
+				findCycles(createPath(path, childDep), childDep,
 						dependencies);
 			}
 		}
@@ -85,7 +85,7 @@ public class CycleValidator extends DependencyAnalyzer {
 
 	private DependencyCycle createCycle(Dependable cycleMember,
 			List<Dependable> cycleMembers) {
-		List<Dependable> cycle = new ArrayList();
+		List<Dependable> cycle = new ArrayList<>();
 		cycle.add(cycleMember);
 		int index = cycleMembers.indexOf(cycleMember);
 		int count = cycleMembers.size();
@@ -119,8 +119,6 @@ public class CycleValidator extends DependencyAnalyzer {
 	}
 
 	public boolean isValidResult() {
-		if (cyclesAllowed)
-			return true;
-		return getViolations().isEmpty();
+		return cyclesAllowed || getViolations().isEmpty();
 	}
 }
