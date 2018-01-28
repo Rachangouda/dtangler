@@ -30,10 +30,10 @@ public class ConfigFileWriter {
 
 	public void save(Arguments args) {
 
-		BufferedWriter output = null;
-		try {
+
+		try (BufferedWriter output = new BufferedWriter(new FileWriter(file))) {
 			file.createNewFile();
-			output = new BufferedWriter(new FileWriter(file));
+
 			writeParameter(output, ParserConstants.INPUT_KEY, createValuesList(
 					args.getInput(), ";\\\n\t"));
 			writeParameter(output, ParserConstants.DEPENDENCY_ENGINE_ID_KEY,
@@ -55,13 +55,6 @@ public class ConfigFileWriter {
 			throw new DtException(
 					"I/O error while attempting to write to config file: "
 							+ file.getAbsolutePath());
-		} finally {
-			try {
-				if (output != null)
-					output.close();
-			} catch (IOException e) {
-				// don't care. Nothing we can do about it
-			}
 		}
 	}
 
