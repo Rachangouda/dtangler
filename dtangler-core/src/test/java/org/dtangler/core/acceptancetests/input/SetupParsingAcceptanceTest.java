@@ -11,10 +11,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.dtangler.core.configuration.Arguments;
 import org.dtangler.core.configuration.ParserConstants;
@@ -107,8 +104,7 @@ public class SetupParsingAcceptanceTest {
 		assertFalse(arguments.getCyclesAllowed());
 		assertEquals(1, forbiddenDependencies.size());
 		assertTrue(forbiddenDependencies.containsKey(utilGroup));
-		assertTrue(forbiddenDependencies.containsValue(new HashSet(Arrays
-				.asList("org.app"))));
+		assertTrue(forbiddenDependencies.containsValue(new HashSet<>(Collections.singletonList("org.app"))));
 	}
 
 	@Test
@@ -206,7 +202,7 @@ public class SetupParsingAcceptanceTest {
 				+ packageName, JavaScope.packages);
 		Dependable grandParent = new TestDependable(locationName,
 				JavaScope.locations);
-		return new HashSet(Arrays.asList(dep, parent, grandParent));
+		return new HashSet<>(Arrays.asList(dep, parent, grandParent));
 	}
 
 	@Test

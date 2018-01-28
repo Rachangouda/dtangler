@@ -10,6 +10,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 import org.dtangler.core.analysisresult.Violation;
@@ -44,11 +45,11 @@ public class DependencyCycleTest {
 
 		Violation v = new DependencyCycle(Arrays.asList(depA, depB));
 
-		assertTrue(v.appliesTo(new HashSet(Arrays.asList(depA, depB, depC))));
-		assertTrue(v.appliesTo(new HashSet(Arrays.asList(depA, depB))));
-		assertFalse(v.appliesTo(new HashSet(Arrays.asList(depA, depC))));
-		assertFalse(v.appliesTo(new HashSet(Arrays.asList(depA))));
-		assertFalse(v.appliesTo(new HashSet(Arrays.asList(depB))));
-		assertFalse(v.appliesTo(new HashSet(Arrays.asList(depC))));
+		assertTrue(v.appliesTo(new HashSet<>(Arrays.asList(depA, depB, depC))));
+		assertTrue(v.appliesTo(new HashSet<>(Arrays.asList(depA, depB))));
+		assertFalse(v.appliesTo(new HashSet<>(Arrays.asList(depA, depC))));
+		assertFalse(v.appliesTo(new HashSet<>(Collections.singletonList(depA))));
+		assertFalse(v.appliesTo(new HashSet<>(Collections.singletonList(depB))));
+		assertFalse(v.appliesTo(new HashSet<>(Collections.singletonList(depC))));
 	}
 }

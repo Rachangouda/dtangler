@@ -8,11 +8,7 @@ package org.dtangler.genericengine.dependencyengine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.dtangler.core.configuration.Arguments;
 import org.dtangler.core.dependencies.Dependable;
@@ -30,7 +26,7 @@ public class GenericDependencyEngineTest {
 		String dtPath = corePath
 				+ "/org/dtangler/genericengine/dependencyengine/testdata/test.dt";
 		Arguments args = new Arguments();
-		args.setInput(Arrays.asList(dtPath));
+		args.setInput(Collections.singletonList(dtPath));
 		GenericDependencyEngine engine = new GenericDependencyEngine();
 		Dependencies dependencies = engine.getDependencies(args);
 		DependencyGraph deps = dependencies.getDependencyGraph(

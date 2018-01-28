@@ -41,11 +41,11 @@ public class AnalysisResultTest {
 	private Dependency d1d4;
 	private Dependency d1d5;
 
-	Map<Dependency, Set<Violation>> violations;
+	private Map<Dependency, Set<Violation>> violations;
 
 	@Before
 	public void setUp() {
-		violations = new HashMap();
+		violations = new HashMap<>();
 		d1 = new TestDependable("d1");
 		d2 = new TestDependable("d2");
 		d3 = new TestDependable("d3");
@@ -60,13 +60,13 @@ public class AnalysisResultTest {
 
 	@Test
 	public void testBasicProperties() {
-		AnalysisResult result = new AnalysisResult(new HashMap(),
-				new HashSet(), true);
+		AnalysisResult result = new AnalysisResult(new HashMap<>(),
+				new HashSet<>(), true);
 		assertTrue(result.isValid());
 		assertFalse(result.hasViolations());
 
-		addRuleViolation(d1d2, Arrays.asList(d1d3));
-		result = new AnalysisResult(violations, Collections.EMPTY_SET, false);
+		addRuleViolation(d1d2, Collections.singletonList(d1d3));
+		result = new AnalysisResult(violations, Collections.emptySet(), false);
 		assertFalse(result.isValid());
 		assertTrue(result.hasViolations());
 	}
@@ -77,7 +77,7 @@ public class AnalysisResultTest {
 		addRuleViolation(d1d3, Arrays.asList(d1d2, d1d5));
 
 		AnalysisResult result = new AnalysisResult(violations,
-				Collections.EMPTY_SET, true);
+				Collections.emptySet(), true);
 		assertTrue(result.hasViolations(d1d2));
 		assertTrue(result.hasViolations(d1d3));
 		assertFalse(result.hasViolations(d1d4));
@@ -122,49 +122,45 @@ public class AnalysisResultTest {
 				d2, d3)));
 
 		AnalysisResult result = new AnalysisResult(violations,
-				Collections.EMPTY_SET, true);
+				Collections.emptySet(), true);
 
-		assertViolationsByName(result.getViolations(new HashSet(Arrays.asList(
+		assertViolationsByName(result.getViolations(new HashSet<>(Arrays.asList(
 				d1, d2, d3, d4, d5))), "violation1", "violation2", "violation3");
 
-		assertViolationsByName(result.getViolations(new HashSet(Arrays
-				.asList(d1))), "violation1", "violation2");
+		assertViolationsByName(result.getViolations(new HashSet<>(Collections.singletonList(d1))), "violation1", "violation2");
 
-		assertViolationsByName(result.getViolations(new HashSet(Arrays
-				.asList(d2))), "violation2", "violation3");
+		assertViolationsByName(result.getViolations(new HashSet<>(Collections.singletonList(d2))), "violation2", "violation3");
 
-		assertViolationsByName(result.getViolations(new HashSet(Arrays
-				.asList(d3))), "violation3");
+		assertViolationsByName(result.getViolations(new HashSet<>(Collections.singletonList(d3))), "violation3");
 	}
 
 	@Test
 	public void testGetChildViolationsForDependables() {
 
-		Set<Violation> childViolations = new HashSet();
-		childViolations.addAll(new HashSet(Arrays.asList(new ChildViolation(d1,
+		Set<Violation> childViolations = new HashSet<>(new HashSet<>(Collections.singletonList(new ChildViolation(d1,
 				createViolation("violationName", new TestDependable("sub1",
 						TestScope.scope2))))));
 		AnalysisResult result = new AnalysisResult(violations, childViolations,
 				true);
-		assertViolationsByName(result.getChildViolations(new HashSet(Arrays
+		assertViolationsByName(result.getChildViolations(new HashSet<>(Arrays
 				.asList(d1, d2, d3))), "d1 contains a violation: violationName");
 		assertEquals(0, result.getChildViolations(
-				new HashSet(Arrays.asList(d2, d3, d4, d5))).size());
+				new HashSet<>(Arrays.asList(d2, d3, d4, d5))).size());
 	}
 
 	private Violation createViolation(String name, Dependable... appliesTo) {
-		return new MockViolation(name, Severity.warning, new HashSet(Arrays
+		return new MockViolation(name, Severity.warning, new HashSet<>(Arrays
 				.asList(appliesTo)));
 	}
 
 	private Set<Violation> createViolationSet(Violation... violations) {
-		return new HashSet(Arrays.asList(violations));
+		return new HashSet<>(Arrays.asList(violations));
 
 	}
 
 	private void assertViolationsByName(Set<Violation> actual,
 			String... expected) {
-		Set<String> expectedNames = new HashSet(Arrays.asList(expected));
+		Set<String> expectedNames = new HashSet<>(Arrays.asList(expected));
 
 		assertEquals(expected.length, actual.size());
 		for (Violation v : actual)
@@ -176,12 +172,11 @@ public class AnalysisResultTest {
 		Violation w1 = new MockViolation("w1", Severity.warning);
 		Violation w2 = new MockViolation("w2", Severity.warning);
 		Violation e1 = new MockViolation("e1", Severity.error);
-		Set<Violation> list = new HashSet<Violation>();
-		list.addAll(Arrays.asList(w1, w2, e1));
+		Set<Violation> list = new HashSet<>(Arrays.asList(w1, w2, e1));
 
 		violations.put(d1d2, list);
 		AnalysisResult result = new AnalysisResult(violations,
-				Collections.EMPTY_SET, true);
+				Collections.emptySet(), true);
 
 		assertEquals(2, result.getViolations(d1d2, Severity.warning).size());
 		assertTrue(result.getViolations(d1d2, Severity.warning).contains(w1));
@@ -195,15 +190,14 @@ public class AnalysisResultTest {
 	public void testGetChildViolationsBySeverity() {
 		Violation w1 = new MockViolation("w1", Severity.warning, Collections
 				.singleton(d1));
-		Violation w2 = new MockViolation("w2", Severity.warning, new HashSet(
+		Violation w2 = new MockViolation("w2", Severity.warning, new HashSet<>(
 				Arrays.asList(d1, d2)));
 		Violation e1 = new MockViolation("e1", Severity.error, Collections
 				.singleton(d1));
-		Set<Violation> childViolations = new HashSet();
-		childViolations.addAll(new HashSet(Arrays.asList(w1, w2, e1)));
+		Set<Violation> childViolations = new HashSet<>(new HashSet<>(Arrays.asList(w1, w2, e1)));
 		childViolations.add(w2);
 
-		AnalysisResult result = new AnalysisResult(Collections.EMPTY_MAP,
+		AnalysisResult result = new AnalysisResult(Collections.emptyMap(),
 				childViolations, false);
 
 		assertEquals(2, result.getChildViolations(d1, Severity.warning).size());
@@ -220,7 +214,7 @@ public class AnalysisResultTest {
 	}
 
 	private void addRuleViolation(Dependency key, List<Dependency> dependencies) {
-		Set<Violation> list = new HashSet<Violation>();
+		Set<Violation> list = new HashSet<>();
 		for (Dependency d : dependencies)
 			list.add(new RuleViolation(d, new MockRule()));
 		violations.put(key, list);

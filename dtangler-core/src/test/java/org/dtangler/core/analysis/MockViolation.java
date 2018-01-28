@@ -15,15 +15,15 @@ import org.dtangler.core.dependencies.Dependable;
 public class MockViolation implements Violation {
 
 	private final String name;
-	private final Set<Dependable> appliesTo = new HashSet();
+	private final Set<Dependable> appliesTo = new HashSet<>();
 	private final Severity severity;
 
 	public MockViolation(String name) {
-		this(name, Severity.warning, Collections.EMPTY_SET);
+		this(name, Severity.warning, Collections.emptySet());
 	}
 
 	public MockViolation(String name, Severity severity) {
-		this(name, severity, Collections.EMPTY_SET);
+		this(name, severity, Collections.emptySet());
 	}
 
 	public MockViolation(String name, Severity severity,
@@ -43,9 +43,7 @@ public class MockViolation implements Violation {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof MockViolation))
-			return false;
-		return this.name.equals(((MockViolation) obj).name);
+		return obj instanceof MockViolation && this.name.equals(((MockViolation) obj).name);
 	}
 
 	@Override

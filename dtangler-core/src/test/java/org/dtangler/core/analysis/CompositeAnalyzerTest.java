@@ -96,7 +96,7 @@ public class CompositeAnalyzerTest {
 
 		Map<Dependency, Set<Violation>> allViolations = analyzer
 				.getViolations();
-		Set<Violation> values = new HashSet(allViolations.get(dependency));
+		Set<Violation> values = new HashSet<>(allViolations.get(dependency));
 
 		assertEquals(2, values.size());
 		assertTrue(values.contains(violation1));
@@ -104,6 +104,6 @@ public class CompositeAnalyzerTest {
 	}
 
 	private Set<RuleMember> createSet(SingleRuleMember... items) {
-		return new HashSet(Arrays.asList(items));
+		return new HashSet<>(Arrays.asList(items));
 	}
 }

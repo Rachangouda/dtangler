@@ -122,7 +122,7 @@ public class ArgumentParserTest {
 	}
 
 	private Map<String, String> createValues(String key, String value) {
-		Map<String, String> values = new Hashtable();
+		Map<String, String> values = new Hashtable<>();
 		values.put(key, value);
 		return values;
 	}

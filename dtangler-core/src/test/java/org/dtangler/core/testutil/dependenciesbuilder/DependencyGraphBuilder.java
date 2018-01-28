@@ -92,7 +92,7 @@ public class DependencyGraphBuilder {
 		}
 	}
 
-	final DependencyGraph deps = new DependencyGraph(null);
+	private final DependencyGraph deps = new DependencyGraph(null);
 
 	public DependencyGraph getDependencies() {
 		return deps;

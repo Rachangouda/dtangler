@@ -31,15 +31,15 @@ public class LocationDependenciesTest {
 	@Before
 	public void setUp() {
 		classes = new HashSet();
-		foo = createClass("eg.foo.Foo", "test/foo", new String[] {});
+		foo = createClass("eg.foo.Foo", "test/foo");
 
 		fooImpl = createClass("eg.fooimpl.FooImpl", "test/foo", "eg.foo.Foo",
 				"eg.util.SomeUtil");
 
 		someUtil = createClass("eg.util.SomeUtil", "test/util",
 				"eg.util.AnotherUtil");
-		anotherUtil = createClass("eg.util.AnotherUtil", "test/util",
-				new String[] {});
+		anotherUtil = createClass("eg.util.AnotherUtil", "test/util"
+        );
 		classes.add(foo);
 		classes.add(fooImpl);
 		classes.add(someUtil);

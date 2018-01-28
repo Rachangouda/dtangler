@@ -35,13 +35,13 @@ public class RecursiveFileFinderTest {
 	@Test
 	public void testGetFilesWithPaths() {
 		RecursiveFileFinder fileFinder = new RecursiveFileFinder();
-		fileFinder.setFilter(new FullPathWildCardFileFilter(Arrays
-				.asList(".class"), Collections.EMPTY_LIST));
+		fileFinder.setFilter(new FullPathWildCardFileFilter(
+				Collections.singletonList(".class"), Collections.emptyList()));
 		String path1 = getPath("testdata");
 		fileFinder.findFiles(path1);
 		Map<File, String> actual = fileFinder.getFilesWithPaths();
 		Collection<String> values = actual.values();
-		Set<String> paths = new HashSet(values);
+		Set<String> paths = new HashSet<>(values);
 
 		assertEquals(1, paths.size());
 		assertTrue(paths.iterator().next().endsWith("testdata"));
@@ -66,13 +66,9 @@ public class RecursiveFileFinderTest {
 	}
 
 	@Test
-	public void testFindClassFilesWithFilter() throws URISyntaxException {
+	public void testFindClassFilesWithFilter() {
 		RecursiveFileFinder fileFinder = new RecursiveFileFinder();
-		fileFinder.setFilter(new FileFilter() {
-			public boolean accept(File pathname) {
-				return pathname.getName().endsWith(".class");
-			}
-		});
+		fileFinder.setFilter(pathname -> pathname.getName().endsWith(".class"));
 
 		fileFinder.findFiles(getTestDataPath());
 		assertEquals(4, fileFinder.getFiles().size());

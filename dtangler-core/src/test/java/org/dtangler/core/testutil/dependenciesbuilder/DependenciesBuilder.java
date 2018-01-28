@@ -29,7 +29,7 @@ public class DependenciesBuilder {
 	}
 
 	protected Map<Dependable, Integer> createMap(Dependable... items) {
-		Map<Dependable, Integer> result = new HashMap();
+		Map<Dependable, Integer> result = new HashMap<>();
 		for (Dependable item : items) {
 			result.put(item, 1);
 		}

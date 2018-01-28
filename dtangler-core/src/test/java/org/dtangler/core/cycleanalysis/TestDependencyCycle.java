@@ -17,8 +17,8 @@ public class TestDependencyCycle extends DependencyCycle {
 		super(toDependables(names));
 	}
 
-	public static List<Dependable> toDependables(List<String> strings) {
-		List<Dependable> cycle = new ArrayList<Dependable>();
+	private static List<Dependable> toDependables(List<String> strings) {
+		List<Dependable> cycle = new ArrayList<>();
 		for (String string : strings) {
 			cycle.add(new TestDependable(string));
 		}

@@ -9,11 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.dtangler.core.exception.DtException;
 import org.dtangler.core.testutil.ClassPathEntryFinder;
@@ -34,53 +30,61 @@ public class ItemDependenciesStreamParserTest {
 				new File(dtPath), "UTF-8");
 		assertEquals(10, items.size());
 		List<String> listNames = getItemNames(items);
-		assertTrue(listNames.containsAll(new HashSet<String>(Arrays.asList(
+		assertTrue(listNames.containsAll(new HashSet<>(Arrays.asList(
 				"Homer", "Pizza", "Pepperoni", "Cheese", "Beer", "Bart", "Lisa", "Marge", "Coca Cola", "Onion"))));
 		for (Item item : items) {
-			if (item.getDisplayname().equals("Homer")) {
-				assertEquals(item.getDependencies().size(), 2);
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("Pizza"),
-								new Item("Beer")))));
-			} else if (item.getDisplayname().equals("Pizza")) {
-				assertEquals(item.getDependencies().size(), 2);
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("Pepperoni"),
-								new Item("Cheese")))));
-			} else if (item.getDisplayname().equals("Bart")) {
-				assertEquals(item.getDependencies().size(), 2);
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("Pizza"),
-								new Item("Coca Cola")))));
-			} else if (item.getDisplayname().equals("Lisa")) {
-				assertEquals(item.getDependencies().size(), 3);
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("Pizza"),
-								new Item("Onion"),
-								new Item("Coca Cola")))));
-			} else if (item.getDisplayname().equals("Marge")) {
-				assertEquals(item.getDependencies().size(), 1);
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("Onion")))));
-			} else if (item.getDisplayname().equals("Coca Cola") ||
-					item.getDisplayname().equals("Onion") ||
-					item.getDisplayname().equals("Beer") ||
-					item.getDisplayname().equals("Pepperoni") ||
-					item.getDisplayname().equals("Cheese")) {
-				assertEquals(item.getDependencies().size(), 0);
-			} else {
-				assertTrue(false);
+			switch (item.getDisplayname()) {
+				case "Homer":
+					assertEquals(item.getDependencies().size(), 2);
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Arrays.asList(new Item("Pizza"),
+									new Item("Beer")))));
+					break;
+				case "Pizza":
+					assertEquals(item.getDependencies().size(), 2);
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Arrays.asList(new Item("Pepperoni"),
+									new Item("Cheese")))));
+					break;
+				case "Bart":
+					assertEquals(item.getDependencies().size(), 2);
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Arrays.asList(new Item("Pizza"),
+									new Item("Coca Cola")))));
+					break;
+				case "Lisa":
+					assertEquals(item.getDependencies().size(), 3);
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Arrays.asList(new Item("Pizza"),
+									new Item("Onion"),
+									new Item("Coca Cola")))));
+					break;
+				case "Marge":
+					assertEquals(item.getDependencies().size(), 1);
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Collections.singletonList(new Item("Onion")))));
+					break;
+				case "Coca Cola":
+				case "Onion":
+				case "Beer":
+				case "Pepperoni":
+				case "Cheese":
+					assertEquals(item.getDependencies().size(), 0);
+					break;
+				default:
+					assertTrue(false);
+					break;
 			}
 		}
 	}
 
 	@Test
 	public void testLineParserWhiteSpaces() {
-		Set<String> setAbcdef = new HashSet<String>(Arrays.asList(
+		Set<String> setAbcdef = new HashSet<>(Arrays.asList(
 				"a", "b", "c", "d", "e", "f"));
 		ValidScopes validScopes = new ValidScopes();
 		ItemDependenciesStreamParser parser = new ItemDependenciesStreamParser();
-		List<String> listNames = null;
+		List<String> listNames;
 
 		listNames = getItemNames(parser.parseItem(validScopes, "a b c d e f", "UTF-8"));
 		assertTrue(listNames.containsAll(setAbcdef));
@@ -126,7 +130,7 @@ public class ItemDependenciesStreamParserTest {
 		List<Item> items = parser.parseItem(validScopes, "itemScope {a b c d e f g h i j k l m n}", "UTF-8");
 		assertEquals(1, items.size());
 		List<String> listNames = getItemNames(items);
-		assertTrue(listNames.containsAll(new HashSet<String>(Arrays.asList("n"))));
+		assertTrue(listNames.containsAll(new HashSet<>(Collections.singletonList("n"))));
 		validScopes.generateScopeNamesForUndefinedScopeNames("scope #", "#");
 		assertEquals(14, validScopes.getNumberOfScopes());
 		assertEquals(14, validScopes.getScopeNames().length);
@@ -142,7 +146,7 @@ public class ItemDependenciesStreamParserTest {
 	}
 
 	private List<String> getItemNames(Set<Item> items) {
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		for (Item item : items) {
 			names.add(item.getDisplayname());
 		}
@@ -150,7 +154,7 @@ public class ItemDependenciesStreamParserTest {
 	}
 
 	private List<String> getItemNames(List<Item> items) {
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		for (Item item : items) {
 			names.add(item.getDisplayname());
 		}

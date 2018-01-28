@@ -100,7 +100,7 @@ public class JavaArgumentParsingAcceptanceTest {
 		Set<Dependable> locationScopeItems = engine.getDependencies(args)
 				.getDependencyGraph(JavaScope.locations).getAllItems();
 
-		assertContents(locationScopeItems, new HashSet(Arrays.asList(jarPath,
+		assertContents(locationScopeItems, new HashSet<>(Arrays.asList(jarPath,
 				classPath)));
 
 		store("jarLocationArguments", scope + " " + inputKey
@@ -111,7 +111,7 @@ public class JavaArgumentParsingAcceptanceTest {
 
 	private void assertContents(Set<Dependable> actual, Set<String> expected) {
 		Iterator<Dependable> i = actual.iterator();
-		Set<String> dependableNames = new HashSet();
+		Set<String> dependableNames = new HashSet<>();
 		while (i.hasNext())
 			dependableNames.add(i.next().getDisplayName());
 		assertEquals(expected, dependableNames);

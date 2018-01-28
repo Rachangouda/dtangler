@@ -44,7 +44,7 @@ public class ArgumentsTest {
 	public void testInputConfiguration() {
 		String path1 = "d:/temp";
 		String path2 = "test/folder";
-		List<String> paths = new ArrayList();
+		List<String> paths = new ArrayList<>();
 		paths.add(path1);
 		paths.add(path2);
 
@@ -137,21 +137,21 @@ public class ArgumentsTest {
 	}
 
 	private Map<String, Group> createGroup(String... deps) {
-		Map<String, Group> result = new HashMap();
-		result.put("foo", new Group("foo", new HashSet(Arrays.asList(deps))));
+		Map<String, Group> result = new HashMap<>();
+		result.put("foo", new Group("foo", new HashSet<>(Arrays.asList(deps))));
 		return result;
 	}
 
 	private Map<String, Group> createGroupWithExclusion(String... deps) {
-		Map<String, Group> result = new HashMap();
-		result.put("foo", new Group("foo", Collections.EMPTY_SET, new HashSet(
+		Map<String, Group> result = new HashMap<>();
+		result.put("foo", new Group("foo", Collections. emptySet(), new HashSet<>(
 				Arrays.asList(deps))));
 		return result;
 	}
 
 	private Map<String, Set<String>> createMap(String key, String... values) {
-		Map<String, Set<String>> result = new HashMap();
-		result.put(key, new HashSet(Arrays.asList(values)));
+		Map<String, Set<String>> result = new HashMap<>();
+		result.put(key, new HashSet<>(Arrays.asList(values)));
 		return result;
 	}
 

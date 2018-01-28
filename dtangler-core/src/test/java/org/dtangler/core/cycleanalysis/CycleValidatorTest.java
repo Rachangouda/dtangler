@@ -67,14 +67,14 @@ public class CycleValidatorTest {
 		assertCycle(cycle, L2, L3, L1, L2);
 	}
 
-	void assertCycle(DependencyCycle actual, Dependable... expected) {
+	private void assertCycle(DependencyCycle actual, Dependable... expected) {
 		assertEquals(expected.length, actual.getElements().size());
 		for (int i = 0; i < expected.length; i++)
 			assertEquals(expected[i], actual.getElements().get(i));
 	}
 
 	protected Map<Dependable, Integer> createMap(Dependable... items) {
-		Map<Dependable, Integer> result = new HashMap();
+		Map<Dependable, Integer> result = new HashMap<>();
 		for (Dependable item : items) {
 			result.put(item, 1);
 		}

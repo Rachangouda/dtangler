@@ -118,8 +118,8 @@ public class DependencyEnginePool {
 						"unable to find a dependency engine with id: "
 								+ arguments.getDependencyEngineId());
 			}
-		};
-		return dependencyEngine;
+		}
+        return dependencyEngine;
 	}
 
 	public DependencyEngine getDefaultEngine() {
@@ -263,7 +263,7 @@ public class DependencyEnginePool {
 	private boolean isJarFileName(String fileName) {
 		if (fileName == null)
 			throw new DtException("invalid file name: null");
-		return fileName.lastIndexOf("!") >= 0 ? true : false;
+		return fileName.lastIndexOf("!") >= 0;
 	}
 
 	private String getJarFileEntryName(String fileName) {

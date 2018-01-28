@@ -40,7 +40,7 @@ public class ClassFileParserTest {
 		assertEquals("org.dtangler.javaengine.classfileparser", result.getPackage());
 	}
 
-	public JavaClass parseJava9Class(String path, String className) {
+	private JavaClass parseJava9Class(String path, String className) {
 		String resource = java9path + "/" + path + "/" + className;
 		try {
 			if(java9path.endsWith(".jar")){
@@ -62,7 +62,7 @@ public class ClassFileParserTest {
 
 
 	@Test
-	public void testGetClassName() throws IOException {
+	public void testGetClassName() {
 		JavaClass result = parse("SimpleClass.class");
 		assertEquals(getTestDataPackage() + ".SimpleClass", result
 				.getFullName());
@@ -74,7 +74,7 @@ public class ClassFileParserTest {
 	}
 
 	@Test
-	public void testGetSourceFileName() throws IOException {
+	public void testGetSourceFileName() {
 		JavaClass result = parse("SimpleClass.class");
 		assertEquals("SimpleClass.java", result.getSourceFileName());
 	}

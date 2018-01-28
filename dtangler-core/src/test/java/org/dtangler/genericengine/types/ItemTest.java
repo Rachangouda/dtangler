@@ -126,16 +126,16 @@ public class ItemTest {
 		assertNotNull(item.getFullyqualifiedname());
 		assertEquals(item.getFullyqualifiedname().split("[\\s]").length,
 				parents.length + 1);
-		String fullyqualifiedName = "";
-		for (int i = 0; i < parents.length; i++) {
-			assertEquals(Item.decodeValue(Item.encodeValue(parents[i])),
-					parents[i]);
-			assertFalse(Item.encodeValue(parents[i]).equals(parents[i]));
-			assertNotNull(Item.encodeValue(parents[i]));
-			fullyqualifiedName += (Item.encodeValue(parents[i]) + " ");
+		StringBuilder fullyqualifiedName = new StringBuilder();
+		for (String parent : parents) {
+			assertEquals(Item.decodeValue(Item.encodeValue(parent)),
+					parent);
+			assertFalse(Item.encodeValue(parent).equals(parent));
+			assertNotNull(Item.encodeValue(parent));
+			fullyqualifiedName.append(Item.encodeValue(parent)).append(" ");
 		}
-		fullyqualifiedName += "item";
-		assertEquals(item.getFullyqualifiedname(), fullyqualifiedName);
+		fullyqualifiedName.append("item");
+		assertEquals(item.getFullyqualifiedname(), fullyqualifiedName.toString());
 	}
 
 	@Test

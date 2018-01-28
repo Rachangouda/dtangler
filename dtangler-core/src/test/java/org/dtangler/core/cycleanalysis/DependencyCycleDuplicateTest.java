@@ -67,11 +67,11 @@ public class DependencyCycleDuplicateTest {
 	}
 
 	private Set<DependencyCycle> makeSet(DependencyCycle... cycles) {
-		return new HashSet(Arrays.asList(cycles));
+		return new HashSet<>(Arrays.asList(cycles));
 	}
 
 	private DependencyCycle makeCycle(String... items) {
-		List<String> list = new ArrayList(Arrays.asList(items));
+		List<String> list = new ArrayList<>(Arrays.asList(items));
 		list.add(items[0]);
 		return new TestDependencyCycle(list);
 		// FIXME: this ctor wants 1st and last element to be the same

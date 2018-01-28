@@ -8,11 +8,7 @@ package org.dtangler.javaengine.dependencyengine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.dtangler.core.configuration.Arguments;
 import org.dtangler.core.dependencies.Dependable;
@@ -29,7 +25,7 @@ public class JavaDependencyEngineTest {
 	private final String path2 = ClassPathEntryFinder
 			.getPathContaining("testdata-good-deps");
 
-	List<String> path = Arrays.asList(path2);
+	List<String> path = Collections.singletonList(path2);
 
 	@Test
 	public void testGetJarDependencies() {
@@ -37,7 +33,7 @@ public class JavaDependencyEngineTest {
 				+ "/org/dtangler/core/acceptancetests/testdata/jarexample.jar";
 
 		Arguments args = new Arguments();
-		args.setInput(Arrays.asList(path));
+		args.setInput(Collections.singletonList(path));
 
 		JavaDependencyEngine engine = new JavaDependencyEngine();
 		Dependencies jarDeps = engine.getDependencies(args);
@@ -88,7 +84,7 @@ public class JavaDependencyEngineTest {
 		List<String> items = getItemNames(deps.getAllItems());
 
 		assertEquals(6, items.size());
-		assertTrue(items.containsAll(new HashSet(Arrays.asList(
+		assertTrue(items.containsAll(new HashSet<>(Arrays.asList(
 				"MySecondClient", "MyClient", "MyService", "AnotherClass",
 				"MyApi", "YetAnotherClass"))));
 	}
@@ -106,7 +102,7 @@ public class JavaDependencyEngineTest {
 	}
 
 	private List<String> getItemNames(Set<Dependable> items) {
-		List<String> names = new ArrayList();
+		List<String> names = new ArrayList<>();
 		for (Dependable dep : items) {
 			names.add(dep.getDisplayName());
 		}

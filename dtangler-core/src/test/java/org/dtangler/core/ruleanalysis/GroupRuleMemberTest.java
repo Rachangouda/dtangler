@@ -27,10 +27,10 @@ public class GroupRuleMemberTest {
 		String containedSubpackage = "org.db";
 		String otherPackage = "test.util";
 
-		Set<String> included = new HashSet();
+		Set<String> included = new HashSet<>();
 		included.add(containedPackages);
 
-		Set<String> excluded = new HashSet();
+		Set<String> excluded = new HashSet<>();
 		excluded.add(excludedPackages);
 
 		Group a = new Group("A", included, excluded);

@@ -143,8 +143,8 @@ public class CycleDetectionAcceptanceTest {
 						"bay"))).size());
 	}
 
-	protected Map<Dependable, Integer> createMap(Dependable... items) {
-		Map<Dependable, Integer> result = new HashMap();
+	private Map<Dependable, Integer> createMap(Dependable... items) {
+		Map<Dependable, Integer> result = new HashMap<>();
 		for (Dependable item : items) {
 			result.put(item, 1);
 		}

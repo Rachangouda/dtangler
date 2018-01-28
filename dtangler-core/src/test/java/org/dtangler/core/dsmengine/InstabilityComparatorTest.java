@@ -28,14 +28,14 @@ public class InstabilityComparatorTest {
 
 	@Test
 	public void testSortOrder() {
-		DependencyGraph deps = new DependencyGraph(null, new HashSet(Arrays
+		DependencyGraph deps = new DependencyGraph(null, new HashSet<>(Arrays
 				.asList(FOO, BAR, BAY, XOO)));
 		deps.addDependency(FOO, BAR);
 		deps.addDependency(FOO, BAY);
 		deps.addDependency(XOO, FOO);
 		deps.addDependency(XOO, BAR);
 
-		List<Dependable> items = new ArrayList(Arrays
+		List<Dependable> items = new ArrayList<>(Arrays
 				.asList(FOO, BAR, BAY, XOO));
 		Collections.sort(items, new InstabilityComparator(deps));
 		assertEquals(XOO, items.get(0)); // ce = 2, ca = 1
@@ -47,7 +47,7 @@ public class InstabilityComparatorTest {
 	@Test
 	public void testSortOrderForEqualWeight() {
 		DependencyGraph deps = createDepsWithEqualInstability();
-		List<Dependable> items = new ArrayList(Arrays.asList(FOO, BAR, BAY,
+		List<Dependable> items = new ArrayList<>(Arrays.asList(FOO, BAR, BAY,
 				XOO, XYZ));
 		Collections.sort(items, new InstabilityComparator(deps));
 
@@ -59,7 +59,7 @@ public class InstabilityComparatorTest {
 	@Test
 	public void testSortOrderForEqualInstability() {
 		DependencyGraph deps = createDepsWithEqualInstability();
-		List<Dependable> items = new ArrayList(Arrays.asList(FOO, BAR, BAY,
+		List<Dependable> items = new ArrayList<>(Arrays.asList(FOO, BAR, BAY,
 				XOO, XYZ));
 		Collections.sort(items, new InstabilityComparator(deps));
 
@@ -69,7 +69,7 @@ public class InstabilityComparatorTest {
 	}
 
 	private DependencyGraph createDepsWithEqualInstability() {
-		DependencyGraph deps = new DependencyGraph(null, new HashSet(Arrays
+		DependencyGraph deps = new DependencyGraph(null, new HashSet<>(Arrays
 				.asList(FOO, BAR, BAY, XOO, XYZ)));
 		deps.addDependency(FOO, BAR);
 		deps.addDependency(FOO, BAY);

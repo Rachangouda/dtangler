@@ -6,6 +6,7 @@
 package org.dtangler.core.testutil.ruleanalysis;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class MockRule extends Rule {
 
 	public MockRule() {
 		super(Rule.Type.cannotDepend, new SingleRuleMember("TestRuleMember"),
-				new HashSet(Arrays.asList(new SingleRuleMember(
+				new HashSet<>(Collections.singletonList(new SingleRuleMember(
 						"TestRuleMember2"))));
 	}
 
@@ -28,17 +29,14 @@ public class MockRule extends Rule {
 	}
 
 	public MockRule(Type type, Group leftSide, Group rightside) {
-		super(type, new GroupRuleMember(leftSide), new HashSet(Arrays
-				.asList(new GroupRuleMember(rightside))));
+		super(type, new GroupRuleMember(leftSide), new HashSet<>(Collections.singletonList(new GroupRuleMember(rightside))));
 	}
 
 	public MockRule(Type type, Group leftSide, String rightSide) {
-		super(type, new GroupRuleMember(leftSide), new HashSet(Arrays
-				.asList(new SingleRuleMember(rightSide))));
+		super(type, new GroupRuleMember(leftSide), new HashSet<>(Collections.singletonList(new SingleRuleMember(rightSide))));
 	}
 
 	public MockRule(Type type, String leftSide, Group rightSide) {
-		super(type, new SingleRuleMember(leftSide), new HashSet(Arrays
-				.asList(new GroupRuleMember(rightSide))));
+		super(type, new SingleRuleMember(leftSide), new HashSet<>(Collections.singletonList(new GroupRuleMember(rightSide))));
 	}
 }

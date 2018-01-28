@@ -9,11 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.dtangler.core.configuration.Arguments;
 import org.dtangler.core.configuration.Group;
@@ -63,22 +59,22 @@ public class ConfigFileWriterTest {
 		args.setIgnoredFileMasks(Arrays.asList("foo*", "*bar*"));
 		args.setCyclesAllowed(true);
 
-		Map<String, Set<String>> cannotDepend = new HashMap();
+		Map<String, Set<String>> cannotDepend = new HashMap<>();
 		cannotDepend
-				.put("abc", new HashSet(Arrays.asList("def", "ghi", "ijk")));
-		cannotDepend.put("def", new HashSet(Arrays.asList("xyz")));
+				.put("abc", new HashSet<>(Arrays.asList("def", "ghi", "ijk")));
+		cannotDepend.put("def", new HashSet<>(Collections.singletonList("xyz")));
 		args.setForbiddenDependencies(cannotDepend);
 
-		Map<String, Set<String>> canDepend = new HashMap();
-		canDepend.put("xxx", new HashSet(Arrays.asList("yyy", "zzz")));
-		canDepend.put("afl", new HashSet(Arrays.asList("eif")));
+		Map<String, Set<String>> canDepend = new HashMap<>();
+		canDepend.put("xxx", new HashSet<>(Arrays.asList("yyy", "zzz")));
+		canDepend.put("afl", new HashSet<>(Collections.singletonList("eif")));
 		args.setAllowedDependencies(canDepend);
 
-		Map<String, Group> groups = new HashMap();
+		Map<String, Group> groups = new HashMap<>();
 		createGroup(groups, "A", "a.a", "a.b", "a.c");
 		createGroup(groups, "Group B", "b.a", "b.b.*", "b.c");
-		groups.put("exclusionGroup", new Group("exclusionGroup", new HashSet(
-				Arrays.asList("xx", "yy")), new HashSet(Arrays.asList("xx",
+		groups.put("exclusionGroup", new Group("exclusionGroup", new HashSet<>(
+				Arrays.asList("xx", "yy")), new HashSet<>(Arrays.asList("xx",
 				"yy"))));
 		args.setGroups(groups);
 		args.setScope("classes");
@@ -98,9 +94,7 @@ public class ConfigFileWriterTest {
 
 	private void createGroup(Map<String, Group> groups, String name,
 			String... items) {
-		Set<String> groupItems = new HashSet();
-		for (String item : items)
-			groupItems.add(item);
+		Set<String> groupItems = new HashSet<>(Arrays.asList(items));
 		groups.put(name, new Group(name, groupItems));
 	}
 }

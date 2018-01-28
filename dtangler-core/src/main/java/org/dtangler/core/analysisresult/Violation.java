@@ -11,7 +11,7 @@ import org.dtangler.core.dependencies.Dependable;
 
 public interface Violation {
 
-	public enum Severity {
+	enum Severity {
 		error, warning
 	}
 

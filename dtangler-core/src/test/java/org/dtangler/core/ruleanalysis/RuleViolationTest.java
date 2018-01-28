@@ -10,6 +10,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,14 +54,14 @@ public class RuleViolationTest {
 		Violation v = new RuleViolation(new Dependency(depA, depB),
 				new MockRule());
 
-		assertTrue(v.appliesTo(new HashSet(Arrays.asList(depA, depB, depC))));
-		assertTrue(v.appliesTo(new HashSet(Arrays.asList(depA, depB))));
-		assertFalse(v.appliesTo(new HashSet(Arrays.asList(depA))));
-		assertFalse(v.appliesTo(new HashSet(Arrays.asList(depB))));
-		assertFalse(v.appliesTo(new HashSet(Arrays.asList(depC))));
+		assertTrue(v.appliesTo(new HashSet<>(Arrays.asList(depA, depB, depC))));
+		assertTrue(v.appliesTo(new HashSet<>(Arrays.asList(depA, depB))));
+		assertFalse(v.appliesTo(new HashSet<>(Collections.singletonList(depA))));
+		assertFalse(v.appliesTo(new HashSet<>(Collections.singletonList(depB))));
+		assertFalse(v.appliesTo(new HashSet<>(Collections.singletonList(depC))));
 	}
 
 	protected Set<RuleMember> createSet(RuleMember... items) {
-		return new HashSet(Arrays.asList(items));
+		return new HashSet<>(Arrays.asList(items));
 	}
 }

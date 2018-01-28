@@ -8,7 +8,7 @@ package org.dtangler.core.testutil.output;
 import org.dtangler.core.textui.Writer;
 
 public class MockWriter implements Writer {
-	static final String LINE_SEPARATOR = System.getProperty("line.separator");
+	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	private StringBuilder output = new StringBuilder();
 
 	public void print(String s) {

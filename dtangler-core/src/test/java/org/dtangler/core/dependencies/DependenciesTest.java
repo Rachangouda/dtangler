@@ -40,7 +40,7 @@ public class DependenciesTest {
 	private final Dependable b2 = new TestDependable("d", TestScope.scope3);
 
 	private Map<Dependable, Integer> createMap(Dependable... items) {
-		Map<Dependable, Integer> result = new HashMap();
+		Map<Dependable, Integer> result = new HashMap<>();
 		for (Dependable item : items) {
 			result.put(item, 1);
 		}
@@ -48,7 +48,7 @@ public class DependenciesTest {
 	}
 
 	private Set<Dependable> createSet(Dependable... items) {
-		return new HashSet(Arrays.asList(items));
+		return new HashSet<>(Arrays.asList(items));
 	}
 
 	@Test

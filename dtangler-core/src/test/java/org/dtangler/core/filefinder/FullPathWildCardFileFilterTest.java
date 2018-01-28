@@ -18,8 +18,8 @@ public class FullPathWildCardFileFilterTest {
 
 	@Test
 	public void testExtensionFilter() {
-		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(Arrays
-				.asList(".class"), Collections.EMPTY_LIST);
+		FullPathWildCardFileFilter f =
+				new FullPathWildCardFileFilter(Collections.singletonList(".class"), Collections.emptyList());
 		assertTrue(f.accept(new File("/foo.class")));
 		assertTrue(f.accept(new File("/BAR.CLASS")));
 		assertTrue(f.accept(new File("/foo/bar.class")));
@@ -30,8 +30,9 @@ public class FullPathWildCardFileFilterTest {
 
 	@Test
 	public void testExcludeLiteral() {
-		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(Arrays
-				.asList(".class"), Arrays.asList(new File("/foo.class")
+		FullPathWildCardFileFilter f =
+				new FullPathWildCardFileFilter(
+						Collections.singletonList(".class"), Collections.singletonList(new File("/foo.class")
 				.getAbsolutePath()));
 		assertFalse(f.accept(new File("/foo.class")));
 		assertTrue(f.accept(new File("/FOO.CLASS")));
@@ -41,8 +42,8 @@ public class FullPathWildCardFileFilterTest {
 
 	@Test
 	public void testExcludeMaskWithWildCardStart() {
-		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(Arrays
-				.asList(".class"), Arrays.asList("*foo.class"));
+		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(
+				Collections.singletonList(".class"), Collections.singletonList("*foo.class"));
 		assertFalse(f.accept(new File("/foo.class")));
 		assertFalse(f.accept(new File("/bar/foo.class")));
 		assertFalse(f.accept(new File("anotherfoo.class")));
@@ -52,8 +53,8 @@ public class FullPathWildCardFileFilterTest {
 
 	@Test
 	public void testExcludeMaskWithWildCardEnd() {
-		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(Arrays
-				.asList(".class"), Arrays.asList(new File("/foo*")
+		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(
+				Collections.singletonList(".class"), Collections.singletonList(new File("/foo*")
 				.getAbsolutePath()));
 		assertFalse(f.accept(new File("/foo.class")));
 		assertFalse(f.accept(new File("/foobar.class")));
@@ -64,8 +65,8 @@ public class FullPathWildCardFileFilterTest {
 
 	@Test
 	public void testExcludeMaskWithMultipleWildCards() {
-		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(Arrays
-				.asList(".class"), Arrays.asList("*foo*bar*"));
+		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(
+				Collections.singletonList(".class"), Collections.singletonList("*foo*bar*"));
 		assertTrue(f.accept(new File("/foo.class")));
 		assertTrue(f.accept(new File("/bar.class")));
 		assertFalse(f.accept(new File("/foobar.class")));
@@ -75,8 +76,8 @@ public class FullPathWildCardFileFilterTest {
 
 	@Test
 	public void testInsameWildCards() {
-		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(Arrays
-				.asList(".class"), Arrays.asList("***foo*****bar**"));
+		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(
+				Collections.singletonList(".class"), Collections.singletonList("***foo*****bar**"));
 		assertTrue(f.accept(new File("/foo.class")));
 		assertTrue(f.accept(new File("/bar.class")));
 		assertFalse(f.accept(new File("/foobar.class")));
@@ -86,8 +87,8 @@ public class FullPathWildCardFileFilterTest {
 
 	@Test
 	public void testMultipleMasks() {
-		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(Arrays
-				.asList(".class"), Arrays.asList("*foo*", "*bar*"));
+		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(
+				Collections.singletonList(".class"), Arrays.asList("*foo*", "*bar*"));
 		assertFalse(f.accept(new File("/foo.class")));
 		assertFalse(f.accept(new File("/bar.class")));
 		assertTrue(f.accept(new File("/bay.class")));
@@ -96,7 +97,7 @@ public class FullPathWildCardFileFilterTest {
 	@Test
 	public void testMultipleExtensions() {
 		FullPathWildCardFileFilter f = new FullPathWildCardFileFilter(Arrays
-				.asList(".class", ".jar"), Collections.EMPTY_LIST);
+				.asList(".class", ".jar"), Collections.emptyList());
 		assertTrue(f.accept(new File("/foo.class")));
 		assertTrue(f.accept(new File("/foo.jar")));
 		assertFalse(f.accept(new File("/foo.jarclass")));

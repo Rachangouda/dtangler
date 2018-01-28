@@ -38,8 +38,8 @@ public class RuleParserTest {
 				+ ParserConstants.CANNOT_DEPEND + item2
 				+ ParserConstants.SMALL_SEPARATOR + item3);
 
-		Map<String, Set<String>> forbidden = new HashMap();
-		Set<String> rightSide = new HashSet();
+		Map<String, Set<String>> forbidden = new HashMap<>();
+		Set<String> rightSide = new HashSet<>();
 
 		rightSide.add(item2.trim());
 		rightSide.add(item3.trim());
@@ -57,8 +57,8 @@ public class RuleParserTest {
 				+ ParserConstants.CAN_DEPEND + item2
 				+ ParserConstants.SMALL_SEPARATOR + item3);
 
-		Map<String, Set<String>> forbidden = new HashMap();
-		Set<String> rightSide = new HashSet();
+		Map<String, Set<String>> forbidden = new HashMap<>();
+		Set<String> rightSide = new HashSet<>();
 
 		rightSide.add(item2.trim());
 		rightSide.add(item3.trim());
@@ -79,8 +79,8 @@ public class RuleParserTest {
 
 		Arguments argument = parse(ParserConstants.RULES_KEY, rule);
 
-		Map<String, Set<String>> forbidden = new HashMap();
-		Set<String> rightSide = new HashSet();
+		Map<String, Set<String>> forbidden = new HashMap<>();
+		Set<String> rightSide = new HashSet<>();
 
 		rightSide.add(item2.trim());
 		rightSide.add(item3.trim());
@@ -90,8 +90,8 @@ public class RuleParserTest {
 
 		assertEquals(forbidden, argument.getForbiddenDependencies());
 
-		Map<String, Set<String>> allowed = new HashMap();
-		rightSide = new HashSet();
+		Map<String, Set<String>> allowed = new HashMap<>();
+		rightSide = new HashSet<>();
 		rightSide.add(item4.trim());
 
 		allowed.put(item1.trim(), rightSide);
@@ -105,7 +105,7 @@ public class RuleParserTest {
 	}
 
 	private Map<String, String> createValues(String key, String value) {
-		Map<String, String> values = new Hashtable<String, String>();
+		Map<String, String> values = new Hashtable<>();
 		values.put(key, value);
 		return values;
 	}

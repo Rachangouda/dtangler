@@ -42,11 +42,10 @@ public class JarFileParserTest {
 
 	private Set<JavaClass> getExpectedClasses(String path) {
 		RecursiveFileFinder fileFinder = new RecursiveFileFinder();
-		Set<JavaClass> classes = new HashSet();
+		Set<JavaClass> classes = new HashSet<>();
 		ClassFileParser parser = new ClassFileParser();
 
-		fileFinder.setFilter(new FullPathWildCardFileFilter(Arrays
-				.asList(".class"), Collections.EMPTY_LIST));
+		fileFinder.setFilter(new FullPathWildCardFileFilter(Collections.singletonList(".class"), Collections.EMPTY_LIST));
 		fileFinder.findFiles(path);
 		for (File file : fileFinder.getFiles()) {
 			classes.add(parser.parse(file));

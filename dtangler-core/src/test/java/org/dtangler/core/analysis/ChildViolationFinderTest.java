@@ -8,11 +8,7 @@ package org.dtangler.core.analysis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.dtangler.core.analysisresult.Violation;
 import org.dtangler.core.cycleanalysis.DependencyCycle;
@@ -31,7 +27,7 @@ import org.junit.Test;
 public class ChildViolationFinderTest {
 
 	private Dependencies dependencies = new Dependencies();
-	ChildViolationFinder finder;
+	private ChildViolationFinder finder;
 
 	private Dependable package1 = new TestDependable("eg.foo", TestScope.scope2);
 	private Dependable package2 = new TestDependable("eg.bar", TestScope.scope2);
@@ -67,7 +63,7 @@ public class ChildViolationFinderTest {
 
 	@Test
 	public void testFindCyclesInsideParents() {
-		Map<Dependable, Set<Violation>> childViolations = new HashMap();
+		Map<Dependable, Set<Violation>> childViolations;
 
 		childViolations = finder
 				.findChildViolationsForParents(createCycleViolationMap());
@@ -82,7 +78,7 @@ public class ChildViolationFinderTest {
 	}
 
 	private Map<Dependency, Set<Violation>> createCycleViolationMap() {
-		Map<Dependency, Set<Violation>> violations = new HashMap();
+		Map<Dependency, Set<Violation>> violations = new HashMap<>();
 		addDependencyCycle(fooClass1, bayClass1, violations);
 		addDependencyCycle(barClass1, barClass2, violations);
 		addDependencyCycle(barClass2, barClass3, violations);
@@ -91,13 +87,12 @@ public class ChildViolationFinderTest {
 
 	private void addDependencyCycle(Dependable part1, Dependable part2,
 			Map<Dependency, Set<Violation>> violations) {
-		violations.put(new Dependency(part1, part2), new HashSet(Arrays
-				.asList(new DependencyCycle(Arrays.asList(part1, part2)))));
+		violations.put(new Dependency(part1, part2), new HashSet<>(Collections.singletonList(new DependencyCycle(Arrays.asList(part1, part2)))));
 	}
 
 	@Test
 	public void testFindRuleViolationsInsideParents() {
-		Map<Dependable, Set<Violation>> childViolations = new HashMap();
+		Map<Dependable, Set<Violation>> childViolations;
 		finder = new ChildViolationFinder(dependencies);
 		childViolations = finder
 				.findChildViolationsForParents(createRuleViolationMap());
@@ -126,7 +121,7 @@ public class ChildViolationFinderTest {
 	}
 
 	private Map<Dependency, Set<Violation>> createRuleViolationMap() {
-		Map<Dependency, Set<Violation>> violations = new HashMap();
+		Map<Dependency, Set<Violation>> violations = new HashMap<>();
 		addRuleViolation(fooClass1, fooClass2, violations);
 		addRuleViolation(fooClass1, barClass2, violations);
 		addRuleViolation(barClass1, barClass3, violations);
@@ -138,11 +133,11 @@ public class ChildViolationFinderTest {
 			Map<Dependency, Set<Violation>> violations) {
 		Dependency dependency = new Dependency(dependant, dependee);
 		RuleViolation violation = createRuleViolation(dependant, dependee);
-		violations.put(dependency, new HashSet(Arrays.asList(violation)));
+		violations.put(dependency, new HashSet<>(Collections.singletonList(violation)));
 	}
 
 	private Rule createRule(Dependable left, Dependable... right) {
-		Set<RuleMember> rightSide = new HashSet();
+		Set<RuleMember> rightSide = new HashSet<>();
 		for (Dependable dep : right) {
 			rightSide.add(new SingleRuleMember(dep.getDisplayName()));
 		}

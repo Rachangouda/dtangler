@@ -25,9 +25,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class RuleCreatorTest {
-	private Map<String, Set<String>> forbiddenDependencies = new HashMap();
-	private Map<String, Set<String>> allowedDependencies = new HashMap();
-	private Map<String, Group> groups = new HashMap();
+	private Map<String, Set<String>> forbiddenDependencies = new HashMap<>();
+	private Map<String, Set<String>> allowedDependencies = new HashMap<>();
+	private Map<String, Group> groups = new HashMap<>();
 
 	protected static String item1Name = "c1";
 	protected static String item2Name = "c2";
@@ -159,14 +159,14 @@ public class RuleCreatorTest {
 
 	protected void addToMap(Map<String, Set<String>> map, String name,
 			String... items) {
-		Set<String> values = new HashSet();
+		Set<String> values = new HashSet<>();
 		for (String item : items)
 			values.add(item.trim());
 		map.put(name.trim(), values);
 	}
 
 	protected Group addGroup(String name, String... items) {
-		Set<String> values = new HashSet();
+		Set<String> values = new HashSet<>();
 		for (String item : items)
 			values.add(item.trim());
 		Group group = new Group(name.trim(), values);

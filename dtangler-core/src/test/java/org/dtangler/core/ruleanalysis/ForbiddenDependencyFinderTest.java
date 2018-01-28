@@ -63,7 +63,7 @@ public class ForbiddenDependencyFinderTest {
 		dependencies.addDependencies(item3, createMap(item4));
 
 		ForbiddenDependencyFinder analyzer = new ForbiddenDependencyFinder(
-				Collections.EMPTY_LIST);
+				Collections.emptyList());
 
 		analyzer.analyze(dependencies);
 		Map<Dependency, Set<Violation>> result = analyzer.getViolations();
@@ -74,7 +74,7 @@ public class ForbiddenDependencyFinderTest {
 
 	private Set<Violation> getAllViolations(
 			Map<Dependency, Set<Violation>> violations) {
-		Set<Violation> result = new HashSet();
+		Set<Violation> result = new HashSet<>();
 		for (Set<Violation> subSet : violations.values())
 			result.addAll(subSet);
 		return result;
@@ -95,7 +95,7 @@ public class ForbiddenDependencyFinderTest {
 				.getDisplayName()));
 
 		ForbiddenDependencyFinder analyzer = new ForbiddenDependencyFinder(
-				Arrays.asList(rule));
+				Collections.singletonList(rule));
 		analyzer.analyze(dependencies);
 		Set<Violation> result = getAllViolations(analyzer.getViolations());
 
@@ -171,7 +171,7 @@ public class ForbiddenDependencyFinderTest {
 				"eg.bar.*")));
 
 		ForbiddenDependencyFinder analyzer = new ForbiddenDependencyFinder(
-				Arrays.asList(rule));
+				Collections.singletonList(rule));
 		analyzer.analyze(dependencies);
 		Set<Violation> result = getAllViolations(analyzer.getViolations());
 
@@ -195,7 +195,7 @@ public class ForbiddenDependencyFinderTest {
 				createGroup("Group2", "item1", "item2")));
 
 		ForbiddenDependencyFinder analyzer = new ForbiddenDependencyFinder(
-				Arrays.asList(rule));
+				Collections.singletonList(rule));
 		analyzer.analyze(dependencies);
 		Set<Violation> result = getAllViolations(analyzer.getViolations());
 
@@ -226,7 +226,7 @@ public class ForbiddenDependencyFinderTest {
 				"item", "item*")));
 
 		ForbiddenDependencyFinder analyzer = new ForbiddenDependencyFinder(
-				Arrays.asList(rule));
+				Collections.singletonList(rule));
 		analyzer.analyze(dependencies);
 		Set<Violation> result = getAllViolations(analyzer.getViolations());
 
@@ -257,7 +257,7 @@ public class ForbiddenDependencyFinderTest {
 				"all", "*")));
 
 		ForbiddenDependencyFinder analyzer = new ForbiddenDependencyFinder(
-				Arrays.asList(rule));
+				Collections.singletonList(rule));
 		analyzer.analyze(dependencies);
 		Set<Violation> result = getAllViolations(analyzer.getViolations());
 
@@ -312,7 +312,7 @@ public class ForbiddenDependencyFinderTest {
 		Rule packageLevelRule = createRule(Rule.Type.cannotDepend,
 				new SingleRuleMember("eg.foo"), new SingleRuleMember("eg.bar"));
 		ForbiddenDependencyFinder analyzer = new ForbiddenDependencyFinder(
-				Arrays.asList(packageLevelRule));
+				Collections.singletonList(packageLevelRule));
 		analyzer.analyze(dependencies);
 		Set<Violation> results = getAllViolations(analyzer.getViolations());
 		assertEquals(2, results.size());
@@ -380,11 +380,11 @@ public class ForbiddenDependencyFinderTest {
 	}
 
 	private Group createGroup(String name, String... items) {
-		return new Group(name, new HashSet(Arrays.asList(items)));
+		return new Group(name, new HashSet<>(Arrays.asList(items)));
 	}
 
 	private Map<Dependable, Integer> createMap(Dependable... items) {
-		Map<Dependable, Integer> result = new HashMap();
+		Map<Dependable, Integer> result = new HashMap<>();
 		for (Dependable item : items) {
 			result.put(item, 1);
 		}
@@ -393,7 +393,7 @@ public class ForbiddenDependencyFinderTest {
 
 	private Rule createRule(Type type, RuleMember leftSide,
 			RuleMember... rightSideMembers) {
-		return new Rule(type, leftSide, new HashSet(Arrays
+		return new Rule(type, leftSide, new HashSet<>(Arrays
 				.asList(rightSideMembers)));
 	}
 }

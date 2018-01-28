@@ -16,7 +16,7 @@ import org.dtangler.core.dsm.DsmRow;
 public class DsmDriver {
 
 	private final Dsm dsm;
-	private final Map<String, Integer> itemIndices = new HashMap();
+	private final Map<String, Integer> itemIndices = new HashMap<>();
 
 	public DsmDriver(Dsm dsm) {
 		this.dsm = dsm;
@@ -35,7 +35,7 @@ public class DsmDriver {
 	}
 
 	public List<String> getRowNames() {
-		List<String> names = new ArrayList();
+		List<String> names = new ArrayList<>();
 		for (DsmRow row : dsm.getRows())
 			names.add(row.getDependee().getDisplayName());
 		return names;

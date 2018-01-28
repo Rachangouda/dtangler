@@ -5,11 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.dtangler.core.dependencies.Dependable;
 import org.dtangler.core.dependencies.Dependencies;
@@ -25,29 +21,33 @@ public class ItemDependencyBuilderTest {
 
 	@Test
 	public void testBuilder() {
-		Set<Item> items = new HashSet<Item>(Arrays.asList(new Item("Homer"),
+		Set<Item> items = new HashSet<>(Arrays.asList(new Item("Homer"),
 				new Item("Pizza"), new Item("Pepperoni"), new Item("Cheese"),
 				new Item("Beer")));
 		assertEquals(5, items.size());
 		for (Item item : items) {
 			assertEquals(0, item.getDependencies().size());
-			if (item.getDisplayname().equals("Homer")) {
-				item.addDependency(new Item("Pizza"));
-				item.addDependency(new Item("Beer"));
-				assertEquals(2, item.getDependencies().size());
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("Pizza"),
-								new Item("Beer")))));
-			} else if (item.getDisplayname().equals("Pizza")) {
-				assertEquals(0, item.getDependencies().size());
-				item.addDependency(new Item("Pepperoni"));
-				item.addDependency(new Item("Cheese"));
-				assertEquals(2, item.getDependencies().size());
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("Pepperoni"),
-								new Item("Cheese")))));
-			} else {
-				assertEquals(0, item.getDependencies().size());
+			switch (item.getDisplayname()) {
+				case "Homer":
+					item.addDependency(new Item("Pizza"));
+					item.addDependency(new Item("Beer"));
+					assertEquals(2, item.getDependencies().size());
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Arrays.asList(new Item("Pizza"),
+									new Item("Beer")))));
+					break;
+				case "Pizza":
+					assertEquals(0, item.getDependencies().size());
+					item.addDependency(new Item("Pepperoni"));
+					item.addDependency(new Item("Cheese"));
+					assertEquals(2, item.getDependencies().size());
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Arrays.asList(new Item("Pepperoni"),
+									new Item("Cheese")))));
+					break;
+				default:
+					assertEquals(0, item.getDependencies().size());
+					break;
 			}
 		}
 		assertEquals(5, items.size());
@@ -73,7 +73,7 @@ public class ItemDependencyBuilderTest {
 		assertTrue("organ".equals(validScopes.getDefaultScope().getDisplayName()));
 		assertEquals(1, validScopes.getDefaultScope().index());
 		List<String> listNames = getItemNames(items);
-		assertTrue(listNames.containsAll(new HashSet<String>(Arrays.asList(
+		assertTrue(listNames.containsAll(new HashSet<>(Arrays.asList(
 				"stomach", "eye", "homer"))));
 		assertEquals(items.size(), listNames.size());
 		Dependencies dependencies = ItemDependencyBuilder.getInstance().build(
@@ -83,7 +83,7 @@ public class ItemDependencyBuilderTest {
 		assertEquals(validScopes.getNumberOfScopes(), dependencies.getAvailableScopes().size());
 		assertTrue(validScopes.getDefaultScope().getDisplayName().equals(dependencies.getDefaultScope().getDisplayName()));
 		assertTrue(dependencies.getAvailableScopes().containsAll(
-				new ArrayList<ItemScope>(Arrays.asList(
+				new ArrayList<>(Arrays.asList(
 						new ItemScope("person", 0), new ItemScope("organ", 1)))));
 	}
 
@@ -98,28 +98,33 @@ public class ItemDependencyBuilderTest {
 				"UTF-8");
 		assertEquals(5, items.size());
 		List<String> listNames = getItemNames(items);
-		assertTrue(listNames.containsAll(new HashSet<String>(Arrays.asList(
+		assertTrue(listNames.containsAll(new HashSet<>(Arrays.asList(
 				"foo.jar", "foo.jar/eg.process", "foo.jar/eg.filters",
 				"foo.jar/eg.filters.InFilter", "foo.jar/eg.process.Process"))));
 		for (Item item : items) {
-			if (item.getDisplayname().equals("foo.jar")) {
-				assertEquals(0, item.getDependencies().size());
-			} else if (item.getDisplayname().equals("foo.jar/eg.process")) {
-				assertEquals(0, item.getDependencies().size());
-			} else if (item.getDisplayname().equals("foo.jar/eg.filters")) {
-				assertEquals(0, item.getDependencies().size());
-			} else if (item.getDisplayname().equals(
-					"foo.jar/eg.filters.InFilter")) {
-				assertEquals(1, item.getDependencies().size());
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("class",
-								"foo.jar/eg.process.Process", new String[] {
-										"foo.jar", "foo.jar/eg.process" })))));
-			} else if (item.getDisplayname().equals(
-					"foo.jar/eg.process.Process")) {
-				assertEquals(0, item.getDependencies().size());
-			} else {
-				assertTrue(false);
+			switch (item.getDisplayname()) {
+				case "foo.jar":
+					assertEquals(0, item.getDependencies().size());
+					break;
+				case "foo.jar/eg.process":
+					assertEquals(0, item.getDependencies().size());
+					break;
+				case "foo.jar/eg.filters":
+					assertEquals(0, item.getDependencies().size());
+					break;
+				case "foo.jar/eg.filters.InFilter":
+					assertEquals(1, item.getDependencies().size());
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<Item>(Collections.singletonList(new Item("class",
+									"foo.jar/eg.process.Process", new String[]{
+									"foo.jar", "foo.jar/eg.process"})))));
+					break;
+				case "foo.jar/eg.process.Process":
+					assertEquals(0, item.getDependencies().size());
+					break;
+				default:
+					assertTrue(false);
+					break;
 			}
 		}
 
@@ -150,24 +155,28 @@ public class ItemDependencyBuilderTest {
 				.getItemByName("foo.jar/eg.filters"));
 		for (Dependable dependable : dependencyGraphScopePackage.getAllItems()) {
 			assertNotNull(dependable);
-			if (dependable.getDisplayName().equals("foo.jar/eg.process")) {
-				assertEquals(1, dependencyGraphScopePackage.getDependants(
-						dependable).size());
-				assertTrue(getDependableNames(
-						dependencyGraphScopePackage.getDependants(dependable))
-						.containsAll(Arrays.asList("foo.jar/eg.filters")));
-				assertEquals(0, dependencyGraphScopePackage.getDependencies(
-						dependable).size());
-			} else if (dependable.getDisplayName().equals("foo.jar/eg.filters")) {
-				assertEquals(0, dependencyGraphScopePackage.getDependants(
-						dependable).size());
-				assertEquals(1, dependencyGraphScopePackage.getDependencies(
-						dependable).size());
-				assertTrue(getDependableNames(
-						dependencyGraphScopePackage.getDependencies(dependable))
-						.containsAll(Arrays.asList("foo.jar/eg.process")));
-			} else {
-				assertTrue(false);
+			switch (dependable.getDisplayName()) {
+				case "foo.jar/eg.process":
+					assertEquals(1, dependencyGraphScopePackage.getDependants(
+							dependable).size());
+					assertTrue(getDependableNames(
+							dependencyGraphScopePackage.getDependants(dependable))
+							.containsAll(Collections.singletonList("foo.jar/eg.filters")));
+					assertEquals(0, dependencyGraphScopePackage.getDependencies(
+							dependable).size());
+					break;
+				case "foo.jar/eg.filters":
+					assertEquals(0, dependencyGraphScopePackage.getDependants(
+							dependable).size());
+					assertEquals(1, dependencyGraphScopePackage.getDependencies(
+							dependable).size());
+					assertTrue(getDependableNames(
+							dependencyGraphScopePackage.getDependencies(dependable))
+							.containsAll(Collections.singletonList("foo.jar/eg.process")));
+					break;
+				default:
+					assertTrue(false);
+					break;
 			}
 		}
 
@@ -180,28 +189,30 @@ public class ItemDependencyBuilderTest {
 				.getItemByName("foo.jar/eg.process.Process"));
 		for (Dependable dependable : dependencyGraphScopeClass.getAllItems()) {
 			assertNotNull(dependable);
-			if (dependable.getDisplayName().equals(
-					"foo.jar/eg.filters.InFilter")) {
-				assertEquals(0, dependencyGraphScopeClass.getDependants(
-						dependable).size());
-				assertEquals(1, dependencyGraphScopeClass.getDependencies(
-						dependable).size());
-				assertTrue(getDependableNames(
-						dependencyGraphScopeClass.getDependencies(dependable))
-						.containsAll(
-								Arrays.asList("foo.jar/eg.process.Process")));
-			} else if (dependable.getDisplayName().equals(
-					"foo.jar/eg.process.Process")) {
-				assertEquals(1, dependencyGraphScopeClass.getDependants(
-						dependable).size());
-				assertTrue(getDependableNames(
-						dependencyGraphScopeClass.getDependants(dependable))
-						.containsAll(
-								Arrays.asList("foo.jar/eg.filters.InFilter")));
-				assertEquals(0, dependencyGraphScopeClass.getDependencies(
-						dependable).size());
-			} else {
-				assertTrue(false);
+			switch (dependable.getDisplayName()) {
+				case "foo.jar/eg.filters.InFilter":
+					assertEquals(0, dependencyGraphScopeClass.getDependants(
+							dependable).size());
+					assertEquals(1, dependencyGraphScopeClass.getDependencies(
+							dependable).size());
+					assertTrue(getDependableNames(
+							dependencyGraphScopeClass.getDependencies(dependable))
+							.containsAll(
+									Collections.singletonList("foo.jar/eg.process.Process")));
+					break;
+				case "foo.jar/eg.process.Process":
+					assertEquals(1, dependencyGraphScopeClass.getDependants(
+							dependable).size());
+					assertTrue(getDependableNames(
+							dependencyGraphScopeClass.getDependants(dependable))
+							.containsAll(
+									Collections.singletonList("foo.jar/eg.filters.InFilter")));
+					assertEquals(0, dependencyGraphScopeClass.getDependencies(
+							dependable).size());
+					break;
+				default:
+					assertTrue(false);
+					break;
 			}
 		}
 
@@ -225,29 +236,34 @@ public class ItemDependencyBuilderTest {
 				.getDependencyGraph(new ItemScope("1", 1));
 		for (Dependable dependable : dependencyGraphScope1.getAllItems()) {
 			assertNotNull(dependable);
-			if (dependable.getDisplayName().equals("B")) {
-				for (Dependable dependant : dependencyGraphScope1
-						.getDependants(dependable)) {
-					if (dependant.getDisplayName().equals("D")) {
-						assertEquals(6, dependencyGraphScope1
-								.getDependencyWeight(dependant, dependable));
-					} else {
-						assertTrue(false);
+			switch (dependable.getDisplayName()) {
+				case "B":
+					for (Dependable dependant : dependencyGraphScope1
+							.getDependants(dependable)) {
+						if (dependant.getDisplayName().equals("D")) {
+							assertEquals(6, dependencyGraphScope1
+									.getDependencyWeight(dependant, dependable));
+						} else {
+							assertTrue(false);
+						}
 					}
-				}
-			} else if (dependable.getDisplayName().equals("C")) {
-			} else if (dependable.getDisplayName().equals("D")) {
-				for (Dependable dependee : dependencyGraphScope1
-						.getDependencies(dependable)) {
-					if (dependee.getDisplayName().equals("B")) {
-						assertEquals(6, dependencyGraphScope1
-								.getDependencyWeight(dependable, dependee));
-					} else {
-						assertTrue(false);
+					break;
+				case "C":
+					break;
+				case "D":
+					for (Dependable dependee : dependencyGraphScope1
+							.getDependencies(dependable)) {
+						if (dependee.getDisplayName().equals("B")) {
+							assertEquals(6, dependencyGraphScope1
+									.getDependencyWeight(dependable, dependee));
+						} else {
+							assertTrue(false);
+						}
 					}
-				}
-			} else {
-				assertTrue(false);
+					break;
+				default:
+					assertTrue(false);
+					break;
 			}
 		}
 
@@ -255,103 +271,125 @@ public class ItemDependencyBuilderTest {
 				.getDependencyGraph(new ItemScope("2", 2));
 		for (Dependable dependable : dependencyGraphScope2.getAllItems()) {
 			assertNotNull(dependable);
-			if (dependable.getDisplayName().equals("E")) {
-				for (Dependable dependant : dependencyGraphScope2
-						.getDependants(dependable)) {
-					if (dependant.getDisplayName().equals("I")) {
-						assertEquals(1, dependencyGraphScope2
-								.getDependencyWeight(dependant, dependable));
-					} else {
-						assertTrue(false);
+			switch (dependable.getDisplayName()) {
+				case "E":
+					for (Dependable dependant : dependencyGraphScope2
+							.getDependants(dependable)) {
+						if (dependant.getDisplayName().equals("I")) {
+							assertEquals(1, dependencyGraphScope2
+									.getDependencyWeight(dependant, dependable));
+						} else {
+							assertTrue(false);
+						}
 					}
-				}
-				for (Dependable dependee : dependencyGraphScope2
-						.getDependencies(dependable)) {
-					if (dependee.getDisplayName().equals("F")) {
-						assertEquals(7, dependencyGraphScope2
-								.getDependencyWeight(dependable, dependee));
-					} else {
-						assertTrue(false);
+					for (Dependable dependee : dependencyGraphScope2
+							.getDependencies(dependable)) {
+						if (dependee.getDisplayName().equals("F")) {
+							assertEquals(7, dependencyGraphScope2
+									.getDependencyWeight(dependable, dependee));
+						} else {
+							assertTrue(false);
+						}
 					}
-				}
-			} else if (dependable.getDisplayName().equals("F")) {
-				for (Dependable dependant : dependencyGraphScope2
-						.getDependants(dependable)) {
-					if (dependant.getDisplayName().equals("E")) {
-						assertEquals(7, dependencyGraphScope2
-								.getDependencyWeight(dependant, dependable));
-					} else if (dependant.getDisplayName().equals("I")) {
-						assertEquals(3, dependencyGraphScope2
-								.getDependencyWeight(dependant, dependable));
-					} else if (dependant.getDisplayName().equals("G")) {
-						assertEquals(2, dependencyGraphScope2
-								.getDependencyWeight(dependant, dependable));
-					} else {
-						assertTrue(false);
+					break;
+				case "F":
+					for (Dependable dependant : dependencyGraphScope2
+							.getDependants(dependable)) {
+						switch (dependant.getDisplayName()) {
+							case "E":
+								assertEquals(7, dependencyGraphScope2
+										.getDependencyWeight(dependant, dependable));
+								break;
+							case "I":
+								assertEquals(3, dependencyGraphScope2
+										.getDependencyWeight(dependant, dependable));
+								break;
+							case "G":
+								assertEquals(2, dependencyGraphScope2
+										.getDependencyWeight(dependant, dependable));
+								break;
+							default:
+								assertTrue(false);
+								break;
+						}
 					}
-				}
-			} else if (dependable.getDisplayName().equals("G")) {
-				for (Dependable dependant : dependencyGraphScope2
-						.getDependants(dependable)) {
-					if (dependant.getDisplayName().equals("H")) {
-						assertEquals(10, dependencyGraphScope2
-								.getDependencyWeight(dependant, dependable));
-					} else if (dependant.getDisplayName().equals("I")) {
-						assertEquals(2, dependencyGraphScope2
-								.getDependencyWeight(dependant, dependable));
-					} else {
-						assertTrue(false);
+					break;
+				case "G":
+					for (Dependable dependant : dependencyGraphScope2
+							.getDependants(dependable)) {
+						switch (dependant.getDisplayName()) {
+							case "H":
+								assertEquals(10, dependencyGraphScope2
+										.getDependencyWeight(dependant, dependable));
+								break;
+							case "I":
+								assertEquals(2, dependencyGraphScope2
+										.getDependencyWeight(dependant, dependable));
+								break;
+							default:
+								assertTrue(false);
+								break;
+						}
 					}
-				}
-				for (Dependable dependee : dependencyGraphScope2
-						.getDependencies(dependable)) {
-					if (dependee.getDisplayName().equals("F")) {
-						assertEquals(2, dependencyGraphScope2
-								.getDependencyWeight(dependable, dependee));
-					} else {
-						assertTrue(false);
+					for (Dependable dependee : dependencyGraphScope2
+							.getDependencies(dependable)) {
+						if (dependee.getDisplayName().equals("F")) {
+							assertEquals(2, dependencyGraphScope2
+									.getDependencyWeight(dependable, dependee));
+						} else {
+							assertTrue(false);
+						}
 					}
-				}
-			} else if (dependable.getDisplayName().equals("H")) {
-				for (Dependable dependant : dependencyGraphScope2
-						.getDependants(dependable)) {
-					if (dependant.getDisplayName().equals("I")) {
-						assertEquals(4, dependencyGraphScope2
-								.getDependencyWeight(dependant, dependable));
-					} else {
-						assertTrue(false);
+					break;
+				case "H":
+					for (Dependable dependant : dependencyGraphScope2
+							.getDependants(dependable)) {
+						if (dependant.getDisplayName().equals("I")) {
+							assertEquals(4, dependencyGraphScope2
+									.getDependencyWeight(dependant, dependable));
+						} else {
+							assertTrue(false);
+						}
 					}
-				}
-				for (Dependable dependee : dependencyGraphScope2
-						.getDependencies(dependable)) {
-					if (dependee.getDisplayName().equals("G")) {
-						assertEquals(10, dependencyGraphScope2
-								.getDependencyWeight(dependable, dependee));
-					} else {
-						assertTrue(false);
+					for (Dependable dependee : dependencyGraphScope2
+							.getDependencies(dependable)) {
+						if (dependee.getDisplayName().equals("G")) {
+							assertEquals(10, dependencyGraphScope2
+									.getDependencyWeight(dependable, dependee));
+						} else {
+							assertTrue(false);
+						}
 					}
-				}
-			} else if (dependable.getDisplayName().equals("I")) {
-				for (Dependable dependee : dependencyGraphScope2
-						.getDependencies(dependable)) {
-					if (dependee.getDisplayName().equals("E")) {
-						assertEquals(1, dependencyGraphScope2
-								.getDependencyWeight(dependable, dependee));
-					} else if (dependee.getDisplayName().equals("F")) {
-						assertEquals(3, dependencyGraphScope2
-								.getDependencyWeight(dependable, dependee));
-					} else if (dependee.getDisplayName().equals("G")) {
-						assertEquals(2, dependencyGraphScope2
-								.getDependencyWeight(dependable, dependee));
-					} else if (dependee.getDisplayName().equals("H")) {
-						assertEquals(4, dependencyGraphScope2
-								.getDependencyWeight(dependable, dependee));
-					} else {
-						assertTrue(false);
+					break;
+				case "I":
+					for (Dependable dependee : dependencyGraphScope2
+							.getDependencies(dependable)) {
+						switch (dependee.getDisplayName()) {
+							case "E":
+								assertEquals(1, dependencyGraphScope2
+										.getDependencyWeight(dependable, dependee));
+								break;
+							case "F":
+								assertEquals(3, dependencyGraphScope2
+										.getDependencyWeight(dependable, dependee));
+								break;
+							case "G":
+								assertEquals(2, dependencyGraphScope2
+										.getDependencyWeight(dependable, dependee));
+								break;
+							case "H":
+								assertEquals(4, dependencyGraphScope2
+										.getDependencyWeight(dependable, dependee));
+								break;
+							default:
+								assertTrue(false);
+								break;
+						}
 					}
-				}
-			} else {
-				assertTrue(false);
+					break;
+				default:
+					assertTrue(false);
+					break;
 			}
 		}
 
@@ -364,45 +402,55 @@ public class ItemDependencyBuilderTest {
 				"UTF-8");
 		assertEquals(9, items.size());
 		List<String> listNames = getItemNames(items);
-		assertTrue(listNames.containsAll(new HashSet<String>(Arrays.asList("A",
+		assertTrue(listNames.containsAll(new HashSet<>(Arrays.asList("A",
 				"B", "C", "D", "E", "F", "G", "H", "I"))));
 		for (Item item : items) {
-			if (item.getDisplayname().equals("A")) {
-				assertEquals(0, item.getDependencies().size());
-			} else if (item.getDisplayname().equals("B")) {
-				assertEquals(0, item.getDependencies().size());
-			} else if (item.getDisplayname().equals("C")) {
-				assertEquals(0, item.getDependencies().size());
-			} else if (item.getDisplayname().equals("D")) {
-				assertEquals(1, item.getDependencies().size());
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("1", "B",
-								new String[] { "A" })))));
-			} else if (item.getDisplayname().equals("E")) {
-				assertEquals(1, item.getDependencies().size());
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("2", "F",
-								new String[] { "A", "B" })))));
-			} else if (item.getDisplayname().equals("F")) {
-				assertEquals(0, item.getDependencies().size());
-			} else if (item.getDisplayname().equals("G")) {
-				assertEquals(1, item.getDependencies().size());
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("2", "F",
-								new String[] { "A", "B" })))));
-			} else if (item.getDisplayname().equals("H")) {
-				assertEquals(1, item.getDependencies().size());
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("2", "G",
-								new String[] { "A", "B" })))));
-			} else if (item.getDisplayname().equals("I")) {
-				assertEquals(4, item.getDependencies().size());
-				assertTrue(item.getDependencies().keySet().containsAll(
-						new HashSet<Item>(Arrays.asList(new Item("2", "H",
-								new String[] { "A", "D" }), new Item("2", "E",
-								new String[] { "A", "B" }), new Item("2", "F",
-								new String[] { "A", "B" }), new Item("2", "G",
-								new String[] { "A", "B" })))));
+			switch (item.getDisplayname()) {
+				case "A":
+					assertEquals(0, item.getDependencies().size());
+					break;
+				case "B":
+					assertEquals(0, item.getDependencies().size());
+					break;
+				case "C":
+					assertEquals(0, item.getDependencies().size());
+					break;
+				case "D":
+					assertEquals(1, item.getDependencies().size());
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Collections.singletonList(new Item("1", "B",
+									new String[]{"A"})))));
+					break;
+				case "E":
+					assertEquals(1, item.getDependencies().size());
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Collections.singletonList(new Item("2", "F",
+									new String[]{"A", "B"})))));
+					break;
+				case "F":
+					assertEquals(0, item.getDependencies().size());
+					break;
+				case "G":
+					assertEquals(1, item.getDependencies().size());
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Collections.singletonList(new Item("2", "F",
+									new String[]{"A", "B"})))));
+					break;
+				case "H":
+					assertEquals(1, item.getDependencies().size());
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Collections.singletonList(new Item("2", "G",
+									new String[]{"A", "B"})))));
+					break;
+				case "I":
+					assertEquals(4, item.getDependencies().size());
+					assertTrue(item.getDependencies().keySet().containsAll(
+							new HashSet<>(Arrays.asList(new Item("2", "H",
+									new String[]{"A", "D"}), new Item("2", "E",
+									new String[]{"A", "B"}), new Item("2", "F",
+									new String[]{"A", "B"}), new Item("2", "G",
+									new String[]{"A", "B"})))));
+					break;
 			}
 		}
 
@@ -432,29 +480,34 @@ public class ItemDependencyBuilderTest {
 		assertNotNull(dependencyGraphScope1.getItemByName("D"));
 		for (Dependable dependable : dependencyGraphScope1.getAllItems()) {
 			assertNotNull(dependable);
-			if (dependable.getDisplayName().equals("B")) {
-				assertEquals(1, dependencyGraphScope1.getDependants(dependable)
-						.size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope1.getDependants(dependable))
-						.containsAll(Arrays.asList("D")));
-				assertEquals(0, dependencyGraphScope1.getDependencies(
-						dependable).size());
-			} else if (dependable.getDisplayName().equals("C")) {
-				assertEquals(0, dependencyGraphScope1.getDependants(dependable)
-						.size());
-				assertEquals(0, dependencyGraphScope1.getDependencies(
-						dependable).size());
-			} else if (dependable.getDisplayName().equals("D")) {
-				assertEquals(0, dependencyGraphScope1.getDependants(dependable)
-						.size());
-				assertEquals(1, dependencyGraphScope1.getDependencies(
-						dependable).size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope1.getDependencies(dependable))
-						.containsAll(Arrays.asList("B")));
-			} else {
-				assertTrue(false);
+			switch (dependable.getDisplayName()) {
+				case "B":
+					assertEquals(1, dependencyGraphScope1.getDependants(dependable)
+							.size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope1.getDependants(dependable))
+							.containsAll(Collections.singletonList("D")));
+					assertEquals(0, dependencyGraphScope1.getDependencies(
+							dependable).size());
+					break;
+				case "C":
+					assertEquals(0, dependencyGraphScope1.getDependants(dependable)
+							.size());
+					assertEquals(0, dependencyGraphScope1.getDependencies(
+							dependable).size());
+					break;
+				case "D":
+					assertEquals(0, dependencyGraphScope1.getDependants(dependable)
+							.size());
+					assertEquals(1, dependencyGraphScope1.getDependencies(
+							dependable).size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope1.getDependencies(dependable))
+							.containsAll(Collections.singletonList("B")));
+					break;
+				default:
+					assertTrue(false);
+					break;
 			}
 		}
 
@@ -468,57 +521,64 @@ public class ItemDependencyBuilderTest {
 		assertNotNull(dependencyGraphScope2.getItemByName("I"));
 		for (Dependable dependable : dependencyGraphScope2.getAllItems()) {
 			assertNotNull(dependable);
-			if (dependable.getDisplayName().equals("E")) {
-				assertEquals(1, dependencyGraphScope2.getDependants(dependable)
-						.size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope2.getDependants(dependable))
-						.containsAll(Arrays.asList("I")));
-				assertEquals(1, dependencyGraphScope2.getDependencies(
-						dependable).size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope2.getDependencies(dependable))
-						.containsAll(Arrays.asList("F")));
-			} else if (dependable.getDisplayName().equals("F")) {
-				assertEquals(3, dependencyGraphScope2.getDependants(dependable)
-						.size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope2.getDependants(dependable))
-						.containsAll(Arrays.asList("E", "I", "G")));
-				assertEquals(0, dependencyGraphScope2.getDependencies(
-						dependable).size());
-			} else if (dependable.getDisplayName().equals("G")) {
-				assertEquals(2, dependencyGraphScope2.getDependants(dependable)
-						.size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope2.getDependants(dependable))
-						.containsAll(Arrays.asList("H", "I")));
-				assertEquals(1, dependencyGraphScope2.getDependencies(
-						dependable).size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope2.getDependencies(dependable))
-						.containsAll(Arrays.asList("F")));
-			} else if (dependable.getDisplayName().equals("H")) {
-				assertEquals(1, dependencyGraphScope2.getDependants(dependable)
-						.size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope2.getDependants(dependable))
-						.containsAll(Arrays.asList("I")));
-				assertEquals(1, dependencyGraphScope2.getDependencies(
-						dependable).size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope2.getDependencies(dependable))
-						.containsAll(Arrays.asList("G")));
-			} else if (dependable.getDisplayName().equals("I")) {
-				assertEquals(0, dependencyGraphScope2.getDependants(dependable)
-						.size());
-				assertEquals(4, dependencyGraphScope2.getDependencies(
-						dependable).size());
-				assertTrue(getDependableNames(
-						dependencyGraphScope2.getDependencies(dependable))
-						.containsAll(Arrays.asList("E", "F", "G", "H")));
-			} else {
-				assertTrue(false);
+			switch (dependable.getDisplayName()) {
+				case "E":
+					assertEquals(1, dependencyGraphScope2.getDependants(dependable)
+							.size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope2.getDependants(dependable))
+							.containsAll(Collections.singletonList("I")));
+					assertEquals(1, dependencyGraphScope2.getDependencies(
+							dependable).size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope2.getDependencies(dependable))
+							.containsAll(Collections.singletonList("F")));
+					break;
+				case "F":
+					assertEquals(3, dependencyGraphScope2.getDependants(dependable)
+							.size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope2.getDependants(dependable))
+							.containsAll(Arrays.asList("E", "I", "G")));
+					assertEquals(0, dependencyGraphScope2.getDependencies(
+							dependable).size());
+					break;
+				case "G":
+					assertEquals(2, dependencyGraphScope2.getDependants(dependable)
+							.size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope2.getDependants(dependable))
+							.containsAll(Arrays.asList("H", "I")));
+					assertEquals(1, dependencyGraphScope2.getDependencies(
+							dependable).size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope2.getDependencies(dependable))
+							.containsAll(Collections.singletonList("F")));
+					break;
+				case "H":
+					assertEquals(1, dependencyGraphScope2.getDependants(dependable)
+							.size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope2.getDependants(dependable))
+							.containsAll(Collections.singletonList("I")));
+					assertEquals(1, dependencyGraphScope2.getDependencies(
+							dependable).size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope2.getDependencies(dependable))
+							.containsAll(Collections.singletonList("G")));
+					break;
+				case "I":
+					assertEquals(0, dependencyGraphScope2.getDependants(dependable)
+							.size());
+					assertEquals(4, dependencyGraphScope2.getDependencies(
+							dependable).size());
+					assertTrue(getDependableNames(
+							dependencyGraphScope2.getDependencies(dependable))
+							.containsAll(Arrays.asList("E", "F", "G", "H")));
+					break;
+				default:
+					assertTrue(false);
+					break;
 			}
 		}
 
@@ -526,7 +586,7 @@ public class ItemDependencyBuilderTest {
 	}
 
 	private List<String> getDependableNames(Set<Dependable> items) {
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		for (Dependable dep : items) {
 			names.add(dep.getDisplayName());
 		}
@@ -534,7 +594,7 @@ public class ItemDependencyBuilderTest {
 	}
 
 	private List<String> getItemNames(Set<Item> items) {
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		for (Item item : items) {
 			names.add(item.getDisplayname());
 		}

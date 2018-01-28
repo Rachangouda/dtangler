@@ -8,6 +8,7 @@ package org.dtangler.core.ruleanalysis;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -81,17 +82,13 @@ public class RuleTest {
 	}
 
 	private GroupRuleMember createGroup(String name, String... items) {
-		Set<String> itemList = new HashSet();
-		for (String item : items)
-			itemList.add(item);
+		Set<String> itemList = new HashSet<>(Arrays.asList(items));
 		return new GroupRuleMember(new Group(name, itemList));
 	}
 
 	private Rule createRule(Rule.Type type, RuleMember left,
 			RuleMember... rights) {
-		Set<RuleMember> right = new HashSet();
-		for (RuleMember rightItem : rights)
-			right.add(rightItem);
+		Set<RuleMember> right = new HashSet<>(Arrays.asList(rights));
 		return new Rule(type, left, right);
 	}
 }

@@ -26,7 +26,7 @@ public class DependencyGraphTest {
 
 	@Before
 	public void setUp() {
-		deps = new DependencyGraph(null, new HashSet(Arrays.asList(FOO, BAR,
+		deps = new DependencyGraph(null, new HashSet<>(Arrays.asList(FOO, BAR,
 				BAY, XOO, XYZ)));
 		deps.addDependency(FOO, BAR);
 		deps.addDependency(FOO, BAY);
@@ -41,13 +41,13 @@ public class DependencyGraphTest {
 		assertResult(deps.getDependants(FOO), XOO);
 		assertResult(deps.getDependants(BAR), FOO, BAY);
 		assertResult(deps.getDependants(BAY), FOO, XOO);
-		assertResult(deps.getDependants(XOO), new Dependable[] {});
+		assertResult(deps.getDependants(XOO));
 	}
 
 	@Test
 	public void testGetDependencies() {
 		assertResult(deps.getDependencies(FOO), BAR, BAY);
-		assertResult(deps.getDependencies(BAR), new Dependable[] {});
+		assertResult(deps.getDependencies(BAR));
 		assertResult(deps.getDependencies(BAY), BAR);
 		assertResult(deps.getDependencies(XOO), FOO, BAY);
 	}
@@ -83,7 +83,7 @@ public class DependencyGraphTest {
 			float actual) {
 		float expected = dependencies / (dependants + dependencies);
 		// Workaround for incorrect double assertEquals in some JUnit4 versions
-		assertTrue(Double.valueOf(expected).equals(Double.valueOf(actual)));
+		assertTrue(Double.valueOf(expected).equals((double) actual));
 	}
 
 	@Test

@@ -28,13 +28,13 @@ public class ClassDependenciesTest {
 
 	@Before
 	public void setUpClasses() {
-		foo = createClass("eg.foo.Foo", new String[] {});
+		foo = createClass("eg.foo.Foo");
 		fooImpl = createClass("eg.fooimpl.FooImpl", "eg.foo.Foo", "eg.foo.Foo",
 				"eg.util.SomeUtil");
 		someUtil = createClass("eg.util.SomeUtil", "eg.util.AnotherUtil");
-		anotherUtil = createClass("eg.util.AnotherUtil", new String[] {});
+		anotherUtil = createClass("eg.util.AnotherUtil");
 
-		classes = new HashSet();
+		classes = new HashSet<>();
 		classes.add(foo);
 		classes.add(fooImpl);
 		classes.add(someUtil);

@@ -24,7 +24,7 @@ public class ConfigFileParserTest {
 	private static final String TEST_CONFIG2 = "testdata/TestConfig2.properties";
 	private Map<String, String> result;
 
-	private void setUp(String configFile) throws IOException {
+	private void setUp(String configFile) {
 		InputStream stream = getClass().getResourceAsStream(configFile);
 		result = new ConfigFileParser(stream, ParserConstants.VALID_KEYS)
 				.parseValues();
@@ -45,7 +45,7 @@ public class ConfigFileParserTest {
 	}
 
 	@Test
-	public void config1Test() throws IOException {
+	public void config1Test() {
 		setUp(TEST_CONFIG1);
 
 		assertEquals(5, result.size());
@@ -69,7 +69,7 @@ public class ConfigFileParserTest {
 	}
 
 	@Test
-	public void config2Test() throws IOException {
+	public void config2Test() {
 		setUp(TEST_CONFIG2);
 
 		assertEquals(2, result.size());

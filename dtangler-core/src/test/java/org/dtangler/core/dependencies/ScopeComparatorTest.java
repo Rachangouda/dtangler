@@ -29,13 +29,13 @@ public class ScopeComparatorTest {
 
 	@Test
 	public void testCompare() {
-		List<Scope> scopes = new ArrayList();
+		List<Scope> scopes = new ArrayList<>();
 		scopes.add(MyScope.scope3);
 		scopes.add(MyScope.scope4);
 		scopes.add(MyScope.scope2);
 		scopes.add(MyScope.scope1);
 
-		Collections.sort(scopes, new ScopeComparator());
+		scopes.sort(new ScopeComparator());
 		assertSame(MyScope.scope1, scopes.get(0));
 		assertSame(MyScope.scope3, scopes.get(1));
 		assertSame(MyScope.scope2, scopes.get(2));

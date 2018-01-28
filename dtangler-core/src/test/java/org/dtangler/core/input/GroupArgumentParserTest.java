@@ -48,11 +48,11 @@ public class GroupArgumentParserTest {
 
 		assertEquals(2, argument.getGroups().size());
 
-		testGroup(group1, 3, argument, new HashSet(Arrays.asList(
+		testGroup(group1, 3, argument, new HashSet<>(Arrays.asList(
 				group1_member1, group1_member2, group1_member3)),
-				Collections.EMPTY_SET);
-		testGroup(group2, 1, argument, new HashSet(Arrays
-				.asList(group2_member1)), Collections.EMPTY_SET);
+				Collections.emptySet());
+		testGroup(group2, 1, argument,
+				new HashSet<>(Collections.singletonList(group2_member1)), Collections.emptySet());
 	}
 
 	@Test
@@ -68,15 +68,15 @@ public class GroupArgumentParserTest {
 
 		Arguments argument = parse(ParserConstants.GROUPS_KEY, value1);
 		assertEquals(1, argument.getGroups().size());
-		testGroup(group2, 1, argument, new HashSet(Arrays
-				.asList(group2_member1)), new HashSet(Arrays
-				.asList(group2_excluded1)));
+		testGroup(group2, 1, argument,
+				new HashSet<>(Collections.singletonList(group2_member1)),
+				new HashSet<>(Collections.singletonList(group2_excluded1)));
 
 		argument = parse(ParserConstants.GROUPS_KEY, value2);
 		assertEquals(1, argument.getGroups().size());
-		testGroup(group2, 1, argument, new HashSet(Arrays
-				.asList(group2_member1)), new HashSet(Arrays.asList(
-				group2_excluded1, group2_excluded2)));
+		testGroup(group2, 1, argument,
+				new HashSet<>(Collections.singletonList(group2_member1)),
+				new HashSet<>(Arrays.asList(group2_excluded1, group2_excluded2)));
 	}
 
 	// TODO simplify
@@ -103,7 +103,7 @@ public class GroupArgumentParserTest {
 	}
 
 	private Map<String, String> createValues(String key, String value) {
-		Map<String, String> values = new Hashtable();
+		Map<String, String> values = new Hashtable<>();
 		values.put(key, value);
 		return values;
 	}

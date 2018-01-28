@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
 
 import org.dtangler.core.configuration.Arguments;
@@ -129,7 +130,7 @@ public class GenericEngineArgumentParsingAcceptanceTest {
 			assertTrue(false);
 		}
 		Arguments args = new Arguments();
-		args.setInput(Arrays.asList(dtPath));
+		args.setInput(Collections.singletonList(dtPath));
 		GenericDependencyEngine engine = new GenericDependencyEngine();
 		Dependencies dependencies = engine.getDependencies(args);
 		Set<Dependable> scope0Items = dependencies

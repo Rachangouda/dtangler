@@ -39,8 +39,6 @@ public class FileUtil {
 			// StandardCharsets.UTF_8.name() > JDK 7
 
 			return result.toString("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

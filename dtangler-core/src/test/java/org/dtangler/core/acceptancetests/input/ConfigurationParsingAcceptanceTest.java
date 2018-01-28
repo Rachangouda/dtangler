@@ -124,9 +124,8 @@ public class ConfigurationParsingAcceptanceTest {
 
 		assertEquals(oldArguments, newArguments);
 		assertGroupByName(parsedGroups.get("MyGroup"), Arrays.asList("foo",
-				"bar"), Collections.EMPTY_LIST);
-		assertGroupByName(parsedGroups.get("PublicGroup"), Arrays
-				.asList("*public*"), Collections.EMPTY_LIST);
+				"bar"), Collections.emptyList());
+		assertGroupByName(parsedGroups.get("PublicGroup"), Collections.singletonList("*public*"), Collections.emptyList());
 	}
 
 	@Test
@@ -149,8 +148,7 @@ public class ConfigurationParsingAcceptanceTest {
 
 		Arguments arguments = new ArgumentBuilder()
 				.build(new String[] { group });
-		assertGroupByName(arguments.getGroups().get("Org"), Arrays
-				.asList("org.*"), Arrays.asList("org.public.*", "org.util.*"));
+		assertGroupByName(arguments.getGroups().get("Org"), Collections.singletonList("org.*"), Arrays.asList("org.public.*", "org.util.*"));
 	}
 
 	private void assertGroupByName(Group group, List<String> expectedIncl,
@@ -198,10 +196,8 @@ public class ConfigurationParsingAcceptanceTest {
 				.build(new String[] { rule });
 		assertRuleByName(arguments.getForbiddenDependencies().get("y"), Arrays
 				.asList("x", "z"));
-		assertRuleByName(arguments.getForbiddenDependencies().get("b"), Arrays
-				.asList("a"));
-		assertRuleByName(arguments.getForbiddenDependencies().get("c"), Arrays
-				.asList("a"));
+		assertRuleByName(arguments.getForbiddenDependencies().get("b"), Collections.singletonList("a"));
+		assertRuleByName(arguments.getForbiddenDependencies().get("c"), Collections.singletonList("a"));
 	}
 
 	@Test
@@ -243,10 +239,9 @@ public class ConfigurationParsingAcceptanceTest {
 				group });
 
 		assertRuleByName(arguments.getAllowedDependencies().get(
-				"org.domain.public.foo"), Arrays
-				.asList("org.domain.public.bar"));
+				"org.domain.public.foo"), Collections.singletonList("org.domain.public.bar"));
 		assertRuleByName(arguments.getForbiddenDependencies().get("@Domain"),
-				Arrays.asList("@Domain"));
+				Collections.singletonList("@Domain"));
 	}
 
 	private void assertRuleByName(Set<String> actual, List<String> expected) {
