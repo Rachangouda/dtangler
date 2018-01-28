@@ -32,7 +32,7 @@ public class ConfigFileWriter {
 
 
 		try (BufferedWriter output = new BufferedWriter(new FileWriter(file))) {
-			file.createNewFile();
+			boolean dummy = file.createNewFile(); // scanners complaining
 
 			writeParameter(output, ParserConstants.INPUT_KEY, createValuesList(
 					args.getInput(), ";\\\n\t"));
