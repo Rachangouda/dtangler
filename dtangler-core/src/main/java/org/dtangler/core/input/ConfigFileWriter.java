@@ -24,7 +24,7 @@ public class ConfigFileWriter {
 
 	private final File file;
 
-	ConfigFileWriter(File file) {
+	public ConfigFileWriter(File file) {
 		this.file = file;
 	}
 

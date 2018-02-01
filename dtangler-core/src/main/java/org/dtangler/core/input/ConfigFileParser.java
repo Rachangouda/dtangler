@@ -22,7 +22,7 @@ public class ConfigFileParser {
 	private Properties properties;
 	private String[] allowedKeys;
 
-	ConfigFileParser(File configFile, String[] allowedKeys) {
+	public ConfigFileParser(File configFile, String[] allowedKeys) {
 		this(openFile(configFile), allowedKeys);
 	}
 

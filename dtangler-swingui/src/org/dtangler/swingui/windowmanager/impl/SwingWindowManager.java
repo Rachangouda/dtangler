@@ -75,7 +75,7 @@ public class SwingWindowManager implements WindowManager, DialogManager,
 		frame.getContentPane().add(mainView.getViewComponent());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setJMenuBar(mainView.getMenuBar());
-		frame.setIconImage(IconProvider.getIcon(IconKey.dtangler16).getImage());
+		//frame.setIconImage(IconProvider.getIcon(IconKey.dtangler16).getImage());
 		mainView
 				.setWindowInteractionProvider(new WindowInteractionProviderJFrameImpl(
 						frame));

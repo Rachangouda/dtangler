@@ -14,9 +14,11 @@
         <module>dtangler-testdata-good-deps</module>
         <module>dtangler-testdata-java9</module>
         <module>dtangler-core</module>
-        <!--
         <module>dtangler-ui</module>
         <module>dtangler-swingui</module>
+        <!--
+
+
         <module>dtangler-testsuites</module>
         -->
     </modules>
