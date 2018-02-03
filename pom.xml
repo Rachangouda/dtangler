@@ -10,11 +10,14 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>dtangler-domain</module>
+        <module>dtangler-testutil</module>
         <module>dtangler-testdata-cyclic-deps</module>
         <module>dtangler-testdata-good-deps</module>
         <module>dtangler-testdata-java9</module>
         <module>dtangler-core</module>
         <module>dtangler-ui</module>
+        <module>dtangler-ui-testutil</module>
         <module>dtangler-swingui</module>
         <!--
 
@@ -31,6 +34,21 @@
         <dependencies>
             <dependency>
                 <groupId>org.dtangler</groupId>
+                <artifactId>dtangler-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.dtangler</groupId>
+                <artifactId>dtangler-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.dtangler</groupId>
+                <artifactId>dtangler-testutil</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.dtangler</groupId>
                 <artifactId>dtangler-testdata-good-deps</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>
@@ -42,15 +60,26 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.4</version>
+                <groupId>org.dtangler</groupId>
+                <artifactId>dtangler-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.dtangler</groupId>
+                <artifactId>dtangler-ui-testutil</artifactId>
+                <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.dtangler</groupId>
                 <artifactId>dtangler-testdata-java9</artifactId>
                 <version>2.1.0-SNAPSHOT</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.4</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

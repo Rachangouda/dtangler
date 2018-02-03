@@ -11,22 +11,22 @@
     <artifactId>dtangler-swingui</artifactId>
     <packaging>jar</packaging>
 
-    <build>
-        <sourceDirectory>src</sourceDirectory>
-        <!--Need to refactor test utility classes out of dtangler-core into its own module-->
-        <!--<testSourceDirectory>test</testSourceDirectory>-->
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>org.dtangler</groupId>
             <artifactId>dtangler-core</artifactId>
-            <version>2.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.dtangler</groupId>
             <artifactId>dtangler-ui</artifactId>
-            <version>2.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dtangler</groupId>
+            <artifactId>dtangler-ui-testutil</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.dtangler</groupId>
+            <artifactId>dtangler-testutil</artifactId>
         </dependency>
         <dependency>
             <groupId>com.jgoodies</groupId>
@@ -48,6 +48,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>uispec4j</groupId>
+            <artifactId>uispec4j</artifactId>
+            <version>1.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
