@@ -1,18 +1,20 @@
 package org.dtangler.swingui.directoryselector.impl;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.filechooser.FileFilter;
 
 public class FileNameExtensionFilter extends FileFilter
 {
-	private String[] fileNameExtensions;
+	private List<String> fileNameExtensions = new ArrayList<>();
 	private String description;
 
-	public FileNameExtensionFilter(String description, String[] fileNameExtensions) {
+	public FileNameExtensionFilter(String description, List<String> fileNameExtensions) {
 		this.description = description;
-		this.fileNameExtensions = new String[fileNameExtensions.length];
-		for (int i=fileNameExtensions.length-1; i>=0; i--) {
-			this.fileNameExtensions[i] = fileNameExtensions[i].toLowerCase();
+
+		for (String fileNameExtension : fileNameExtensions) {
+			this.fileNameExtensions.add(fileNameExtension.toLowerCase());
 		}
 	}
 
@@ -21,8 +23,8 @@ public class FileNameExtensionFilter extends FileFilter
 			return true;
 		}
 		String name = f.getName().toLowerCase();
-		for (int i = fileNameExtensions.length - 1; i >= 0; i--) {
-			if (name.endsWith(fileNameExtensions[i])) {
+		for (String fileNameExtension : fileNameExtensions) {
+			if (name.endsWith(fileNameExtension)) {
 				return true;
 			}
 		}

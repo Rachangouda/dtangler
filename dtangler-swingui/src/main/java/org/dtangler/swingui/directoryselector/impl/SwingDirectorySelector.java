@@ -42,8 +42,7 @@ public class SwingDirectorySelector implements DirectorySelector {
 		}
 		if (fileNameExtensions != null && fileNameExtensions.size() > 0) {
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(
-					fileTypesDescription, (String[]) fileNameExtensions
-							.toArray());
+					fileTypesDescription, fileNameExtensions);
 			chooser.setFileFilter(filter);
 		}
 		chooser.setApproveButtonText("Select");
