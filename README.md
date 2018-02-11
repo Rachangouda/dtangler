@@ -2,6 +2,8 @@ TravisCI: [![Build Status](https://travis-ci.org/jimbethancourt/dtangler.svg?bra
 
 SonarCloud: [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=org.dtangler%3Adtangler)](https://sonarcloud.io/dashboard?id=org.dtangler%3Adtangler)
 
+[![CodeFactor](https://www.codefactor.io/repository/github/jimbethancourt/dtangler/badge)](https://www.codefactor.io/repository/github/jimbethancourt/dtangler)
+
 [![](http://codescene.io/projects/2168/status.svg) Get more details at **codescene.io**.](http://codescene.io/projects/2168/jobs/latest-successful/results)
 
 
