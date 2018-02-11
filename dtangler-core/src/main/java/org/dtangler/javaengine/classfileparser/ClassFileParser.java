@@ -58,17 +58,12 @@ public class ClassFileParser {
 	}
 
 	private DataInput loadFile(File file) throws IOException {
-		FileInputStream fileInputStream = null;
-		try {
-			fileInputStream = new FileInputStream(file);
+		try (FileInputStream fileInputStream = new FileInputStream(file)) {
 			byte[] data = new byte[fileInputStream.available()];
 			fileInputStream.read(data, 0, data.length);
 			return new DataInputStream(new ByteArrayInputStream(data));
 		} catch (RuntimeException e) {
 			throw e;
-		} finally {
-			if (fileInputStream != null)
-				fileInputStream.close();
 		}
 	}
 
