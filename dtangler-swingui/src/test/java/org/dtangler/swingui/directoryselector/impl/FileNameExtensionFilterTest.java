@@ -3,6 +3,8 @@ package org.dtangler.swingui.directoryselector.impl;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,13 @@ public class FileNameExtensionFilterTest {
         extensions = new ArrayList<>();
         extensions.add(".jar");
         fileNameExtensionFilter = new FileNameExtensionFilter("Jar files", extensions);
+    }
+
+    @Test
+    public void testAccept() throws IOException {
+        File tempFile = File.createTempFile("tempFile", ".jar");
+        tempFile.deleteOnExit();
+        assertTrue(fileNameExtensionFilter.accept(tempFile));
     }
 
     @Test
