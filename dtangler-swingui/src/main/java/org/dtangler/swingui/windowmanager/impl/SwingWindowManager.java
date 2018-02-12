@@ -29,7 +29,7 @@ import org.dtangler.swingui.windowmanager.WindowManager;
 public class SwingWindowManager implements WindowManager, DialogManager,
 		UIExceptionHandler {
 
-	private final Map<SwingView, Window> windows = new HashMap();
+	private final Map<SwingView, Window> windows = new HashMap<>();
 	private SwingView mainView;
 
 	public SwingWindowManager() {
@@ -133,7 +133,6 @@ public class SwingWindowManager implements WindowManager, DialogManager,
 	}
 
 	private void handleInternalError(Throwable t) {
-		t.printStackTrace();
 		Window window = getActiveWindow();
 		JOptionPane.showMessageDialog(window, new ErrorDisplayComponent(t)
 				.getViewComponent(), "Internal error",
