@@ -9,7 +9,6 @@ import org.dtangler.swingui.windowmanager.impl.SwingWindowManager;
 
 public class Main {
 	public static void main(String[] args) {
-		try {
 			String handlerClassName = UIExceptionHandlerDelegator.class
 					.getName();
 			System.setProperty("sun.awt.exception.handler", handlerClassName);
@@ -17,9 +16,5 @@ public class Main {
 			SwingWindowManager windowManager = new SwingWindowManager();
 			UIExceptionHandlerDelegator.setUIExceptionHandler(windowManager);
 			new ApplicationStarter(windowManager, windowManager).start(args);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
-
 }
