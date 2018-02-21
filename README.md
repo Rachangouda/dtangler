@@ -4,6 +4,8 @@ SonarCloud: [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=org.dtang
 
 [![CodeFactor](https://www.codefactor.io/repository/github/jimbethancourt/dtangler/badge)](https://www.codefactor.io/repository/github/jimbethancourt/dtangler)
 
+[![Known Vulnerabilities](https://snyk.io/test/github/jimbethancourt/dtangler/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/jimbethancourt/dtangler?targetFile=pom.xml)
+
 [![](http://codescene.io/projects/2168/status.svg) Get more details at **codescene.io**.](http://codescene.io/projects/2168/jobs/latest-successful/results)
 
 
