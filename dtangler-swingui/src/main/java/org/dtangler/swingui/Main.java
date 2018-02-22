@@ -3,8 +3,9 @@
 //
 //The full license text can be read from: http://www.eclipse.org/org/documents/epl-v10.php
 
-package org.dtangler.swingui.app;
+package org.dtangler.swingui;
 
+import org.dtangler.swingui.windowmanager.UIExceptionHandlerDelegator;
 import org.dtangler.swingui.windowmanager.impl.SwingWindowManager;
 
 public class Main {

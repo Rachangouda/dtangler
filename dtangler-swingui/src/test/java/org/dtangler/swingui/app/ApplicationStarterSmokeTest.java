@@ -7,6 +7,7 @@ package org.dtangler.swingui.app;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.dtangler.swingui.ApplicationStarter;
 import org.dtangler.swingui.windowmanager.MockDialogManager;
 import org.dtangler.swingui.windowmanager.MockWindowManager;
 import org.junit.Test;

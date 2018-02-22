@@ -3,15 +3,13 @@
 //
 //The full license text can be read from: http://www.eclipse.org/org/documents/epl-v10.php
 
-package org.dtangler.swingui.app;
-
-import org.dtangler.swingui.windowmanager.UIExceptionHandler;
+package org.dtangler.swingui.windowmanager;
 
 public class UIExceptionHandlerDelegator {
 
 	private static UIExceptionHandler handler;
 
-	static void setUIExceptionHandler(UIExceptionHandler handler) {
+	public static void setUIExceptionHandler(UIExceptionHandler handler) {
 		UIExceptionHandlerDelegator.handler = handler;
 	}
 

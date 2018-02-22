@@ -3,7 +3,7 @@
 //
 //The full license text can be read from: http://www.eclipse.org/org/documents/epl-v10.php
 
-package org.dtangler.swingui.app;
+package org.dtangler.swingui;
 
 import org.dtangler.core.configuration.Arguments;
 import org.dtangler.core.dependencyengine.DependencyEngineFactory;
