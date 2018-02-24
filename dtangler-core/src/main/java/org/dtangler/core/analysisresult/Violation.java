@@ -15,7 +15,7 @@ public interface Violation {
 		error, warning
 	}
 
-	/** returns a user-friendly text description of the violation */
+	/** @return a user-friendly text description of the violation */
 	String asText();
 
 	Severity getSeverity();

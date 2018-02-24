@@ -23,6 +23,8 @@ public class DependencyGraphBuilder {
 		/**
 		 * Adds dependency from this item to the <i>dependee</i> and returns
 		 * DependencyBuilder for possible further dependency building
+		 * @param dependee Name of the dependee
+		 * @return The DependencyBuilder for possible further dependency building
 		 */
 		public DependencyBuilder dependsOn(String dependee) {
 			return dependsOn(dependee, 1);
@@ -32,6 +34,9 @@ public class DependencyGraphBuilder {
 		 * Adds dependency from this item to the <i>dependee</i> with a
 		 * dependency weight of <i>times</i> and returns DependencyBuilder for
 		 * possible further dependency building
+		 * @param dependee Name of the dependee
+		 * @param times Dependency weight of <i>times</i>
+		 * @return The DependencyBuilder for possible further dependency building
 		 */
 		public DependencyBuilder dependsOn(String dependee, int times) {
 			return new DependencyBuilder(dependant, dependee, times);
@@ -57,6 +62,8 @@ public class DependencyGraphBuilder {
 		 * Adds dependency from this item to the dependee by <i>name</i> and
 		 * returns DependencyBuilder for adding more dependencies from <b>the
 		 * dependee</b> to other items
+		 * @param dependee Name of the dependee
+		 * @return The DependencyBuilder for possible further dependency building
 		 */
 		public DependencyBuilder dependsOn(String dependee) {
 			return dependsOn(dependee, 1);
@@ -66,6 +73,9 @@ public class DependencyGraphBuilder {
 		 * Adds dependency from this item to the dependee by <i>name</i> with a
 		 * dependency weight of <i>times</i> and returns DependencyBuilder for
 		 * adding more dependencies from <b>the dependee</b> to other items
+		 * @param name The name of the dependee this item will depend on
+		 * @param times Dependency weight of <i>times</i>
+		 * @return The DependencyBuilder for possible further dependency building
 		 */
 		public DependencyBuilder dependsOn(String name, int times) {
 			return new DependantBuilder(dependee.getDisplayName()).dependsOn(
@@ -76,6 +86,8 @@ public class DependencyGraphBuilder {
 		 * Adds dependency from this item to the dependee by <i>name</i> and
 		 * returns DependencyBuilder for adding more dependencies from <b>this
 		 * item</b> to other items
+		 * @param name The name of the dependee this item will depend on
+		 * @return The DependencyBuilder for possible further dependency building
 		 */
 		public DependencyBuilder and(String name) {
 			return and(name, 1);
@@ -85,6 +97,9 @@ public class DependencyGraphBuilder {
 		 * Adds dependency from this item to the dependee by <i>name</i> with a
 		 * dependency weight of <i>times</i> and returns DependencyBuilder for
 		 * adding more dependencies from <b>this item</b> to other items
+		 * @param name The name of the dependee this item will depend on
+		 * @param times Dependency weight of <i>times</i>
+		 * @return The DependencyBuilder for possible further dependency building
 		 */
 		public DependencyBuilder and(String name, int times) {
 			return new DependencyBuilder(dependant.getDisplayName(), name,
@@ -101,22 +116,29 @@ public class DependencyGraphBuilder {
 	/**
 	 * Adds the item to the dependencies allItems list and returns
 	 * DependantBuilder for possible Dependency adding
+	 *
+	 * @param name Name of the dependant to add
+	 * @return the DependantBuilder for possible Dependency adding
 	 */
 	public DependantBuilder add(String name) {
 		return new DependantBuilder(name);
 	}
 
 	/**
-	 * Adds the dependency dependant-->dependee but only adds dependee to the
+	 * Adds the dependency dependant--&gt; dependee but only adds dependee to the
 	 * dependencies allItems list
+	 * @param dependantName Name of the dependant
+	 * @param dependeeName Name of the dependee
 	 */
 	public void addOuterDependant(String dependantName, String dependeeName) {
 		addOuterDependency(dependantName, dependeeName, dependantName);
 	}
 
 	/**
-	 * Adds the dependency dependant-->dependee but only adds dependant to the
+	 * Adds the dependency dependant--&gt;dependee but only adds dependant to the
 	 * dependencies allItems list
+	 * @param dependantName Name of the dependant
+	 * @param dependeeName Name of the dependee
 	 */
 	public void addOuterDependee(String dependantName, String dependeeName) {
 		addOuterDependency(dependantName, dependeeName, dependeeName);

@@ -103,6 +103,11 @@ public class SwingDirectorySelector implements DirectorySelector {
 	/**
 	 * filechooser creation is lazy because for some reason it is very slow on
 	 * Win32, making the test suite slow down too much.
+	 * @param dialogTitle The displayed title of the dialog
+	 * @param fileTypesDescription Description of allowed filetypes
+	 * @param isDirectoryInputAllowed Allow directories to be selected
+	 * @param fileNameExtensions The file name extensions allowed to be selected by the chooser
+	 * @return the file chooser
 	 */
 	protected JFileChooser getChooser(String dialogTitle,
 			String fileTypesDescription, boolean isDirectoryInputAllowed,
