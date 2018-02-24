@@ -5,7 +5,6 @@
 
 package org.dtangler.core.acceptancetests.input;
 
-//import static com.agical.bumblebee.junit4.Storage.store;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
