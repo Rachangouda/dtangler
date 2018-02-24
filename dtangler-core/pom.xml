@@ -69,14 +69,6 @@
             <groupId>org.dtangler</groupId>
             <artifactId>dtangler-testutil</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.agical</groupId>
-            <artifactId>bumblebee-all</artifactId>
-            <version>0.9</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../lib-bumblebee/bumblebee-all-0.9.jar</systemPath>
-        </dependency>
     </dependencies>
 
 </project>

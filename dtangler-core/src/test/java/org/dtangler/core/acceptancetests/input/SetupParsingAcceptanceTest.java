@@ -5,7 +5,6 @@
 
 package org.dtangler.core.acceptancetests.input;
 
-import static com.agical.bumblebee.junit4.Storage.store;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -73,8 +72,6 @@ public class SetupParsingAcceptanceTest {
 		 */
 		String path = getConfigFilePath();
 		String[] args = { configKey + path };
-		store("configFilePath", args[0]);
-		store("path", path);
 
 		Arguments arguments = new ArgumentBuilder().build(args);
 
@@ -143,13 +140,6 @@ public class SetupParsingAcceptanceTest {
 				+ ParserConstants.BIG_SEPARATOR + path2;
 		String newStyleArgs = inputKey + path1 + ParserConstants.BIG_SEPARATOR
 				+ path2;
-		String newStyleArgsExample2 = inputKey + path3 + " " + engineKey + ParserConstants.DEPENDENCY_ENGINE_ID_VALUE_GENERIC;
-		String newStyleArgsExample3 = inputKey + ParserConstants.INPUT_KEY_VALUE_STANDARD_INPUT + " " + engineKey + ParserConstants.DEPENDENCY_ENGINE_ID_VALUE_GENERIC;
-		store("classPath", ParserConstants.CLASS_PATH_KEY);
-		store("input", ParserConstants.INPUT_KEY);
-		store("classPathExample1", newStyleArgs);
-		store("classPathExample2", newStyleArgsExample2);
-		store("classPathExample3", newStyleArgsExample3);
 
 		Arguments oldArgs = new ArgumentBuilder()
 				.build(new String[] { oldStyleArgs });
@@ -227,9 +217,6 @@ public class SetupParsingAcceptanceTest {
 
 		assertTrue(arguments.getIgnoredFileMasks().containsAll(
 				Arrays.asList("*test*", "*Test*")));
-
-		store("ignoreFilemask", ParserConstants.IGNORE_FILE_MASK_KEY);
-		store("exampleFilemask", mask);
 	}
 
 	private String getConfigFilePath() {

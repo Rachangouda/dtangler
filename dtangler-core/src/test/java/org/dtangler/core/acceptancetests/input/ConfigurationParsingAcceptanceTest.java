@@ -5,7 +5,7 @@
 
 package org.dtangler.core.acceptancetests.input;
 
-import static com.agical.bumblebee.junit4.Storage.store;
+//import static com.agical.bumblebee.junit4.Storage.store;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -44,7 +44,7 @@ public class ConfigurationParsingAcceptanceTest {
 		/*!
 		 If the **=#{cycles}=** option is omitted, cycles are treated as errors.
 		 */
-		store("cycles", ParserConstants.CYCLES_ALLOWED_KEY);
+		//store("cycles", ParserConstants.CYCLES_ALLOWED_KEY);
 
 		Arguments arguments = new ArgumentBuilder().build(new String[] {});
 		assertFalse("Cycles should be denied by default", arguments
@@ -57,7 +57,7 @@ public class ConfigurationParsingAcceptanceTest {
 		#{exclude}
 		 */
 		String allowed = cycleKey + ParserConstants.VALUE_TRUE;
-		store("allowed", allowed);
+		//store("allowed", allowed);
 
 		Arguments arguments = new ArgumentBuilder()
 				.build(new String[] { allowed });
@@ -71,7 +71,7 @@ public class ConfigurationParsingAcceptanceTest {
 		#{exclude}
 		 */
 		String disallowed = cycleKey + ParserConstants.VALUE_FALSE;
-		store("disallowed", disallowed);
+		//store("disallowed", disallowed);
 
 		Arguments arguments = new ArgumentBuilder()
 				.build(new String[] { disallowed });
@@ -109,11 +109,11 @@ public class ConfigurationParsingAcceptanceTest {
 		String newGroup = groupsKey + groupValue;
 		String oldGroup = groupKey + groupValue;
 
-		store("groupsKey", groupsKey);
+		/*store("groupsKey", groupsKey);
 		store("group", ParserConstants.GROUP_KEY);
 		store("groups", ParserConstants.GROUPS_KEY);
 		store("contains", ParserConstants.CONTAINS);
-		store("groupExample1", newGroup);
+		store("groupExample1", newGroup);*/
 
 		Arguments newArguments = new ArgumentBuilder()
 				.build(new String[] { newGroup });
@@ -138,13 +138,13 @@ public class ConfigurationParsingAcceptanceTest {
 		 #{groupExample2}
 		 <<<<
 		 */
-		store("doesNotContain", ParserConstants.DOES_NOT_CONTAIN);
+		//store("doesNotContain", ParserConstants.DOES_NOT_CONTAIN);
 
 		String group = groupsKey + "Org " + ParserConstants.CONTAINS
 				+ " org.* " + ParserConstants.DOES_NOT_CONTAIN
 				+ " org.public.*" + ParserConstants.SMALL_SEPARATOR
 				+ "org.util.*";
-		store("groupExample2", group);
+		//store("groupExample2", group);
 
 		Arguments arguments = new ArgumentBuilder()
 				.build(new String[] { group });
@@ -188,9 +188,9 @@ public class ConfigurationParsingAcceptanceTest {
 				+ ParserConstants.BIG_SEPARATOR + " b"
 				+ ParserConstants.SMALL_SEPARATOR + " c "
 				+ ParserConstants.CANNOT_DEPEND + " a";
-		store("forbidden", ParserConstants.CANNOT_DEPEND);
+		/*store("forbidden", ParserConstants.CANNOT_DEPEND);
 		store("rulesKey", rulesKey);
-		store("forbiddenDependenciesExample1", rule);
+		store("forbiddenDependenciesExample1", rule);*/
 
 		Arguments arguments = new ArgumentBuilder()
 				.build(new String[] { rule });
@@ -229,11 +229,11 @@ public class ConfigurationParsingAcceptanceTest {
 				+ " org.domain.public.foo " + ParserConstants.CAN_DEPEND
 				+ " org.domain.public.bar";
 
-		store("cannot", ParserConstants.CANNOT_DEPEND);
+		/*store("cannot", ParserConstants.CANNOT_DEPEND);
 		store("can", ParserConstants.CAN_DEPEND);
 		store("rules", ParserConstants.RULES_KEY);
 		store("groupExample3", group);
-		store("ruleExample1", rule);
+		store("ruleExample1", rule);*/
 
 		Arguments arguments = new ArgumentBuilder().build(new String[] { rule,
 				group });

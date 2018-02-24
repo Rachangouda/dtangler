@@ -5,8 +5,6 @@
 
 package org.dtangler.swingui.testutil;
 
-import static com.agical.bumblebee.junit4.Storage.store;
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -38,12 +36,9 @@ public class SnapShotTaker {
 	static {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-		} catch (InstantiationException e) {
-		} catch (IllegalAccessException e) {
-		} catch (UnsupportedLookAndFeelException e) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 		}
-	}
+    }
 
 	private static JFrame createFrame(SwingView view) {
 		JFrame frame = new JFrame();
@@ -61,19 +56,14 @@ public class SnapShotTaker {
 		final JFrame frame = createFrame(view);
 		frame.setVisible(true);
 		try {
-			SwingUtilities.invokeAndWait(new Runnable() {
-
-				public void run() {
-					try {
-						snap(viewName, frame);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		} catch (InvocationTargetException e) {
+			SwingUtilities.invokeAndWait(() -> {
+                try {
+                    snap(viewName, frame);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+		} catch (InterruptedException | InvocationTargetException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		} finally {
 			frame.dispose();
@@ -92,7 +82,6 @@ public class SnapShotTaker {
 			fileOutputStream = new FileOutputStream(file);
 			BufferedImage bufferedImage = createImage(component);
 			ImageIO.write(bufferedImage, "png", fileOutputStream);
-			store(screenName, "\n[[" + fileName + "][]]");
 		} finally {
 			try {
 				fileOutputStream.close();

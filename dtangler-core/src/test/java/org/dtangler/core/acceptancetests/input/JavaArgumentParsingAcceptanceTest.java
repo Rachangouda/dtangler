@@ -5,7 +5,6 @@
 
 package org.dtangler.core.acceptancetests.input;
 
-import static com.agical.bumblebee.junit4.Storage.store;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -44,7 +43,6 @@ public class JavaArgumentParsingAcceptanceTest {
 		/*!
 		 If the =#{javaScope}= option is omitted, package scope is used.
 		 */
-		store("javaScope", ParserConstants.SCOPE_KEY);
 		Arguments arguments = new ArgumentBuilder().build(new String[] {});
 		JavaDependencyEngine engine = new JavaDependencyEngine();
 		assertEquals(JavaScope.packages, engine.getDependencies(arguments).getDefaultScope());
@@ -59,7 +57,6 @@ public class JavaArgumentParsingAcceptanceTest {
 		 Analyzing dependencies between locations can come in handy if you 
 		 want to see how projects depend on each other, for example.
 		 */
-		store("input", ParserConstants.INPUT_KEY);
 
 		Arguments arguments = new ArgumentBuilder()
 				.build(new String[] { scopeKey
@@ -102,11 +99,6 @@ public class JavaArgumentParsingAcceptanceTest {
 
 		assertContents(locationScopeItems, new HashSet<>(Arrays.asList(jarPath,
 				classPath)));
-
-		store("jarLocationArguments", scope + " " + inputKey
-				+ "testdata/jarexample.jar" + ParserConstants.BIG_SEPARATOR
-				+ "testdata/classes");
-		store("input", ParserConstants.INPUT_KEY);
 	}
 
 	private void assertContents(Set<Dependable> actual, Set<String> expected) {

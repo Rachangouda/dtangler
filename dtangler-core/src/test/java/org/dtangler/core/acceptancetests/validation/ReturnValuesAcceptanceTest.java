@@ -5,7 +5,6 @@
 
 package org.dtangler.core.acceptancetests.validation;
 
-import static com.agical.bumblebee.junit4.Storage.store;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -13,7 +12,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -69,8 +67,6 @@ public class ReturnValuesAcceptanceTest {
 		Dependencies cyclic = createWithCycles(item1, item2);
 		DependencyCycle expected = new TestDependencyCycle(Arrays.asList(item1,
 				item2, item1));
-
-		store("example", expected.asText());
 
 		Arguments arguments = new Arguments();
 		arguments.setCyclesAllowed(true);
@@ -162,10 +158,6 @@ public class ReturnValuesAcceptanceTest {
 
 		assertFalse(analysisResult.isValid());
 		assertFalse(analysisResult.getAllViolations().isEmpty());
-
-		store("simpleRule", rule[0]);
-		store("ruleViolation1", analysisResult.getAllViolations().iterator()
-				.next().asText());
 	}
 
 	@Test
@@ -207,10 +199,6 @@ public class ReturnValuesAcceptanceTest {
 		assertFalse(analysisResult.isValid());
 		assertTrue(analysisResult.getAllViolations()
 				.contains(expectedViolation));
-
-		store("ruleViolation2", expectedViolation.asText());
-		store("groupDefs", args[0]);
-		store("ruleWith2Groups", args[1]);
 	}
 
 	private Dependencies createSimpleDependency(String dependant,
@@ -241,8 +229,6 @@ public class ReturnValuesAcceptanceTest {
 				rulesKey + ParserConstants.GROUP_IDENTIFIER + "All "
 						+ ParserConstants.CANNOT_DEPEND + " "
 						+ ParserConstants.GROUP_IDENTIFIER + "All" };
-		store("groupWithExcluded", args[0]);
-		store("ruleForGroupWithExcluded", args[1]);
 
 		Arguments arguments = new ArgumentBuilder().build(args);
 		AnalysisResult analysisResult = new ConfigurableDependencyAnalyzer(
@@ -295,13 +281,6 @@ public class ReturnValuesAcceptanceTest {
 		assertEquals(2, actualViolations.size());
 		assertTrue(actualViolations.contains(fooExpected));
 		assertTrue(actualViolations.contains(barExpected));
-
-		Iterator<Violation> iterator = analysisResult.getAllViolations()
-				.iterator();
-		store("combinationRule1", rules);
-		store("groupsForCombinations", group);
-		store("combinationResult", iterator.next().asText() + "\n"
-				+ iterator.next().asText());
 	}
 
 	private Dependencies createTransitiveDeps(String item1, String item2,
@@ -340,10 +319,6 @@ public class ReturnValuesAcceptanceTest {
 		assertFalse(analysisResult.isValid());
 		assertFalse(childViolations.isEmpty());
 		assertTrue(childViolations.contains(expected));
-		store("violationOnLowerScope", expected.toString());
-		store("class1", "Cat");
-		store("class2", "Dog");
-		store("package1", "animals");
 	}
 
 	private Dependencies createCycleOnLowerScope(String parentName,
@@ -364,13 +339,13 @@ public class ReturnValuesAcceptanceTest {
 	}
 
 	private Map<String, Set<String>> createMap(String key, String... values) {
-		Map<String, Set<String>> result = new HashMap();
-		result.put(key, new HashSet(Arrays.asList(values)));
+		Map<String, Set<String>> result = new HashMap<>();
+		result.put(key, new HashSet<>(Arrays.asList(values)));
 		return result;
 	}
 
 	private Map<Dependable, Integer> createMap(Dependable... items) {
-		Map<Dependable, Integer> result = new HashMap();
+		Map<Dependable, Integer> result = new HashMap<>();
 		for (Dependable item : items) {
 			result.put(item, 1);
 		}

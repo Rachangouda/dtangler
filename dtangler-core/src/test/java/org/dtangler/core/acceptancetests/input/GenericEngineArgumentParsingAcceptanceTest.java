@@ -5,14 +5,11 @@
 
 package org.dtangler.core.acceptancetests.input;
 
-import static com.agical.bumblebee.junit4.Storage.store;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 
@@ -117,18 +114,6 @@ public class GenericEngineArgumentParsingAcceptanceTest {
 		String dtPath = corePath
 				+ "/org/dtangler/core/acceptancetests/input/dependencies.dt";
 		
-		store("genericEngineScope", scopeKey);
-		store("jarDefaultScopeArguments", inputKey
-				+ dtPath + " " + engineKey
-				+ ParserConstants.DEPENDENCY_ENGINE_ID_VALUE_GENERIC);
-		store("jarDefaultScopeArgumentsStandardInput", 
-				inputKey + ParserConstants.INPUT_KEY_VALUE_STANDARD_INPUT + " "
-				+ engineKey + ParserConstants.DEPENDENCY_ENGINE_ID_VALUE_GENERIC);
-		try {
-			store("dtFileContents", loadFile(new File(dtPath)));
-		} catch (IOException e) {
-			assertTrue(false);
-		}
 		Arguments args = new Arguments();
 		args.setInput(Collections.singletonList(dtPath));
 		GenericDependencyEngine engine = new GenericDependencyEngine();
@@ -171,12 +156,6 @@ public class GenericEngineArgumentParsingAcceptanceTest {
 				+ "/org/dtangler/genericengine/dependencyengine/testdata/testParsing2.dt";
 
 		String scope = scopeKey + "2";
-		store("genericEngineScope", scope);
-		String input = inputKey + dtPath;
-		store("jarDefinedScopeArguments", scope + " " + input + " " + engineKey
-				+ ParserConstants.DEPENDENCY_ENGINE_ID_VALUE_GENERIC);
-		store("scopeKey", scopeKey);
-
 
 		Arguments args = new ArgumentBuilder().build(new String[] { scope,
 				inputKey + dtPath });
