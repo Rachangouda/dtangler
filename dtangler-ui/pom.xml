@@ -18,6 +18,10 @@
             <artifactId>dtangler-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.hjug.dtangler.testutil</groupId>
+            <artifactId>dtangler-testutil</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
