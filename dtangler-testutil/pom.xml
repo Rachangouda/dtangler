@@ -13,6 +13,12 @@
     <groupId>org.hjug.dtangler.testutil</groupId>
     <artifactId>dtangler-testutil</artifactId>
 
+    <properties>
+        <properties>
+            <maven.deploy.skip>true</maven.deploy.skip>
+        </properties>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.hjug.dtangler.domain</groupId>

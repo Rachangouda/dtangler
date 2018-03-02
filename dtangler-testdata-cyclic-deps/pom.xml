@@ -12,6 +12,12 @@
     <artifactId>dtangler-testdata-cyclic-deps</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <properties>
+            <maven.deploy.skip>true</maven.deploy.skip>
+        </properties>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
