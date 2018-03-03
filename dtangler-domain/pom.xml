@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.hjug.dtangler</groupId>
-        <artifactId>dtangler</artifactId>
-        <version>2.1.0-SNAPSHOT</version>
-    </parent>
-
-    <groupId>org.hjug.dtangler.domain</groupId>
-    <artifactId>dtangler-domain</artifactId>
+  <parent>
+    <groupId>org.hjug.dtangler</groupId>
+    <artifactId>dtangler</artifactId>
     <version>2.1.0-SNAPSHOT</version>
+  </parent>
 
-    <description>Domain classes that are used in the application modules and testutil modules</description>
+  <groupId>org.hjug.dtangler.domain</groupId>
+  <artifactId>dtangler-domain</artifactId>
+  <version>2.1.0-SNAPSHOT</version>
 
-    <reporting>
-        <plugins>
+  <description>Domain classes that are used in the application modules and testutil modules</description>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <plugins>
             <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <plugins>
-                        <plugin>
-                            <groupId>com.h3xstream.findsecbugs</groupId>
-                            <artifactId>findsecbugs-plugin</artifactId>
-                            <version>LATEST</version> <!-- Auto-update to the latest stable -->
-                        </plugin>
-                    </plugins>
-                </configuration>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <!-- Auto-update to the latest stable -->
+              <version>LATEST</version>
             </plugin>
-        </plugins>
-    </reporting>
-    
+          </plugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
 </project>

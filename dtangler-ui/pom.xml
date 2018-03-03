@@ -1,48 +1,49 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.hjug.dtangler</groupId>
-        <artifactId>dtangler</artifactId>
-        <version>2.1.0-SNAPSHOT</version>
-    </parent>
+  <parent>
+    <groupId>org.hjug.dtangler</groupId>
+    <artifactId>dtangler</artifactId>
+    <version>2.1.0-SNAPSHOT</version>
+  </parent>
 
-    <groupId>org.hjug.dtangler.ui</groupId>
-    <artifactId>dtangler-ui</artifactId>
-    <packaging>jar</packaging>
+  <groupId>org.hjug.dtangler.ui</groupId>
+  <artifactId>dtangler-ui</artifactId>
+  <packaging>jar</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.hjug.dtangler.core</groupId>
-            <artifactId>dtangler-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hjug.dtangler.testutil</groupId>
-            <artifactId>dtangler-testutil</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>org.hjug.dtangler.core</groupId>
+      <artifactId>dtangler-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hjug.dtangler.testutil</groupId>
+      <artifactId>dtangler-testutil</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+  </dependencies>
 
-    <reporting>
-        <plugins>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <plugins>
             <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <plugins>
-                        <plugin>
-                            <groupId>com.h3xstream.findsecbugs</groupId>
-                            <artifactId>findsecbugs-plugin</artifactId>
-                            <version>LATEST</version> <!-- Auto-update to the latest stable -->
-                        </plugin>
-                    </plugins>
-                </configuration>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>LATEST</version>
+              <!-- Auto-update to the latest stable -->
             </plugin>
-        </plugins>
-    </reporting>
+          </plugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

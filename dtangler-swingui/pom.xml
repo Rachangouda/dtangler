@@ -1,98 +1,101 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.hjug.dtangler</groupId>
-        <artifactId>dtangler</artifactId>
-        <version>2.1.0-SNAPSHOT</version>
-    </parent>
+  <parent>
+    <groupId>org.hjug.dtangler</groupId>
+    <artifactId>dtangler</artifactId>
+    <version>2.1.0-SNAPSHOT</version>
+  </parent>
 
-    <groupId>org.hjug.dtangler.swingui</groupId>
-    <artifactId>dtangler-swingui</artifactId>
-    <packaging>jar</packaging>
+  <groupId>org.hjug.dtangler.swingui</groupId>
+  <artifactId>dtangler-swingui</artifactId>
+  <packaging>jar</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.hjug.dtangler.core</groupId>
-            <artifactId>dtangler-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hjug.dtangler.ui</groupId>
-            <artifactId>dtangler-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hjug.dtangler.testutil</groupId>
-            <artifactId>dtangler-testutil</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.jgoodies</groupId>
-            <artifactId>jgoodiesforms</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.jgoodies</groupId>
-            <artifactId>jgoodies-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hjug.dtangler.ui.testutil</groupId>
-            <artifactId>dtangler-ui-testutil</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>uispec4j</groupId>
-            <artifactId>uispec4j</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>org.hjug.dtangler.core</groupId>
+      <artifactId>dtangler-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hjug.dtangler.ui</groupId>
+      <artifactId>dtangler-ui</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hjug.dtangler.testutil</groupId>
+      <artifactId>dtangler-testutil</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.jgoodies</groupId>
+      <artifactId>jgoodiesforms</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.jgoodies</groupId>
+      <artifactId>jgoodies-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hjug.dtangler.ui.testutil</groupId>
+      <artifactId>dtangler-ui-testutil</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>uispec4j</groupId>
+      <artifactId>uispec4j</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-    <build>
-        <plugins>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.dtangler.swingui.Main</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <!-- this is used for inheritance merges -->
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <plugins>
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.dtangler.swingui.Main</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                        <phase>package</phase> <!-- bind to the packaging phase -->
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>LATEST</version>
+              <!-- Auto-update to the latest stable -->
             </plugin>
-        </plugins>
-    </build>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <plugins>
-                        <plugin>
-                            <groupId>com.h3xstream.findsecbugs</groupId>
-                            <artifactId>findsecbugs-plugin</artifactId>
-                            <version>LATEST</version> <!-- Auto-update to the latest stable -->
-                        </plugin>
-                    </plugins>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
+          </plugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>
