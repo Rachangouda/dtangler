@@ -14,9 +14,7 @@
     <artifactId>dtangler-testdata-java9</artifactId>
 
     <properties>
-        <properties>
-            <maven.deploy.skip>true</maven.deploy.skip>
-        </properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <build>
