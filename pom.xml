@@ -13,7 +13,7 @@
     <module>dtangler-testdata-cyclic-deps</module>
     <module>dtangler-testdata-good-deps</module>
     <module>dtangler-testdata-java</module>
-    <module>dtangler-testdata-java9</module>
+    <module>dtangler-testdata-j9</module>
     <module>dtangler-core</module>
     <module>dtangler-ui</module>
     <module>dtangler-ui-testutil</module>
@@ -89,7 +89,7 @@
       </dependency>
       <dependency>
         <groupId>org.hjug.dtangler.testdata.java9</groupId>
-        <artifactId>dtangler-testdata-java9</artifactId>
+        <artifactId>dtangler-testdata-j9</artifactId>
         <version>${project.version}</version>
         <scope>test</scope>
       </dependency>

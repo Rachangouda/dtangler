@@ -25,7 +25,7 @@ import org.junit.Test;
 public class ClassFileParserTest {
 
 	private final String java9path = ClassPathEntryFinder
-			.getPathContaining("java9");
+			.getPathContaining("j9");
 
 	@Test
 	public void testParseJava9ModuleInfo() {

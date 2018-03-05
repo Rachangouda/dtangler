@@ -9,7 +9,7 @@
   </parent>
 
   <groupId>org.hjug.dtangler.testdata.java9</groupId>
-  <artifactId>dtangler-testdata-java9</artifactId>
+  <artifactId>dtangler-testdata-j9</artifactId>
 
   <properties>
     <maven.deploy.skip>true</maven.deploy.skip>
