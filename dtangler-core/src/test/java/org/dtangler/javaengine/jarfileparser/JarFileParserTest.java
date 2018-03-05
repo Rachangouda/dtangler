@@ -30,8 +30,14 @@ public class JarFileParserTest {
 		String corePath = ClassPathEntryFinder.getPathContaining("core");
 		String jarPath = corePath
 				+ "/org/dtangler/javaengine/jarfileparser/testdata/testdata.jar";
-		String expectedClasses = corePath
-				+ "/org/dtangler/javaengine/classfileparser/testdata";
+		String testClassesPath = ClassPathEntryFinder.getPathContaining("testdata-java");
+
+		String expectedClasses = testClassesPath;
+
+		if(!testClassesPath.endsWith(".jar")) {
+			expectedClasses = testClassesPath
+					+ "/org/dtangler/javaengine/classfileparser/testdata";
+		}
 
 		Set<JavaClass> jarClasses = new JarFileParser()
 				.parse(new File(jarPath));
@@ -40,15 +46,24 @@ public class JarFileParserTest {
 		assertEquals(classClasses, jarClasses);
 	}
 
-	private Set<JavaClass> getExpectedClasses(String path) {
+	private Set<JavaClass> getExpectedClasses(String path) throws IOException {
 		RecursiveFileFinder fileFinder = new RecursiveFileFinder();
 		Set<JavaClass> classes = new HashSet<>();
 		ClassFileParser parser = new ClassFileParser();
 
-		fileFinder.setFilter(new FullPathWildCardFileFilter(Collections.singletonList(".class"), Collections.EMPTY_LIST));
-		fileFinder.findFiles(path);
-		for (File file : fileFinder.getFiles()) {
-			classes.add(parser.parse(file));
+		System.out.println(path);
+		if(path.endsWith(".jar")){
+			JarFileParser jarFileParser = new JarFileParser();
+			for (JavaClass javaClass : jarFileParser.parse(new File(path))) {
+
+				classes.add(javaClass);
+			}
+		} else {
+			fileFinder.setFilter(new FullPathWildCardFileFilter(Collections.singletonList(".class"), Collections.emptyList()));
+			fileFinder.findFiles(path);
+			for (File file : fileFinder.getFiles()) {
+				classes.add(parser.parse(file));
+			}
 		}
 		return classes;
 	}
