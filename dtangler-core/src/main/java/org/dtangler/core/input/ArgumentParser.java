@@ -129,8 +129,6 @@ public class ArgumentParser {
 				addRule(ruleString, cannotDepend);
 			else if (ruleString.contains(ParserConstants.CAN_DEPEND))
 				addRule(ruleString, canDepend);
-			else
-				continue;
 		}
 
 		args.setForbiddenDependencies(cannotDepend);

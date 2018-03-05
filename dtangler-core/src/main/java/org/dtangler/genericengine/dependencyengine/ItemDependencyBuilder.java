@@ -26,14 +26,9 @@ public class ItemDependencyBuilder {
 			int scopeIndex, String fullyqualifiedname, String displayname,
 			String encoding, int contentCount) {
 		Map<String, Dependable> scopeDependables = dependables.computeIfAbsent(itemScope, k -> new HashMap<>());
-		Dependable dependable = scopeDependables.get(fullyqualifiedname);
-		if (dependable == null) {
-			dependable = new Dependable(new ItemScope(itemScope, scopeIndex),
-					Item.getFullyqualifiedDisplayname(fullyqualifiedname,
-							encoding), displayname, contentCount);
-			scopeDependables.put(fullyqualifiedname, dependable);
-		}
-		return dependable;
+		return scopeDependables.computeIfAbsent(fullyqualifiedname, f -> new Dependable(new ItemScope(itemScope, scopeIndex),
+				Item.getFullyqualifiedDisplayname(f,
+						encoding), displayname, contentCount));
 	}
 
 	private Dependable getDependable(

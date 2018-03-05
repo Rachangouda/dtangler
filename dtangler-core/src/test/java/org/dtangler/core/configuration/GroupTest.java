@@ -8,6 +8,7 @@ package org.dtangler.core.configuration;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,9 +59,8 @@ public class GroupTest {
 	}
 
 	protected Group createGroup(String name, String... items) {
-		Set<String> groupItems = new HashSet();
-		for (String item : items)
-			groupItems.add(item);
+		Set<String> groupItems = new HashSet<>();
+		Collections.addAll(groupItems, items);
 		return new Group(name, groupItems);
 	}
 }

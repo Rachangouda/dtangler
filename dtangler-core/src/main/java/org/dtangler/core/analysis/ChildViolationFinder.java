@@ -46,7 +46,7 @@ public class ChildViolationFinder {
 		for (Dependable dep : newViolations.keySet()) {
 			Set<Violation> oldViolations = result.get(dep);
 			if (oldViolations == null) {
-				oldViolations = new HashSet();
+				oldViolations = new HashSet<>();
 			}
 			oldViolations.addAll(newViolations.get(dep));
 			result.put(dep, oldViolations);
@@ -83,12 +83,12 @@ public class ChildViolationFinder {
 	private Map<Dependable, Set<Violation>> createChildViolationsForParents(
 			Violation v, Set<Dependable> items) {
 		if (items.isEmpty())
-			return Collections.EMPTY_MAP;
-		Set<Dependable> parents = new HashSet();
+			return Collections.emptyMap();
+		Set<Dependable> parents = new HashSet<>();
 		for (Dependable item : items)
 			parents.addAll(getParents(item));
 
-		Map<Dependable, Set<Violation>> result = new HashMap();
+		Map<Dependable, Set<Violation>> result = new HashMap<>();
 		for (Dependable parent : parents)
 			createChildViolation(parent, v, result);
 		result.putAll(createChildViolationsForParents(v, parents));
@@ -97,11 +97,7 @@ public class ChildViolationFinder {
 
 	private void createChildViolation(Dependable parent, Violation v,
 			Map<Dependable, Set<Violation>> violationMap) {
-		Set<Violation> violations = violationMap.get(parent);
-		if (violations == null) {
-			violations = new HashSet();
-			violationMap.put(parent, violations);
-		}
+		Set<Violation> violations = violationMap.computeIfAbsent(parent, k -> new HashSet<>());
 		violations.add(createChildViolation(parent, v));
 	}
 

@@ -93,13 +93,8 @@ public class Dependencies {
 	}
 
 	public DependencyGraph getDependencyGraph(Scope scope) {
-		DependencyGraph graph = scopeGraphCache.get(scope);
-		if (graph == null) {
-			graph = createGraph(scope, getItems(scope), null,
-					DependencyFilter.none);
-			scopeGraphCache.put(scope, graph);
-		}
-		return graph;
+		return scopeGraphCache.computeIfAbsent(scope, s -> createGraph(s, getItems(s), null,
+				DependencyFilter.none));
 	}
 
 	public DependencyGraph getDependencyGraph(Scope scope,
@@ -309,11 +304,7 @@ public class Dependencies {
 	}
 
 	private void setParent(Dependable newParent, Dependable child) {
-		ParentInfo parentInfo = parents.get(child);
-		if (parentInfo == null) {
-			parentInfo = new ParentInfo();
-			parents.put(child, parentInfo);
-		}
+		ParentInfo parentInfo = parents.computeIfAbsent(child, k -> new ParentInfo());
 		parentInfo.addParent(newParent);
 		setParentToChildsOf(child, newParent);
 	}

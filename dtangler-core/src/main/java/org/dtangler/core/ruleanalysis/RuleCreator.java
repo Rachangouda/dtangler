@@ -53,7 +53,7 @@ public class RuleCreator {
 	}
 
 	private Set<RuleMember> getMembers(Set<String> list) {
-		Set<RuleMember> result = new HashSet<RuleMember>();
+		Set<RuleMember> result = new HashSet<>();
 		for (String name : list) {
 			result.add(getRuleMember(name));
 		}

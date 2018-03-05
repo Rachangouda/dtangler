@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class RecursiveFileFinder {
 
-	private final Map<File, String> files = new HashMap();
+	private final Map<File, String> files = new HashMap<>();
 	private FileFilter fileFilter = new AlwaysValidFileFilter();
 
 	public void findFiles(String path) {

@@ -11,7 +11,7 @@ import java.util.Set;
 public class SimpleFieldDependencies {
 
 	String myString = "aa";
-	Set<String> myStringSet = new HashSet();
+	Set<String> myStringSet = new HashSet<>();
 	SimpleClass mySimpleClass = null;
 
 }

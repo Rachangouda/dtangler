@@ -48,11 +48,7 @@ public abstract class DependencyAnalyzer {
 	abstract public boolean isValidResult();
 
 	protected void addViolation(Dependency dependency, Violation violation) {
-		Set<Violation> violationSet = violations.get(dependency);
-		if (violationSet == null) {
-			violationSet = new HashSet();
-			violations.put(dependency, violationSet);
-		}
+		Set<Violation> violationSet = violations.computeIfAbsent(dependency, k -> new HashSet<>());
 		violationSet.add(violation);
 	}
 

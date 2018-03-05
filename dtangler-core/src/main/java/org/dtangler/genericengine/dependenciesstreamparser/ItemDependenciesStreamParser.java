@@ -84,7 +84,7 @@ public class ItemDependenciesStreamParser {
 	}
 
 	private BufferedReader getBufferedIOReader(File file) {
-		if (file == null || file.getAbsolutePath() == null)
+		if (file == null)
 			throw new DtException(
 					"could not read text file input: file name not specified");
 		try {

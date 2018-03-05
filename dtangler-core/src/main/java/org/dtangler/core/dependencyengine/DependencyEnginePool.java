@@ -24,7 +24,7 @@ import org.dtangler.core.input.ConfigFileParser;
 
 public class DependencyEnginePool {
 
-	private final List<DependencyEngine> dependencyEngines = new ArrayList<DependencyEngine>();
+	private final List<DependencyEngine> dependencyEngines = new ArrayList<>();
 
 	private final String packagenamePrefix = "org/dtangler";
 	private final String dependencyEngineConfigFilePrefix = "dependency-engine-";
@@ -102,7 +102,7 @@ public class DependencyEnginePool {
 	}
 
 	public synchronized DependencyEngine get(Arguments arguments) {
-		DependencyEngine dependencyEngine = null;
+		DependencyEngine dependencyEngine;
 		try {
 			dependencyEngine = findEngine(arguments);
 		} catch (DtException ex) {
@@ -138,12 +138,12 @@ public class DependencyEnginePool {
 	}
 
 	public synchronized List<String> getDependencyEngineIds() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		for (DependencyEngine dependencyEngine : dependencyEngines) {
 			if (dependencyEngine == null
 					|| dependencyEngine.getDependencyEngineId() == null)
 				continue;
-			list.add(new String(dependencyEngine.getDependencyEngineId()));
+			list.add(dependencyEngine.getDependencyEngineId());
 		}
 		return list;
 	}
@@ -165,10 +165,7 @@ public class DependencyEnginePool {
 				JarURLConnection jarURLConnection = openJarURLConnection(fileName);
 				JarFile jarFile = jarURLConnection.getJarFile();
 				return jarFile.getInputStream(jarURLConnection.getJarEntry());
-			} catch (DtException e) {
-				throw new RuntimeException("Cannot open file: " + fileName + ": "
-						+ e.getCause());
-			} catch (IOException e) {
+			} catch (DtException | IOException e) {
 				throw new RuntimeException("Cannot open file: " + fileName + ": "
 						+ e.getCause());
 			}
@@ -191,7 +188,7 @@ public class DependencyEnginePool {
 				.get(DependencyEngineConfigConstants.ID_DEPENDENCY_ENGINE_KEY);
 		String dependencyEngineClassPath = configFileValues
 				.get(DependencyEngineConfigConstants.CLASS_NAME_DEPENDENCY_ENGINE_KEY);
-		Object dependencyEngine = null;
+		Object dependencyEngine;
 		try {
 			Class<?> c = Class.forName(dependencyEngineClassPath);
 			dependencyEngine = c.newInstance();
@@ -277,15 +274,15 @@ public class DependencyEnginePool {
 	}
 
 	private List<String> searchDependencyEngineConfigFiles(File file) {
-		List<String> fileNames = new ArrayList<String>();
-		if (file == null || file.getAbsolutePath() == null)
+		List<String> fileNames = new ArrayList<>();
+		if (file == null)
 			return fileNames;
 		if (file.isDirectory()) {
 			RecursiveFileFinder fileFinder = new RecursiveFileFinder();
 			fileFinder.setFilter(new FileNameDependencyEngineConfig());
 			fileFinder.findFiles(file.getPath());
 			for (File f : fileFinder.getFiles()) {
-				if (f == null || f.getAbsolutePath() == null)
+				if (f == null)
 					continue;
 				fileNames.add(f.getAbsolutePath());
 			}
@@ -299,7 +296,7 @@ public class DependencyEnginePool {
 
 	private List<String> searchDependencyEngineConfigFiles(
 			String prefixPackageName, Class<?> contentLoaderClass) {
-		List<String> fileNames = new ArrayList<String>();
+		List<String> fileNames = new ArrayList<>();
 		Enumeration<?> enumFiles = findConfigFileUrls(prefixPackageName,
 				contentLoaderClass);
 		while (enumFiles != null && enumFiles.hasMoreElements()) {
@@ -346,7 +343,7 @@ public class DependencyEnginePool {
 
 	private JarURLConnection openJarURLConnection(String fileName) {
 		try {
-			URL url = null;
+			URL url;
 			if (fileName.toLowerCase().startsWith("http")) {
 				url = new URL("jar:"+fileName);
 			} else {
@@ -355,8 +352,6 @@ public class DependencyEnginePool {
 				url = new URL("jar:file:/"+fileName);
 			}
 			return (JarURLConnection)url.openConnection();
-		} catch (MalformedURLException e) {
-			throw new RuntimeException("Cannot open jar file: " + fileName, e);
 		} catch (IOException e) {
 			throw new RuntimeException("Cannot open jar file: " + fileName, e);
 		}
