@@ -8,6 +8,10 @@ SonarCloud: [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=org.dtang
 
 [![](http://codescene.io/projects/2168/status.svg) Get more details at **codescene.io**.](http://codescene.io/projects/2168/jobs/latest-successful/results)
 
+# Why dtangler?
+I want you and your team to succeed and spend time on what really matters.
+
+Researchers have found that classes involved in one or more dependency cycles are more prone to bugs and changes than those not involved in changes - see [doi:10.1007/s11219-013-9200-8](https://link.springer.com/article/10.1007%2Fs11219-013-9200-8).  By avoiding dependency cycles, you can avoid rework and bugs in your codebase.
 
 # dtangler is a suite of tools to analyze dependencies. 
 
