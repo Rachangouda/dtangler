@@ -220,11 +220,35 @@
     </license>
   </licenses>
 
+  <developers>
+    <developer>
+      <name>Jim Bethancourt</name>
+      <email>jimbethancourt@gmail.com</email>
+      <organization>Houston Java Users Group</organization>
+      <organizationUrl>http://www.hjug.org</organizationUrl>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>CST</timezone>
+    </developer>
+    <developer>
+      <name>Marko Oikarinen</name>
+      <roles>
+        <role>initial committer</role>
+      </roles>
+    </developer>
+  </developers>
+
   <scm>
     <connection>scm:git:https://github.com/jimbethancourt/dtangler</connection>
     <developerConnection>scm:git:https://github.com/jimbethancourt/dtangler</developerConnection>
     <url>https://github.com/jimbethancourt/dtangler</url>
   </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/jimbethancourt/dtangler/issues</url>
+  </issueManagement>
 
   <profiles>
     <profile>
@@ -261,6 +285,66 @@
             <groupId>org.eluder.coveralls</groupId>
             <artifactId>coveralls-maven-plugin</artifactId>
             <version>4.3.0</version>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>snapshot-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.5.3</version>
+            <configuration>
+              <stagingRepository>https://oss.sonatype.org/content/repositories/snapshots/</stagingRepository>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <!--See http://maven.apache.org/maven-release/maven-release-plugin/usage.html-->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.5.3</version>
+            <configuration>
+              <autoVersionSubmodules>true</autoVersionSubmodules>
+              <useReleaseProfile>false</useReleaseProfile>
+              <releaseProfiles>release</releaseProfiles>
+              <goals>deploy</goals>
+            </configuration>
+          </plugin>
+          <plugin>
+            <!--See http://maven.apache.org/plugins/maven-gpg-plugin/usage.html-->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.8</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
           </plugin>
         </plugins>
       </build>
