@@ -15,7 +15,7 @@ import javax.swing.JFileChooser;
 
 import org.junit.Before;
 import org.junit.Test;
-
+//testSelectDirectory and testCancel seem to fail intermittently - may need to @Ignore if this persists
 public class SwingDirectorySelectorTest {
 
 	private TestableSwingDirectorySelector selector;
