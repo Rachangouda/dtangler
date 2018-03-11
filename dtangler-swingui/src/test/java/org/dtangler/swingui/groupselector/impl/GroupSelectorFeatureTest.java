@@ -51,18 +51,7 @@ public class GroupSelectorFeatureTest {
 
 	@Test
 	public void testOkOnCreateNew() {
-		windowManager.setTestCodeForNextModal(new Runnable() {
-			public void run() {
-				GroupSelectorDriver view = new GroupSelectorDriver(
-						windowManager.getLastShownView());
-				view.name.setText("Foo");
-				textInputSelector.setNextValue("xx");
-				view.addItemButton.click();
-				textInputSelector.setNextValue("yy");
-				view.addExcludedItemButton.click();
-				view.okButton.click();
-			}
-		});
+		createTestGroupSelectorDriver();
 		Group result = selector.createGroup();
 		assertEquals("Foo", result.getName());
 		assertTrue(result.getGroupItems().contains("xx"));
@@ -72,35 +61,22 @@ public class GroupSelectorFeatureTest {
 
 	@Test
 	public void testCancelEdit() {
-		Group groupToEdit = new Group("myGroup", Collections.EMPTY_SET);
+		Group groupToEdit = new Group("myGroup", Collections.emptySet());
 
-		windowManager.setTestCodeForNextModal(new Runnable() {
-			public void run() {
-				GroupSelectorDriver view = new GroupSelectorDriver(
-						windowManager.getLastShownView());
-				view.cancelButton.click();
-			}
-		});
+		windowManager.setTestCodeForNextModal(() -> {
+            GroupSelectorDriver view = new GroupSelectorDriver(
+                    windowManager.getLastShownView());
+            view.cancelButton.click();
+        });
 		assertNull(selector.editGroup(groupToEdit));
 		assertNull(windowManager.getLastShownView());
 	}
 
 	@Test
 	public void testOkOnEdit() {
-		Group groupToEdit = new Group("myGroup", Collections.EMPTY_SET);
+		Group groupToEdit = new Group("myGroup", Collections.emptySet());
 
-		windowManager.setTestCodeForNextModal(new Runnable() {
-			public void run() {
-				GroupSelectorDriver view = new GroupSelectorDriver(
-						windowManager.getLastShownView());
-				view.name.setText("Foo");
-				textInputSelector.setNextValue("xx");
-				view.addItemButton.click();
-				textInputSelector.setNextValue("yy");
-				view.addExcludedItemButton.click();
-				view.okButton.click();
-			}
-		});
+		createTestGroupSelectorDriver();
 		Group result = selector.editGroup(groupToEdit);
 		assertNotSame(groupToEdit, result);
 		assertEquals("Foo", result.getName());
@@ -109,10 +85,23 @@ public class GroupSelectorFeatureTest {
 		assertNull(windowManager.getLastShownView());
 	}
 
+	private void createTestGroupSelectorDriver() {
+		windowManager.setTestCodeForNextModal(() -> {
+            GroupSelectorDriver view = new GroupSelectorDriver(
+                    windowManager.getLastShownView());
+            view.name.setText("Foo");
+            textInputSelector.setNextValue("xx");
+            view.addItemButton.click();
+            textInputSelector.setNextValue("yy");
+            view.addExcludedItemButton.click();
+            view.okButton.click();
+        });
+	}
+
 	@Test
 	public void testEditShowsAllOriginalProperties() {
-		Group groupToEdit = new Group("myGroup", new HashSet(Arrays.asList(
-				"foo", "bar")), new HashSet(Arrays.asList("fooEx", "barEx")));
+		Group groupToEdit = new Group("myGroup", new HashSet<>(Arrays.asList(
+				"foo", "bar")), new HashSet<>(Arrays.asList("fooEx", "barEx")));
 
 		selector.editGroup(groupToEdit);
 		GroupSelectorDriver view = new GroupSelectorDriver(windowManager
@@ -125,8 +114,8 @@ public class GroupSelectorFeatureTest {
 
 	@Test
 	public void testAddAndRemoveItems() {
-		Group groupToEdit = new Group("myGroup", new HashSet(Arrays.asList(
-				"foo", "bar")), Collections.EMPTY_SET);
+		Group groupToEdit = new Group("myGroup", new HashSet<>(Arrays.asList(
+				"foo", "bar")), Collections.emptySet());
 		selector.editGroup(groupToEdit);
 		GroupSelectorDriver view = new GroupSelectorDriver(windowManager
 				.getLastShownView());
@@ -137,8 +126,8 @@ public class GroupSelectorFeatureTest {
 
 	@Test
 	public void testAddAndRemoveExcludedItems() {
-		Group groupToEdit = new Group("myGroup", Collections.EMPTY_SET,
-				new HashSet(Arrays.asList("foo", "bar")));
+		Group groupToEdit = new Group("myGroup", Collections.emptySet(),
+				new HashSet<>(Arrays.asList("foo", "bar")));
 		selector.editGroup(groupToEdit);
 		GroupSelectorDriver view = new GroupSelectorDriver(windowManager
 				.getLastShownView());
@@ -149,8 +138,8 @@ public class GroupSelectorFeatureTest {
 
 	private void testAddAndRemoveItems(ListBox list, Button addBtn,
 			Button removeBtn) {
-		Group groupToEdit = new Group("myGroup", new HashSet(Arrays.asList(
-				"foo", "bar")), Collections.EMPTY_SET);
+		Group groupToEdit = new Group("myGroup", new HashSet<>(Arrays.asList(
+				"foo", "bar")), Collections.emptySet());
 		selector.editGroup(groupToEdit);
 
 		textInputSelector.setNextValue("bay");
@@ -171,8 +160,8 @@ public class GroupSelectorFeatureTest {
 
 	@Test
 	public void testRemoveItemButtonsAreOnlyEnabledWhenOneOrMoreItemsSelected() {
-		Group groupToEdit = new Group("myGroup", new HashSet(Arrays.asList(
-				"foo", "bar")), new HashSet(Arrays.asList("foo", "bar")));
+		Group groupToEdit = new Group("myGroup", new HashSet<>(Arrays.asList(
+				"foo", "bar")), new HashSet<>(Arrays.asList("foo", "bar")));
 		selector.editGroup(groupToEdit);
 		GroupSelectorDriver view = new GroupSelectorDriver(windowManager
 				.getLastShownView());

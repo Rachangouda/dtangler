@@ -101,7 +101,7 @@ public class MiscFeatureTest {
 	public void testGetFileInputSelection() {
 		FileInputSelection newInput = new FileInputSelection(dependencyEngine
 				.getDependencyEngineId(), Arrays.asList("path3", "path4"),
-				Collections.EMPTY_LIST);
+				Collections.emptyList());
 		fileInputSelector.setInputToReturn(newInput);
 		view.inputButton.click();
 		assertEquals(Arrays.asList("path3", "path4"), arguments.getInput());
@@ -149,7 +149,7 @@ public class MiscFeatureTest {
 		dependencyEngineFactory.addDependencyEngine("mock2", engine2);
 
 		DependencyEngine dependencyEngineMock = null;
-		arguments.setInput(Arrays.asList("test.mock1"));
+		arguments.setInput(Collections.singletonList("test.mock1"));
 		dependencyEngineMock = dependencyEngineFactory
 				.getDependencyEngine(arguments);
 		assertEquals(dependencyEngineMock.getClass().getName(), engine1
@@ -157,7 +157,7 @@ public class MiscFeatureTest {
 		view.refreshBtn.click();
 		assertEquals(20, view.dsm.getRowCount());
 
-		arguments.setInput(Arrays.asList("test.mock2"));
+		arguments.setInput(Collections.singletonList("test.mock2"));
 		dependencyEngineMock = dependencyEngineFactory
 				.getDependencyEngine(arguments);
 		assertEquals(dependencyEngineMock.getClass().getName(), engine2
@@ -482,7 +482,7 @@ public class MiscFeatureTest {
 	}
 
 	private Map<Dependable, Integer> createMap(Dependable... items) {
-		Map<Dependable, Integer> result = new HashMap();
+		Map<Dependable, Integer> result = new HashMap<>();
 		for (Dependable item : items) {
 			result.put(item, 1);
 		}

@@ -22,7 +22,7 @@ import org.dtangler.swingui.rulememberselector.RuleMemberSelector;
 public class DefaultRulesModel implements RulesModel {
 
 	private class DefaultRuleModel implements RuleModel {
-		private final Map<String, Set<String>> rules = new HashMap();
+		private final Map<String, Set<String>> rules = new HashMap<>();
 		private final RuleMemberSelector ruleMemberSelector;
 
 		public DefaultRuleModel(RuleMemberSelector ruleMemberSelector,
@@ -35,11 +35,11 @@ public class DefaultRulesModel implements RulesModel {
 			String newRule = ruleMemberSelector
 					.selectRuleMember(getGroupNames());
 			if (newRule != null)
-				rules.put(newRule, Collections.EMPTY_SET);
+				rules.put(newRule, Collections.emptySet());
 		}
 
 		public List<String> getRules() {
-			ArrayList arules = new ArrayList(rules.keySet());
+			ArrayList<String> arules = new ArrayList<>(rules.keySet());
 			Collections.sort(arules);
 			return arules;
 		}
@@ -51,8 +51,8 @@ public class DefaultRulesModel implements RulesModel {
 
 		public List<String> getRuleItems(List<String> forbiddenDependencyRules) {
 			if (forbiddenDependencyRules.size() != 1)
-				return Collections.EMPTY_LIST;
-			List<String> items = new ArrayList(rules
+				return Collections.emptyList();
+			List<String> items = new ArrayList<>(rules
 					.get(forbiddenDependencyRules.get(0)));
 			Collections.sort(items);
 			return items;
@@ -63,20 +63,20 @@ public class DefaultRulesModel implements RulesModel {
 					.selectRuleMember(getGroupNames());
 			if (newItem == null)
 				return;
-			Set<String> allItems = new HashSet(rules.get(ruleToAddTo));
+			Set<String> allItems = new HashSet<>(rules.get(ruleToAddTo));
 			allItems.add(newItem);
 			rules.put(ruleToAddTo, allItems);
 		}
 
 		public void removeRuleItem(String ruleToRemoveFrom,
 				List<String> ruleItems) {
-			Set<String> allItems = new HashSet(rules.get(ruleToRemoveFrom));
+			Set<String> allItems = new HashSet<>(rules.get(ruleToRemoveFrom));
 			allItems.removeAll(ruleItems);
 			rules.put(ruleToRemoveFrom, allItems);
 		}
 
 		public void updateRuleMemberName(String oldName, String newName) {
-			Map<String, Set<String>> newRules = new HashMap();
+			Map<String, Set<String>> newRules = new HashMap<>();
 			for (Entry<String, Set<String>> entry : rules.entrySet()) {
 				if (entry.getKey().equals(oldName))
 					newRules.put(newName, updateRuleMemberName(oldName,
@@ -92,7 +92,7 @@ public class DefaultRulesModel implements RulesModel {
 
 		private Set<String> updateRuleMemberName(String oldName,
 				String newName, Set<String> values) {
-			Set<String> result = new HashSet(values);
+			Set<String> result = new HashSet<>(values);
 			if (result.contains(oldName)) {
 				result.remove(oldName);
 				result.add(newName);
@@ -124,7 +124,7 @@ public class DefaultRulesModel implements RulesModel {
 				.getForbiddenDependencies());
 		allowedDeps = new DefaultRuleModel(ruleMemberSelector, prevArguments
 				.getAllowedDependencies());
-		this.groups = new HashMap(prevArguments.getGroups());
+		this.groups = new HashMap<>(prevArguments.getGroups());
 	}
 
 	public void save() {
@@ -139,7 +139,7 @@ public class DefaultRulesModel implements RulesModel {
 	}
 
 	public List<String> getGroupNames() {
-		List<String> groupNames = new ArrayList(groups.keySet());
+		List<String> groupNames = new ArrayList<>(groups.keySet());
 		Collections.sort(groupNames);
 		return groupNames;
 	}

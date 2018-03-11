@@ -153,23 +153,21 @@ public class FileInputSelectorFeatureTest {
 
 	@Test
 	public void testOk() {
-		windowManager.setTestCodeForNextModal(new Runnable() {
-			public void run() {
-				FileInputViewDriver view = new FileInputViewDriver(
-						windowManager.getLastShownView());
+		windowManager.setTestCodeForNextModal(() -> {
+            FileInputViewDriver view = new FileInputViewDriver(
+                    windowManager.getLastShownView());
 
-				view.engineCombo.select("anotherDependencyEngine");
-				view.masks.selectIndices(new int[] { 0, 1 });
+            view.engineCombo.select("anotherDependencyEngine");
+            view.masks.selectIndices(new int[] { 0, 1 });
 
-				directorySelector.setNextValue("some path");
-				view.addPathButton.click();
+            directorySelector.setNextValue("some path");
+            view.addPathButton.click();
 
-				textInputSelector.setNextValue("some mask");
-				view.addMaskButton.click();
+            textInputSelector.setNextValue("some mask");
+            view.addMaskButton.click();
 
-				view.okButton.click();
-			}
-		});
+            view.okButton.click();
+        });
 		FileInputSelection result = selector.selectInput(defaultInput);
 		assertEquals(Arrays.asList("mypath1", "mypath1/mypath2", "some path"),
 				result.getPaths());
@@ -181,22 +179,20 @@ public class FileInputSelectorFeatureTest {
 
 	@Test
 	public void testCancel() {
-		windowManager.setTestCodeForNextModal(new Runnable() {
-			public void run() {
-				FileInputViewDriver view = new FileInputViewDriver(
-						windowManager.getLastShownView());
+		windowManager.setTestCodeForNextModal(() -> {
+            FileInputViewDriver view = new FileInputViewDriver(
+                    windowManager.getLastShownView());
 
-				view.masks.selectIndices(new int[] { 0, 1 });
+            view.masks.selectIndices(new int[] { 0, 1 });
 
-				directorySelector.setNextValue("some path");
-				view.addPathButton.click();
+            directorySelector.setNextValue("some path");
+            view.addPathButton.click();
 
-				textInputSelector.setNextValue("some mask");
-				view.addMaskButton.click();
+            textInputSelector.setNextValue("some mask");
+            view.addMaskButton.click();
 
-				view.cancelButton.click();
-			}
-		});
+            view.cancelButton.click();
+        });
 		FileInputSelection result = selector.selectInput(defaultInput);
 		assertNull(result);
 		assertNull("window was closed", windowManager.getLastShownView());

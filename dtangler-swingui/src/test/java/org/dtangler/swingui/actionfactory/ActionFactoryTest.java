@@ -110,12 +110,9 @@ public class ActionFactoryTest {
 
 		});
 
-		actionFactory.setImplementation(Keys.key1, new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				throw new RuntimeException("my error");
-			}
-		});
+		actionFactory.setImplementation(Keys.key1, e -> {
+            throw new RuntimeException("my error");
+        });
 
 		try {
 			actionFactory.getAction(Keys.key1).actionPerformed(null);

@@ -51,7 +51,7 @@ public class ActionFactory {
 
 	}
 
-	private final Map<ActionKey, GuiAction> actions = new HashMap();
+	private final Map<ActionKey, GuiAction> actions = new HashMap<>();
 	private ActionExecutionListener actionExecutionListener;
 
 	public Action getAction(ActionKey key) {

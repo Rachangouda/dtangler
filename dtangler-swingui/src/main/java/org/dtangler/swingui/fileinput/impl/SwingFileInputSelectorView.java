@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,9 +30,9 @@ import com.jgoodies.forms.layout.FormLayout;
 public class SwingFileInputSelectorView extends SwingBaseView implements
 		FileInputSelectorView {
 
-	private final JComboBox engineCombo = new JComboBox();
-	private final JList paths = new JList();
-	private final JList masks = new JList();
+	private final JComboBox<String> engineCombo = new JComboBox<>();
+	private final JList<String> paths = new JList<>();
+	private final JList<String> masks = new JList<>();
 	private final JButton addPathBtn;
 	private final JButton removePathBtn;
 	private final JButton addMaskBtn;
@@ -96,7 +97,7 @@ public class SwingFileInputSelectorView extends SwingBaseView implements
 	}
 
 	public void setMasks(List<String> masks) {
-		this.masks.setListData(masks.toArray());
+		this.masks.setListData(new Vector<>(masks));
 	}
 
 	public void setEngines(List<String> engines) {
@@ -116,15 +117,15 @@ public class SwingFileInputSelectorView extends SwingBaseView implements
 	}
 
 	public void setPaths(List<String> paths) {
-		this.paths.setListData(paths.toArray());
+		this.paths.setListData(new Vector<>(paths));
 	}
 
 	public List<String> getMaskSelection() {
-		return new ArrayList(Arrays.asList(masks.getSelectedValues()));
+		return masks.getSelectedValuesList();
 	}
 
 	public List<String> getPathSelection() {
-		return new ArrayList(Arrays.asList(paths.getSelectedValues()));
+		return paths.getSelectedValuesList();
 	}
 
 	public Dimension getPreferredSize() {

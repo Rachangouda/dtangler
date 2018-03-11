@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -37,7 +38,7 @@ public class SwingRulesView extends SwingBaseView implements RulesView {
 	private final JButton removeGroupBtn;
 	private final SwingRuleView forbiddenDeps;
 	private final SwingRuleView allowedDeps;
-	private final JList groups = new JList();
+	private final JList<String> groups = new JList<>();
 
 	public SwingRulesView(ActionFactory actionFactory) {
 		super(actionFactory);
@@ -111,7 +112,7 @@ public class SwingRulesView extends SwingBaseView implements RulesView {
 	}
 
 	public void setGroupNames(List<String> groupNames) {
-		groups.setListData(groupNames.toArray());
+		groups.setListData(new Vector<>(groupNames));
 	}
 
 	public RuleView forbiddenDeps() {
@@ -123,7 +124,7 @@ public class SwingRulesView extends SwingBaseView implements RulesView {
 	}
 
 	public List<String> getSelectedGroups() {
-		return new ArrayList(Arrays.asList(groups.getSelectedValues()));
+		return groups.getSelectedValuesList();
 	}
 
 }

@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -33,10 +34,10 @@ public class SwingGroupView extends SwingBaseView implements GroupView {
 	private final JButton cancelBtn;
 	private final JButton addItemBtn;
 	private final JButton removeItemBtn;
-	private final JList items = new JList();
+	private final JList<String> items = new JList<>();
 	private final JButton addExludedItemBtn;
 	private final JButton removeExcludedItemBtn;
-	private final JList excludedItems = new JList();
+	private final JList<String> excludedItems = new JList<>();
 	private final JTextField name = new JTextField();
 
 	protected SwingGroupView(ActionFactory actionFactory) {
@@ -123,18 +124,18 @@ public class SwingGroupView extends SwingBaseView implements GroupView {
 	}
 
 	public void setItems(List<String> items) {
-		this.items.setListData(items.toArray());
+		this.items.setListData(new Vector<>(items));
 	}
 
 	public void setExcludedItems(List<String> excludedItems) {
-		this.excludedItems.setListData(excludedItems.toArray());
+		this.excludedItems.setListData(new Vector<>(excludedItems));
 	}
 
 	public List<String> getSelectedItems() {
-		return new ArrayList(Arrays.asList(items.getSelectedValues()));
+		return items.getSelectedValuesList();
 	}
 
 	public List<String> getSelectedExcludedItems() {
-		return new ArrayList(Arrays.asList(excludedItems.getSelectedValues()));
+		return excludedItems.getSelectedValuesList();
 	}
 }

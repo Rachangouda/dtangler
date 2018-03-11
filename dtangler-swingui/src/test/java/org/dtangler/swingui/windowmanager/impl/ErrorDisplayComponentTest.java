@@ -43,7 +43,6 @@ public class ErrorDisplayComponentTest {
 	private String getDetails(Throwable ex) {
 		Panel panel = new Panel(new ErrorDisplayComponent(ex)
 				.getViewComponent());
-		String details = panel.getTextBox("detailsField").getText();
-		return details;
+		return panel.getTextBox("detailsField").getText();
 	}
 }

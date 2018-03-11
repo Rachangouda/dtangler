@@ -47,7 +47,7 @@ public class DsmPresenter implements ListSelectionListener,
 	}
 
 	private List<Integer> normalizeIndices(int[] selectedColumns, int delta) {
-		List<Integer> result = new ArrayList();
+		List<Integer> result = new ArrayList<>();
 		for (int col : selectedColumns) {
 			int index = col + delta;
 			if (index >= 0)

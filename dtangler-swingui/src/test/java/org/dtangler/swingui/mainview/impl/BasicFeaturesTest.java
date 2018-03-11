@@ -104,10 +104,10 @@ public class BasicFeaturesTest {
 		 The input can be a single or a group of files or directories. With java dependency engine, the input
 		 files are of type .class and .jar. With generic dependency engine, the input files are of type .dt.
 		 */
-		arguments.setInput(Arrays.asList("mypath1"));
-		assertFalse(getLastUsedDefaultInputPath(Arrays.asList("mypath1")));
+		arguments.setInput(Collections.singletonList("mypath1"));
+		assertFalse(getLastUsedDefaultInputPath(Collections.singletonList("mypath1")));
 		view.menuBar.getMenu("Model").getSubMenu("Dependency Input...").click();
-		assertTrue(getLastUsedDefaultInputPath(Arrays.asList("mypath1")));
+		assertTrue(getLastUsedDefaultInputPath(Collections.singletonList("mypath1")));
 	}
 
 	@Test

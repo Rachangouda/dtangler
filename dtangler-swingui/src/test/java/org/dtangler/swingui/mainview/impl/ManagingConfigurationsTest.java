@@ -156,8 +156,8 @@ public class ManagingConfigurationsTest {
 	}
 
 	private void makeConfiguarationDirty() {
-		fileInputSelector.setInputToReturn(new FileInputSelection(dependencyEngine.getDependencyEngineId(), Arrays
-				.asList("newPath"), Collections.EMPTY_LIST));
+		fileInputSelector.setInputToReturn(new FileInputSelection(dependencyEngine.getDependencyEngineId(),
+				Collections.singletonList("newPath"), Collections.emptyList()));
 		view.inputButton.click();
 	}
 
@@ -360,7 +360,7 @@ public class ManagingConfigurationsTest {
 		view.simulateDrop(DataFlavor.javaFileListFlavor, Arrays.asList(folder1,
 				folder2));
 
-		List<String> expected = new ArrayList(origInput);
+		List<String> expected = new ArrayList<>(origInput);
 		expected.add(folder1.getAbsolutePath());
 		expected.add(folder2.getAbsolutePath());
 

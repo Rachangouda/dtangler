@@ -54,11 +54,10 @@ public class ApplicationStarter {
 		AboutInfoDisplayer aboutInfoDisplayer = new AboutInfoDisplayerImpl(
 				windowManager);
 		FileSelector fileSelector = new SwingFileSelector();
-		MainViewFactory mainViewFactory = new MainViewFactoryImpl(
+
+		return new MainViewFactoryImpl(
 				dsmViewFactory, fileInputSelector, rulesSelector, fileSelector,
 				windowManager, aboutInfoDisplayer, dialogManager, dependencyEngineFactory);
-
-		return mainViewFactory;
 	}
 
 	public void start(String[] args) {

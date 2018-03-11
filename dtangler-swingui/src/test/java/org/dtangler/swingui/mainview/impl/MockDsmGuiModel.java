@@ -55,11 +55,11 @@ public class MockDsmGuiModel implements DsmGuiModel {
 	}
 
 	public Set<Dependency> getSelectionDependencies() {
-		return Collections.EMPTY_SET;
+		return Collections.emptySet();
 	}
 
 	public Set<Dependable> getSelectionDependables() {
-		return Collections.EMPTY_SET;
+		return Collections.emptySet();
 	}
 
 	public DependableInfo getColumnInfo(int index) {

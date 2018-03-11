@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -36,8 +37,8 @@ public class SwingRuleView extends SwingBaseView implements RuleView {
 	private final JButton addRuleItemBtn;
 	private final JButton removeRuleItemsBtn;
 
-	private final JList rules = new JList();
-	private final JList ruleItems = new JList();
+	private final JList<String> rules = new JList<>();
+	private final JList<String> ruleItems = new JList<>();
 
 	private final String tabTitle;
 	private final String rulesLabel;
@@ -76,19 +77,19 @@ public class SwingRuleView extends SwingBaseView implements RuleView {
 	}
 
 	public List<String> getSelectedRules() {
-		return new ArrayList(Arrays.asList(rules.getSelectedValues()));
+		return rules.getSelectedValuesList();
 	}
 
 	public void setRules(List<String> rules) {
-		this.rules.setListData(rules.toArray());
+		this.rules.setListData(new Vector<>(rules));
 	}
 
 	public void setRuleItems(List<String> ruleItems) {
-		this.ruleItems.setListData(ruleItems.toArray());
+		this.ruleItems.setListData(new Vector<>(ruleItems));
 	}
 
 	public List<String> getSelectedRuleItems() {
-		return new ArrayList(Arrays.asList(ruleItems.getSelectedValues()));
+		return ruleItems.getSelectedValuesList();
 	}
 
 	@Override

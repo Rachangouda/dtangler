@@ -25,26 +25,15 @@ public class TextInputGlue {
 		this.presenter = presenter;
 		updateActionStates();
 
-		actionFactory.setImplementation(Actions.ok, new ActionListener() {
+		actionFactory.setImplementation(Actions.ok, e -> {
+            presenter.onOk();
+            windowManager.close(view);
+        });
 
-			public void actionPerformed(ActionEvent e) {
-				presenter.onOk();
-				windowManager.close(view);
-			}
-		});
-
-		actionFactory.setImplementation(Actions.cancel, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				windowManager.close(view);
-			}
-		});
+		actionFactory.setImplementation(Actions.cancel, e -> windowManager.close(view));
 
 		actionFactory.setImplementation(Actions.updateActionStates,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						updateActionStates();
-					}
-				});
+				e -> updateActionStates());
 
 	}
 

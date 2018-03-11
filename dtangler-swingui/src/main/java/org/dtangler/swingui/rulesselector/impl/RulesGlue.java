@@ -25,124 +25,84 @@ public class RulesGlue {
 		this.presenter = presenter;
 		updateActionStates();
 		actionFactory.setImplementation(Actions.addForbiddenRule,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.forbiddenDeps().onAddRule();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.forbiddenDeps().onAddRule();
+                    updateActionStates();
+                });
 
 		actionFactory.setImplementation(Actions.removeForbiddenRule,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.forbiddenDeps().onRemoveRule();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.forbiddenDeps().onRemoveRule();
+                    updateActionStates();
+                });
 
 		actionFactory.setImplementation(Actions.addForbiddenRuleItem,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.forbiddenDeps().onAddRuleItems();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.forbiddenDeps().onAddRuleItems();
+                    updateActionStates();
+                });
 
 		actionFactory.setImplementation(Actions.removeForbiddenRuleItems,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.forbiddenDeps().onRemoveRuleItems();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.forbiddenDeps().onRemoveRuleItems();
+                    updateActionStates();
+                });
 
 		actionFactory.setImplementation(Actions.forbiddenRuleSelectionChanged,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.forbiddenDeps().onRuleSelectionChanged();
-					}
-				});
+				e -> presenter.forbiddenDeps().onRuleSelectionChanged());
 
 		actionFactory.setImplementation(Actions.addAllowedRule,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.allowedDeps().onAddRule();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.allowedDeps().onAddRule();
+                    updateActionStates();
+                });
 
 		actionFactory.setImplementation(Actions.removeAllowedRule,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.allowedDeps().onRemoveRule();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.allowedDeps().onRemoveRule();
+                    updateActionStates();
+                });
 
 		actionFactory.setImplementation(Actions.addAllowedRuleItem,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.allowedDeps().onAddRuleItems();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.allowedDeps().onAddRuleItems();
+                    updateActionStates();
+                });
 
 		actionFactory.setImplementation(Actions.removeAllowedRuleItems,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.allowedDeps().onRemoveRuleItems();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.allowedDeps().onRemoveRuleItems();
+                    updateActionStates();
+                });
 
 		actionFactory.setImplementation(Actions.allowedRuleSelectionChanged,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.allowedDeps().onRuleSelectionChanged();
-					}
-				});
+				e -> presenter.allowedDeps().onRuleSelectionChanged());
 
-		actionFactory.setImplementation(Actions.cancel, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				windowManager.close(view);
-			}
-		});
+		actionFactory.setImplementation(Actions.cancel, e -> windowManager.close(view));
 
-		actionFactory.setImplementation(Actions.ok, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				presenter.onOk();
-				windowManager.close(view);
-			}
-		});
+		actionFactory.setImplementation(Actions.ok, e -> {
+            presenter.onOk();
+            windowManager.close(view);
+        });
 
 		actionFactory.setImplementation(Actions.updateActionStates,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						updateActionStates();
-					}
-				});
-		actionFactory.setImplementation(Actions.newGroup, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				presenter.onNewGroup();
-				updateActionStates();
-			}
-		});
+				e -> updateActionStates());
+		actionFactory.setImplementation(Actions.newGroup, e -> {
+            presenter.onNewGroup();
+            updateActionStates();
+        });
 
 		actionFactory.setImplementation(Actions.removeGroups,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.onRemoveGroups();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.onRemoveGroups();
+                    updateActionStates();
+                });
 
 		actionFactory.setImplementation(Actions.editGroup,
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						presenter.onEditGroup();
-						updateActionStates();
-					}
-				});
+				e -> {
+                    presenter.onEditGroup();
+                    updateActionStates();
+                });
 	}
 
 	private void updateActionStates() {

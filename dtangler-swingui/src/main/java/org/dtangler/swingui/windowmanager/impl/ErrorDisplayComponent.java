@@ -64,7 +64,7 @@ public class ErrorDisplayComponent {
 		sb.append(t.getClass().getSimpleName());
 		if (t.getMessage() != null && !"".equals(t.getMessage())
 				&& !t.getMessage().equals("null"))
-			sb.append("\nmessage: " + t.getMessage());
+			sb.append("\nmessage: ").append(t.getMessage());
 		return sb.toString();
 	}
 

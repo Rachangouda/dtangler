@@ -25,7 +25,7 @@ public class WindowKeyListener extends EventQueue {
 	}
 
 	public void addKeyAction(int keyCode, Action action) {
-		actions.put(new Integer(keyCode), action);
+		actions.put(keyCode, action);
 	}
 
 	protected void dispatchEvent(AWTEvent event) {
@@ -43,7 +43,7 @@ public class WindowKeyListener extends EventQueue {
 	}
 
 	private void handleKeyEvent(KeyEvent event) {
-		Integer key = new Integer(event.getKeyCode());
+		Integer key = event.getKeyCode();
 
 		if (!actions.contains(key))
 			return;

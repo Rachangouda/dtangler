@@ -33,8 +33,8 @@ public class SwingDsmFeatureTest {
 		builder.add("bar").dependsOn("bay");
 		SwingDsm.getModel().setDsm(
 				new DsmEngine(builder.getDependencies()).createDsm(),
-				new AnalysisResult(Collections.EMPTY_MAP,
-						Collections.EMPTY_SET, true));
+				new AnalysisResult(Collections.emptyMap(),
+						Collections.emptySet(), true));
 		DsmViewDriver dsmView = new DsmViewDriver(SwingDsm.getView().getJComponent());
 
 		assertEquals(4, dsmView.getColumCount());

@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -52,8 +53,8 @@ public class SwingMainView extends SwingBaseView implements MainView {
 	public static final String menuItemZoomInNameHeader = "Zoom in (show contents)";
 	public static final String menuItemZoomInNameData = "Zoom in (show dependencies)";
 
-	private final JList selectionViolations = new JList();
-	private final JList allViolations = new JList();
+	private final JList<String> selectionViolations = new JList<>();
+	private final JList<String> allViolations = new JList<>();
 	private final JButton newButton;
 	private final JButton rulesButton;
 	private final JButton refreshButton;
@@ -208,11 +209,11 @@ public class SwingMainView extends SwingBaseView implements MainView {
 	}
 
 	public void setSelectionViolations(List<String> violations) {
-		selectionViolations.setListData(violations.toArray());
+		selectionViolations.setListData(new Vector<>(violations));
 	}
 
 	public void setAllViolations(List<String> violations) {
-		allViolations.setListData(violations.toArray());
+		allViolations.setListData(new Vector<>(violations));
 	}
 
 	public Dimension getPreferredSize() {

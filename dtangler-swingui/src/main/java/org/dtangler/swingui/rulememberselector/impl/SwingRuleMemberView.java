@@ -30,7 +30,7 @@ import com.jgoodies.forms.layout.FormLayout;
 public class SwingRuleMemberView extends SwingBaseView implements
 		RuleMemberView {
 
-	private final JComboBox groups = new JComboBox();
+	private final JComboBox<String> groups = new JComboBox<>();
 	private final JTextField literal = new JTextField();
 	private final JRadioButton groupRadio;
 	private final JRadioButton literalRadio;
@@ -55,11 +55,7 @@ public class SwingRuleMemberView extends SwingBaseView implements
 	private JRadioButton createRadioButton(String name, ButtonGroup buttonGroup) {
 		JRadioButton btn = new JRadioButton(name);
 		buttonGroup.add(btn);
-		btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updatRuleMemberMode();
-			}
-		});
+		btn.addActionListener(e -> updatRuleMemberMode());
 		return btn;
 	}
 

@@ -61,8 +61,7 @@ public class MainViewDriver {
 	public void simulateDrop(final DataFlavor flavor, final Object data) {
 		final Transferable transferable = new Transferable() {
 
-			public Object getTransferData(DataFlavor flavor)
-					throws UnsupportedFlavorException, IOException {
+			public Object getTransferData(DataFlavor flavor) {
 				return data;
 			}
 

@@ -86,17 +86,15 @@ public class RuleMemberSelectorFeatureTest {
 
 	@Test
 	public void testCancel() {
-		windowManager.setTestCodeForNextModal(new Runnable() {
-			public void run() {
-				RuleMemberViewDriver view = new RuleMemberViewDriver(
-						windowManager.getLastShownView());
-				view.literal.setText("myvalue");
-				view.cancelButton.click();
-			}
-		});
+		windowManager.setTestCodeForNextModal(() -> {
+            RuleMemberViewDriver view = new RuleMemberViewDriver(
+                    windowManager.getLastShownView());
+            view.literal.setText("myvalue");
+            view.cancelButton.click();
+        });
 
 		String result = new RuleMemberSelectorImpl(windowManager)
-				.selectRuleMember(Collections.EMPTY_LIST);
+				.selectRuleMember(Collections.emptyList());
 		assertNull(result);
 		assertNull(windowManager.getLastShownView());
 	}
@@ -113,7 +111,7 @@ public class RuleMemberSelectorFeatureTest {
 		});
 
 		String result = new RuleMemberSelectorImpl(windowManager)
-				.selectRuleMember(Collections.EMPTY_LIST);
+				.selectRuleMember(Collections.emptyList());
 		assertEquals("myvalue", result);
 		assertNull(windowManager.getLastShownView());
 	}
@@ -138,7 +136,7 @@ public class RuleMemberSelectorFeatureTest {
 
 	@Test
 	public void testLiteralCannotContainGroupSign() {
-		RuleMemberViewDriver view = openView(Collections.EMPTY_LIST);
+		RuleMemberViewDriver view = openView(Collections.emptyList());
 		view.literal.setText("@foo");
 		try {
 			view.okButton.click();
@@ -150,7 +148,7 @@ public class RuleMemberSelectorFeatureTest {
 
 	@Test
 	public void testGroupRadioAndGroupAreDisabledWhenNoGroups() {
-		RuleMemberViewDriver view = openView(Collections.EMPTY_LIST);
+		RuleMemberViewDriver view = openView(Collections.emptyList());
 
 		assertFalse(view.groupRadio.isEnabled().isTrue());
 		assertFalse(view.groups.isEnabled().isTrue());

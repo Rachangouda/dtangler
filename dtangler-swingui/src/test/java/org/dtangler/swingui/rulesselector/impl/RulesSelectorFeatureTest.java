@@ -42,9 +42,9 @@ public class RulesSelectorFeatureTest {
 	public void setUp() {
 		windowManager = new MockWindowManager();
 		ruleMemberSelector = new MockRuleMemberSelector();
-		Map<String, Set<String>> forbiddenDeps = new HashMap();
-		forbiddenDeps.put("rule1", new HashSet(Arrays.asList("foo")));
-		forbiddenDeps.put("rule2", new HashSet(Arrays.asList("foo", "bar")));
+		Map<String, Set<String>> forbiddenDeps = new HashMap<>();
+		forbiddenDeps.put("rule1", new HashSet<>(Collections.singletonList("foo")));
+		forbiddenDeps.put("rule2", new HashSet<>(Arrays.asList("foo", "bar")));
 		arguments = new Arguments();
 		arguments.setForbiddenDependencies(forbiddenDeps);
 		groupSelector = new MockGroupSelector();
@@ -150,7 +150,7 @@ public class RulesSelectorFeatureTest {
 	@Test
 	public void testRemoveAllowedRuleButtonIsOnlyEnabledWhenRulesSelected() {
 		arguments.setAllowedDependencies(arguments.getForbiddenDependencies());
-		arguments.setForbiddenDependencies(Collections.EMPTY_MAP);
+		arguments.setForbiddenDependencies(Collections.emptyMap());
 		selector.selectRules(arguments);
 		RulesSelectorViewDriver view = new RulesSelectorViewDriver(
 				windowManager.getLastShownView());
@@ -169,20 +169,18 @@ public class RulesSelectorFeatureTest {
 
 	@Test
 	public void testOk() {
-		windowManager.setTestCodeForNextModal(new Runnable() {
-			public void run() {
-				RulesSelectorViewDriver view = new RulesSelectorViewDriver(
-						windowManager.getLastShownView());
-				ruleMemberSelector.setNextValue("newForbiddenRule");
-				view.forbiddenDeps.addRuleButton.click();
-				ruleMemberSelector.setNextValue("newAllowedRule");
-				view.allowedDeps.addRuleButton.click();
-				groupSelector.setNextResult(new Group("newGroup",
-						Collections.EMPTY_SET));
-				view.newGroupButton.click();
-				view.okButton.click();
-			}
-		});
+		windowManager.setTestCodeForNextModal(() -> {
+            RulesSelectorViewDriver view = new RulesSelectorViewDriver(
+                    windowManager.getLastShownView());
+            ruleMemberSelector.setNextValue("newForbiddenRule");
+            view.forbiddenDeps.addRuleButton.click();
+            ruleMemberSelector.setNextValue("newAllowedRule");
+            view.allowedDeps.addRuleButton.click();
+            groupSelector.setNextResult(new Group("newGroup",
+                    Collections.emptySet()));
+            view.newGroupButton.click();
+            view.okButton.click();
+        });
 		Arguments result = selector.selectRules(arguments);
 		assertNotNull(result);
 		assertNotSame(arguments, result);
@@ -209,13 +207,11 @@ public class RulesSelectorFeatureTest {
 
 	@Test
 	public void testCancel() {
-		windowManager.setTestCodeForNextModal(new Runnable() {
-			public void run() {
-				RulesSelectorViewDriver view = new RulesSelectorViewDriver(
-						windowManager.getLastShownView());
-				view.cancelButton.click();
-			}
-		});
+		windowManager.setTestCodeForNextModal(() -> {
+            RulesSelectorViewDriver view = new RulesSelectorViewDriver(
+                    windowManager.getLastShownView());
+            view.cancelButton.click();
+        });
 		assertNull(selector.selectRules(arguments));
 		assertNull("window was closed", windowManager.getLastShownView());
 	}
@@ -233,9 +229,9 @@ public class RulesSelectorFeatureTest {
 	}
 
 	private Map<String, Group> createGroups(String... names) {
-		Map<String, Group> groups = new HashMap();
+		Map<String, Group> groups = new HashMap<>();
 		for (String name : names)
-			groups.put(name, new Group(name, Collections.EMPTY_SET));
+			groups.put(name, new Group(name, Collections.emptySet()));
 		return groups;
 	}
 
@@ -265,7 +261,7 @@ public class RulesSelectorFeatureTest {
 		assertTrue(view.groups.contentEquals(new String[] { "Bar", "Foo" })
 				.isTrue());
 
-		groupSelector.setNextResult(new Group("Coco", Collections.EMPTY_SET));
+		groupSelector.setNextResult(new Group("Coco", Collections.emptySet()));
 		view.newGroupButton.click();
 		assertTrue(view.groups.contentEquals(
 				new String[] { "Bar", "Coco", "Foo" }).isTrue());
@@ -291,7 +287,7 @@ public class RulesSelectorFeatureTest {
 
 	@Test
 	public void testEditGroup() {
-		Group groupToEdit = new Group("MyGroup", Collections.EMPTY_SET);
+		Group groupToEdit = new Group("MyGroup", Collections.emptySet());
 
 		arguments.setGroups(Collections.singletonMap(groupToEdit.getName(),
 				groupToEdit));
@@ -308,7 +304,7 @@ public class RulesSelectorFeatureTest {
 		assertSame(groupToEdit, groupSelector.lastEditedGroup());
 
 		groupSelector.setNextResult(new Group("Edited Group",
-				Collections.EMPTY_SET));
+				Collections.emptySet()));
 
 		view.groups.select("MyGroup");
 		view.editGroupButton.click();
@@ -354,7 +350,7 @@ public class RulesSelectorFeatureTest {
 
 	@Test
 	public void testGroupNameChangeAlsoUpdatesRules() {
-		Set<String> ruleItems = new HashSet(Arrays.asList("@group1", "@group2"));
+		Set<String> ruleItems = new HashSet<>(Arrays.asList("@group1", "@group2"));
 		arguments.setForbiddenDependencies(Collections.singletonMap("@group1",
 				ruleItems));
 		arguments.setAllowedDependencies(Collections.singletonMap("@group1",
@@ -366,7 +362,7 @@ public class RulesSelectorFeatureTest {
 				windowManager.getLastShownView());
 
 		groupSelector.setNextResult(new Group("EditedGroup",
-				Collections.EMPTY_SET));
+				Collections.emptySet()));
 
 		view.groups.select("group1");
 		view.editGroupButton.click();
@@ -388,12 +384,12 @@ public class RulesSelectorFeatureTest {
 
 	@Test
 	public void testRemoveGroupAlsoremovesGroupFromRules() {
-		Set<String> ruleItems = new HashSet(Arrays.asList("@group1", "@group2"));
-		Map<String, Set<String>> forbiddenDeps = new HashMap();
+		Set<String> ruleItems = new HashSet<>(Arrays.asList("@group1", "@group2"));
+		Map<String, Set<String>> forbiddenDeps = new HashMap<>();
 		forbiddenDeps.put("@group1", ruleItems);
 		forbiddenDeps.put("@group2", ruleItems);
 		arguments.setForbiddenDependencies(forbiddenDeps);
-		Map<String, Set<String>> allowedDeps = new HashMap();
+		Map<String, Set<String>> allowedDeps = new HashMap<>();
 		allowedDeps.put("@group1", ruleItems);
 		allowedDeps.put("@group2", ruleItems);
 		arguments.setAllowedDependencies(allowedDeps);
