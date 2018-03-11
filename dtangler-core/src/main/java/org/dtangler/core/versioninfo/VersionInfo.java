@@ -7,7 +7,7 @@ package org.dtangler.core.versioninfo;
 
 public class VersionInfo {
 
-	private static final String VERSION_INFO = "2.0.0";
+	private static final String VERSION_INFO = "2.1.0";
 
 	public static String getVersionInfo() {
 		return VERSION_INFO;
