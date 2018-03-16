@@ -22,6 +22,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <sonar.coverage.exclusions>**/*-testdata-*/**/*,
+      **/*-testutil/**/*</sonar.coverage.exclusions>
   </properties>
 
   <dependencyManagement>
