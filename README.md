@@ -1,6 +1,6 @@
 TravisCI: [![Build Status](https://travis-ci.org/jimbethancourt/dtangler.svg?branch=master)](https://travis-ci.org/jimbethancourt/dtangler) 
 
-SonarCloud: [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=org.dtangler%3Adtangler)](https://sonarcloud.io/dashboard?id=org.dtangler%3Adtangler)
+SonarCloud: [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=org.hjug.dtangler%3Adtangler)](https://sonarcloud.io/dashboard?id=org.hjug.dtangler%3Adtangler)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/jimbethancourt/dtangler/badge)](https://www.codefactor.io/repository/github/jimbethancourt/dtangler)
 

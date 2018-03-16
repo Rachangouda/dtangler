@@ -216,8 +216,8 @@ class Project < Buildable
 
   def build_default_junit_cmd(name)
     project_id = name.split('-')[1]
-    testclassprefix = "org.dtangler.#{project_id}"
-	  return "-DclasspathSuitePrefix=#{testclassprefix} org.junit.runner.JUnitCore org.dtangler.testcollectorrunner.ClassPathTestSuite"  
+    testclassprefix = "org.hjug.dtangler.#{project_id}"
+	  return "-DclasspathSuitePrefix=#{testclassprefix} org.junit.runner.JUnitCore org.hjug.dtangler.testcollectorrunner.ClassPathTestSuite"
   end
 
   def depends_on(other_project)

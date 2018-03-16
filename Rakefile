@@ -69,7 +69,7 @@ end
   testsuites.test.depends_on ui.test
   testsuites.test.depends_on swingui.test
   testsuites.tests_depend_on bumblebee
-  testsuites.junit_cmd = "-Ddtangler-root=. org.junit.runner.JUnitCore org.dtangler.testsuites.docsuites.Dtangler"
+  testsuites.junit_cmd = "-Ddtangler-root=. org.junit.runner.JUnitCore org.hjug.dtangler.testsuites.docsuites.Dtangler"
 
 
   # Define the files for release
