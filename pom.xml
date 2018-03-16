@@ -294,6 +294,17 @@
     <url>https://github.com/jimbethancourt/dtangler/issues</url>
   </issueManagement>
 
+  <distributionManagement>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <profiles>
     <profile>
       <id>travis</id>
@@ -349,7 +360,7 @@
       </build>
     </profile>
     <profile>
-      <id>release</id>
+      <id>ossrh</id>
       <build>
         <plugins>
           <plugin>
