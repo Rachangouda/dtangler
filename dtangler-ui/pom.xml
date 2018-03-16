@@ -12,6 +12,10 @@
   <artifactId>dtangler-ui</artifactId>
   <packaging>jar</packaging>
 
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>Classes for supporting a user interface</description>
+  <url>https://github.com/jimbethancourt/dtangler</url>
+
   <dependencies>
     <dependency>
       <groupId>org.hjug.dtangler.core</groupId>

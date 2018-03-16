@@ -7,7 +7,7 @@
 
   <packaging>pom</packaging>
 
-  <name>dtangler</name>
+  <name>${project.groupId}:${project.artifactId}</name>
   <description>A tool that helps identify dependency cycles in Java projects.</description>
 
   <modules>
