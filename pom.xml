@@ -9,7 +9,6 @@
 
   <name>dtangler</name>
   <description>A tool that helps identify dependency cycles in Java projects.</description>
-  <url>https://github.com/jimbethancourt/dtangler</url>
 
   <modules>
     <module>dtangler-domain</module>
@@ -218,6 +217,8 @@
       </plugin>
     </plugins>
   </build>
+
+  <url>https://github.com/jimbethancourt/dtangler</url>
 
   <licenses>
     <license>
