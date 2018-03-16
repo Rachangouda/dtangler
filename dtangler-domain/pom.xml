@@ -14,7 +14,6 @@
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Domain classes that are used in the application modules and testutil modules</description>
-  <url>https://github.com/jimbethancourt/dtangler</url>
 
   <reporting>
     <plugins>
@@ -35,5 +34,6 @@
       </plugin>
     </plugins>
   </reporting>
+  <url>https://github.com/jimbethancourt/dtangler</url>
 
 </project>

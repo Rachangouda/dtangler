@@ -14,7 +14,6 @@
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Library used by the Swing UI and can be used by other applications as well</description>
-  <url>https://github.com/jimbethancourt/dtangler</url>
 
   <dependencies>
     <dependency>
@@ -74,5 +73,6 @@
       </plugin>
     </plugins>
   </reporting>
+  <url>https://github.com/jimbethancourt/dtangler</url>
 
 </project>
