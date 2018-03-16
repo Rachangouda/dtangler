@@ -239,6 +239,42 @@
         <role>initial committer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Pertti Erkkil</name>
+      <roles>
+        <role>initial developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Pertti Lehtisaari</name>
+      <roles>
+        <role>initial developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Seppo Suorsa</name>
+      <roles>
+        <role>initial developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Samuli Järvelä</name>
+      <roles>
+        <role>initial developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Kaisa Kittilä</name>
+      <roles>
+        <role>initial developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Annika Ruohtula</name>
+      <roles>
+        <role>initial developer</role>
+      </roles>
+    </developer>
   </developers>
 
   <scm>
