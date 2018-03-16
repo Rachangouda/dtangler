@@ -1,7 +1,7 @@
 //This product is provided under the terms of EPL (Eclipse Public License) 
-//version 1.0.
+//version 2.0.
 //
-//The full license text can be read from: http://www.eclipse.org/org/documents/epl-v10.php
+//The full license text can be read from: https://www.eclipse.org/legal/epl-2.0/
 
 package org.hjug.dtangler.swingui.aboutinfodisplayer.impl;
 
@@ -91,7 +91,7 @@ public class SwingAboutInfoView extends SwingBaseView implements AboutInfoView {
 		builder
 				.append("dtangler is an Open Source initiative provided under the terms of");
 		builder.nextRow();
-		builder.append("EPL (Eclipse Public License)  version 1.0.");
+		builder.append("EPL (Eclipse Public License)  version 2.0.");
 		builder.nextRow();
 		builder.append("The full license text can be read from:");
 		builder.nextRow();
