@@ -13,6 +13,8 @@ I want you and your team to succeed and spend time on what really matters.
 
 Researchers have found that classes involved in one or more dependency cycles are more prone to bugs and changes than those not involved in changes - see [doi:10.1007/s11219-013-9200-8](https://link.springer.com/article/10.1007%2Fs11219-013-9200-8).  By avoiding dependency cycles, you can avoid rework and bugs in your codebase.
 
+Download the released self-executable jar app [from Maven Central](https://oss.sonatype.org/content/repositories/releases/org/hjug/dtangler/swingui/dtangler-swingui/2.1.0/dtangler-swingui-2.1.0-jar-with-dependencies.jar).  You will need Java 8 or newer to run it.
+
 # dtangler is a suite of tools to analyze dependencies. 
 
 dtangler's primary features currently are:
